@@ -11,12 +11,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //Toolbar toolbar = findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
         Intent myIntent = new Intent(MainActivity.this,   AuthActivity.class);
         MainActivity.this.startActivity(myIntent);
-
-
+        Toolbar toolbar1 = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar1);
     }
 
 }
