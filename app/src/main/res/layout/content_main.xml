@@ -1,89 +1,134 @@
 <?xml version = "1.0" encoding = "utf-8"?>
-<RelativeLayout xmlns:android = "http://schemas.android.com/apk/res/android"
-    xmlns:tools = "http://schemas.android.com/tools" android:layout_width="match_parent"
+
+<RelativeLayout
+    xmlns:android = "http://schemas.android.com/apk/res/android"
+    xmlns:tools = "http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height = "match_parent"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:animateLayoutChanges="true"
     android:paddingTop="@dimen/default_padding"
+    android:background="@drawable/fly11"
     tools:context = ".AuthActivity">
 
-    <TextView android:text = "Login" android:layout_width="wrap_content"
-        android:layout_height = "wrap_content"
-        android:id = "@+id/textview"
-        android:textSize = "@dimen/text_size_big"
-        android:textColor="@color/oil"
-        android:layout_alignParentTop = "true"
-        android:layout_centerHorizontal = "true" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height = "match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="120dp">
 
-    <EditText
-        android:layout_width = "wrap_content"
-        android:layout_height = "wrap_content"
-        android:id = "@+id/usernameBox"
-        android:hint = "Enter Name"
-        android:focusable = "true"
-        android:textColorHighlight = "#ff7eff15"
-        android:textColorHint = "@color/grape"
-        android:textColor="@color/purpleMonster"
-        android:layout_marginTop = "46dp"
-        android:layout_alignParentLeft = "true"
-        android:layout_alignParentStart = "true"
-        android:layout_alignParentRight = "true"
-        android:layout_alignParentEnd = "true" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/passwordBox"
-        android:layout_below="@+id/usernameBox"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/usernameBox"
-        android:layout_alignEnd="@+id/usernameBox"
-        android:textColorHint = "@color/grape"
-        android:textColor="@color/purpleMonster"
-        android:hint="Password" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:id="@+id/usernameBox"
+            android:focusable="true"
+            android:drawablePadding="12dp"
+            android:padding="8dp"
+            android:textColor="#ffffff"
+            android:textColorHighlight="#ff7eff15"
+            android:textColorHint="#ffffff"
+            android:hint="Username"
+            android:maxLines="1"
+            android:layout_marginTop="20dp"
+            android:drawableRight="@drawable/usr"
+            android:textSize="@dimen/default_text_size" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Attempts Left:"
-        android:id="@+id/textView2"
-        android:layout_below="@+id/passwordBox"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textColor="@color/oil"
-        android:textSize="@dimen/default_text_size" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/textView3"
-        android:layout_alignTop="@+id/textView2"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignBottom="@+id/textView2"
-        android:layout_toEndOf="@+id/textview"
-        android:textSize="@dimen/default_text_size"
-        android:textColor="@color/oil"
-        android:layout_toRightOf="@+id/textview" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:id="@+id/passwordBox"
+            android:layout_below="@+id/usernameBox"
+            android:layout_alignEnd="@+id/usernameBox"
+            android:layout_alignRight="@+id/usernameBox"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:drawablePadding="12dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:textColor="#ffffff"
+            android:textColorHighlight="#ff7eff15"
+            android:textColorHint="#ffffff"
+            android:maxLines="1"
+            android:layout_marginTop="6dp"
+            android:hint="Password"
+            android:drawableRight="@drawable/lck"
+            android:textSize="@dimen/default_text_size" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="login"
-        android:id="@+id/loginButton"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/textview"
-        android:layout_toStartOf="@+id/textview" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cancel"
-        android:id="@+id/cancelButton"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/textview"
-        android:layout_toEndOf="@+id/textview" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/loginButton"
+            android:text="Log In"
+            android:textAllCaps="false"
+            android:textStyle="normal"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:padding="15sp"
+            android:clickable="true"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/et_bg" />
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/cancelButton"
+            android:text="Cancel"
+            android:textAllCaps="false"
+            android:textStyle="normal"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:padding="15sp"
+            android:clickable="true"
+            android:layout_marginTop="14dp"
+            android:background="@drawable/et_bg" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="30dp">
+
+
+            <TextView
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView2"
+                android:text="Attempts Left:"
+                android:textStyle="bold"
+                android:layout_below="@+id/passwordBox"
+                android:textColor="#000000"
+                android:textSize="@dimen/default_text_size"
+                />
+
+
+            <TextView
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:textColor="#ffffff"
+                android:textSize="25dp"
+                android:paddingLeft="10dp"
+                android:id="@+id/textViewCounter"
+                />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
 
 </RelativeLayout>

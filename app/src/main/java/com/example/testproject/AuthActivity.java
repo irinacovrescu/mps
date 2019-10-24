@@ -26,7 +26,6 @@ public class AuthActivity extends AppCompatActivity {
 
     Button loginButton, cancelButton;
     EditText usernameBox, passwordBox;
-    TextView tx1;
 
     private FirebaseAuth firebaseAuth;
 
@@ -39,8 +38,6 @@ public class AuthActivity extends AppCompatActivity {
         usernameBox = findViewById(R.id.usernameBox);
         passwordBox = findViewById(R.id.passwordBox);
         cancelButton = findViewById(R.id.cancelButton);
-        tx1 = findViewById(R.id.textView3);
-        tx1.setVisibility(View.GONE);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
