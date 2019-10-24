@@ -1,5 +1,6 @@
 package com.example.testproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -117,6 +118,8 @@ public class AuthActivity extends AppCompatActivity {
             if (user.getEmail().equals("admin@mps.com")) {
                 //switch activity to admin
                 Toast.makeText(getApplicationContext(), "Welcome Admin!", Toast.LENGTH_SHORT).show();
+                Intent myIntent = new Intent(AuthActivity.this,   AdminMenuActivity.class);
+                AuthActivity.this.startActivity(myIntent);
             } else if (user.getEmail().equals("jury1@mps.com") || user.getEmail().equals("jury1@mps.com")) {
                 //switch activity to jury
                 Toast.makeText(getApplicationContext(), "Welcome Jury!", Toast.LENGTH_SHORT).show();
