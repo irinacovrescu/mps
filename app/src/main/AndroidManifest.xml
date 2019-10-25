@@ -10,9 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".ContestantsActivity"
+            android:label="@string/title_activity_contestants"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".ContestSetUpActivity"
+            android:label="@string/title_activity_contest_set_up"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".JuryActivity"
             android:label="@string/title_activity_jury"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AdminMenuActivity"
             android:label="@string/title_activity_admin_menu"

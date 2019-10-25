@@ -3,4 +3,6 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_admin_menu">AdminMenuActivity</string>
     <string name="title_activity_jury">JuryActivity</string>
+    <string name="title_activity_contest_set_up">ContestSetUpActivity</string>
+    <string name="title_activity_contestants">ContestantsActivity</string>
 </resources>
