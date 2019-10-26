@@ -51,7 +51,7 @@ public class AuthActivity extends AppCompatActivity {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                signOut();
             }
         });
     }
@@ -61,6 +61,7 @@ public class AuthActivity extends AppCompatActivity {
         super.onStart();
 
         //in case of user already logged in switchActivity accordingly
+        signOut();
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         switchActivity(currentUser);
     }
@@ -86,6 +87,11 @@ public class AuthActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void signOut() {
+
+        firebaseAuth.signOut();
     }
 
     private boolean validateForm() {
