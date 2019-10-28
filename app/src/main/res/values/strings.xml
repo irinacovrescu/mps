@@ -11,4 +11,5 @@
         <item>Evolution Async</item>
         <item>just demo</item>
     </string-array>
+    <string name="finished_grading_message">Thank you for submitting your grades!</string>
 </resources>

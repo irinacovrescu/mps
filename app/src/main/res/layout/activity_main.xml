@@ -17,9 +17,6 @@
 
     <include layout="@layout/content_main" />
 
-<!--    <include-->
-<!--        android:id="@+id/toolbar"-->
-<!--    layout="@layout/toolbar"/>-->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
