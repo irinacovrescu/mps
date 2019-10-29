@@ -22,8 +22,7 @@ public class JuryActivity extends AppCompatActivity {
 
     private EditText juryNumberBox;
     private Button jurySetButton;
-    private TextView textView;
-    int juryNumber = 12528632;
+    int juryNumber = 0;
     Handler handler;
 
     @Override
@@ -37,20 +36,15 @@ public class JuryActivity extends AppCompatActivity {
         juryNumberBox = findViewById(R.id.jurynumber);
         jurySetButton = findViewById(R.id.setjury);
 
-        textView = (TextView) findViewById(R.id.lastnumberofjuryset);
-
-
         jurySetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 String toParse = juryNumberBox.getText().toString();
-                if (TextUtils.isEmpty(toParse)) {
-                    juryNumberBox.setError("Required.");
-                } else {
+                if (TextUtils.isEmpty(toParse))
+                    juryNumberBox.setError("Required");
+                else
                     juryNumber = setJury(toParse);
-                    textView.setText("Last number set: "+ Integer.toString(juryNumber));
-                }
             }
         });
 
@@ -60,11 +54,7 @@ public class JuryActivity extends AppCompatActivity {
     private int setJury(String text) {
         int number = Integer.parseInt(text);
         Toast.makeText(getApplicationContext(), "Numbers of judges set to " + Integer.toString(number), Toast.LENGTH_SHORT).show();
-        //Intent myIntent = new Intent(JuryActivity.this,   AdminMenuActivity.class);
-        //JuryActivity.this.startActivity(myIntent);
         return number;
-
-        
     }
 
 

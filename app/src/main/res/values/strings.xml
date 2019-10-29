@@ -5,4 +5,11 @@
     <string name="title_activity_jury">JuryActivity</string>
     <string name="title_activity_contest_set_up">ContestSetUpActivity</string>
     <string name="title_activity_contestants">ContestantsActivity</string>
+    <string-array name="contest_type">
+        <item>Battle</item>
+        <item>Evolution Sync</item>
+        <item>Evolution Async</item>
+        <item>just demo</item>
+    </string-array>
+    <string name="finished_grading_message">Thank you for submitting your grades!</string>
 </resources>

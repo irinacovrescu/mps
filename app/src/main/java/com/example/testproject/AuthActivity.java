@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,7 +17,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 
 public class AuthActivity extends AppCompatActivity {
 
@@ -126,6 +124,8 @@ public class AuthActivity extends AppCompatActivity {
             } else if (user.getEmail().equals("jury1@mps.com") || user.getEmail().equals("jury1@mps.com")) {
                 //switch activity to jury
                 Toast.makeText(getApplicationContext(), "Welcome Jury!", Toast.LENGTH_SHORT).show();
+                Intent myIntent = new Intent(AuthActivity.this,   GradingActivity.class);
+                AuthActivity.this.startActivity(myIntent);
             }
         }
     }

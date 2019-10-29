@@ -8,4 +8,205 @@
     tools:context=".ContestSetUpActivity"
     tools:showIn="@layout/activity_contest_set_up">
 
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add a new contestant" />
+
+            <EditText
+                android:id="@+id/addcontestant"
+                android:layout_width="180dp"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Contestant Name" />
+
+            <Button
+                android:id="@+id/addcontestantbutton"
+                android:layout_width="98dp"
+                android:layout_height="38dp"
+                android:text="Add Contestant" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Set contest type" />
+
+            <Spinner
+                android:id="@+id/contesttype"
+                android:layout_width="180dp"
+                android:layout_height="35dp" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Set number of rounds" />
+
+            <EditText
+                android:id="@+id/rounds"
+                android:layout_width="180dp"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:inputType="number" />
+
+            <Button
+                android:id="@+id/setroundsbutton"
+                android:layout_width="98dp"
+                android:layout_height="38dp"
+                android:text="Set Rounds" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Set the evaluation criterias" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#F00"
+                android:text="Warning: Max 60 points total!" />
+
+            <Button
+                android:id="@+id/pointsbutton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Reset Points allocated" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Originality" />
+
+            <EditText
+                android:id="@+id/originality"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="number" />
+
+            <Button
+                android:id="@+id/originalitybutton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Set" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Craftmanship" />
+
+            <EditText
+                android:id="@+id/craftmanship"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="number" />
+
+            <Button
+                android:id="@+id/craftmanshipbutton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Set" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Composition" />
+
+            <EditText
+                android:id="@+id/composition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="number" />
+
+            <Button
+                android:id="@+id/compositionbutton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Set" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Unity and Variety" />
+
+            <EditText
+                android:id="@+id/unity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="number" />
+
+            <Button
+                android:id="@+id/unitybutton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Set" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Use of space" />
+
+            <EditText
+                android:id="@+id/space"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="number" />
+
+            <Button
+                android:id="@+id/spacebutton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Set" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Interpretation" />
+
+            <EditText
+                android:id="@+id/interpretation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="number" />
+
+            <Button
+                android:id="@+id/interpretationbutton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Set" />
+
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

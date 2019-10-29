@@ -14,7 +14,8 @@ import android.view.View;
 import android.widget.Button;
 
 public class AdminMenuActivity extends AppCompatActivity {
-    private Button juryButton, logoutButton;
+    private Button logoutButton;
+    private Button juryButton, contestSetButton, contestantsButton, startContestButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +24,9 @@ public class AdminMenuActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+        // Admin control buttons
+
         juryButton = (Button)findViewById(R.id.jurybutton);
         juryButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,9 +36,33 @@ public class AdminMenuActivity extends AppCompatActivity {
             }
         });
 
-        // this doesn't jump back to AuthActivity because it remembers the user!!!
-        logoutButton = (Button)findViewById(R.id.logoutbutton);
+        contestSetButton = (Button)findViewById(R.id.contestbutton);
+        contestSetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(AdminMenuActivity.this,   ContestSetUpActivity.class);
+                AdminMenuActivity.this.startActivity(myIntent);
+            }
+        });
 
+        contestantsButton = (Button)findViewById(R.id.contestantsbutton);
+        contestantsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(AdminMenuActivity.this,   ContestantsActivity.class);
+                AdminMenuActivity.this.startActivity(myIntent);
+            }
+        });
+
+        startContestButton = (Button)findViewById(R.id.startcontestbutton);
+        startContestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // start contest after set up is done
+            }
+        });
+
+        logoutButton = (Button)findViewById(R.id.logoutbutton);
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,24 +70,6 @@ public class AdminMenuActivity extends AppCompatActivity {
                 AdminMenuActivity.this.startActivity(myIntent);
             }
         });
-
-        /*juryButton = (Button)findViewById(R.id.jurybutton);
-        juryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(AdminMenuActivity.this,   JuryActivity.class);
-                AdminMenuActivity.this.startActivity(myIntent);
-            }
-        });
-
-        juryButton = (Button)findViewById(R.id.jurybutton);
-        juryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(AdminMenuActivity.this,   JuryActivity.class);
-                AdminMenuActivity.this.startActivity(myIntent);
-            }
-        });*/
 
     }
 
