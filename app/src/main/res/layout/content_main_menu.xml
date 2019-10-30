@@ -34,18 +34,18 @@
             android:background="@drawable/button2" />
 
         <Button
+            android:id="@+id/leaderboardsBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/leaderboardsBtn"
-            android:text="Leaderboards"
-            android:textAllCaps="false"
-            android:textStyle="normal"
-            android:textSize="20sp"
-            android:textColor="#000000"
-            android:padding="15sp"
-            android:clickable="true"
             android:layout_marginTop="24dp"
-            android:background="@drawable/button2" />
+            android:background="@drawable/button2"
+            android:clickable="true"
+            android:padding="15sp"
+            android:text="Leader board"
+            android:textAllCaps="false"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="normal" />
 
     </LinearLayout>
 
