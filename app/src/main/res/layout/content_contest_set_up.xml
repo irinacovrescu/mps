@@ -36,7 +36,7 @@
                 android:layout_height="match_parent"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:hint="Contestant Name" />
+                android:text="Contestant Name" />
 
             <Button
                 android:id="@+id/addcontestantbutton"

@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.view.KeyEvent;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -51,8 +50,6 @@ public class AuthActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 signOut();
-                Intent myIntent = new Intent(AuthActivity.this,   MainActivity.class);
-                AuthActivity.this.startActivity(myIntent);
             }
         });
     }
@@ -131,13 +128,5 @@ public class AuthActivity extends AppCompatActivity {
                 AuthActivity.this.startActivity(myIntent);
             }
         }
-    }
-
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK ) {
-            return true;
-        }
-
-        return super.onKeyDown(keyCode, event);
     }
 }

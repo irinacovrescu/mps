@@ -1,6 +1,5 @@
 package com.example.testproject;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.ViewGroup;
@@ -32,7 +31,6 @@ public class GradingActivity extends AppCompatActivity {
     private ListView listView;
     private ActivityGradingBinding binding;
     private Button submitButton;
-    private Button returnButton;
     private ViewFlipper vf;
     LinearLayout contestantsLayout;
 
@@ -83,16 +81,6 @@ public class GradingActivity extends AppCompatActivity {
         return gradingForm;
     }
 
-    private void createReturnButton() {
-        returnButton = findViewById(R.id.returnbutton);
-        returnButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent myIntent = new Intent(GradingActivity.this,   MainActivity.class);
-                GradingActivity.this.startActivity(myIntent);
-            }
-        });
-    }
-
     private void createButtonForContestant(Contestant c) {
         final Button contestantButton = new Button(this);
         contestantButton.setId(c.getId());
@@ -138,8 +126,6 @@ public class GradingActivity extends AppCompatActivity {
     public void submit() {
         vf.setDisplayedChild(FINISHED_GRADING_LAYOUT);
         finishedGrading = true;
-        createReturnButton();
-
         // TO DO: prepare data and send to database
     }
 
