@@ -938,6 +938,7 @@ dimen text_margin
 dimen text_margin_small
 dimen text_margin_very_small
 dimen text_size_big
+dimen text_size_small
 dimen tooltip_corner_radius
 dimen tooltip_horizontal_padding
 dimen tooltip_margin
@@ -1149,6 +1150,7 @@ id compositionbutton
 id container
 id content
 id contentPanel
+id contestants
 id contestantsbutton
 id contestbutton
 id contesttype
@@ -1158,6 +1160,7 @@ id craftmanshipbutton
 id custom
 id customPanel
 id dark
+id dataBinding
 id decor_content_parent
 id default_activity_button
 id design_bottom_sheet
@@ -1182,10 +1185,14 @@ id fill
 id fill_horizontal
 id fill_vertical
 id filled
+id finished_grading
 id fixed
 id forever
 id ghost_view
 id gone
+id grade_value
+id grading_activity
+id grading_form
 id group_divider
 id groups
 id home
@@ -1228,6 +1235,8 @@ id normal
 id notification_background
 id notification_main_column
 id notification_main_column_container
+id onAttachStateChangeListener
+id onDateChanged
 id originality
 id originalitybutton
 id outline
@@ -1242,7 +1251,11 @@ id pin
 id pointsbutton
 id progress_circular
 id progress_horizontal
+id qdetails
+id qname
 id radio
+id rating
+id returnbutton
 id right
 id right_icon
 id right_side
@@ -1319,6 +1332,7 @@ id textView7
 id textView8
 id textView9
 id textViewCounter
+id textWatcher
 id text_input_password_toggle
 id textinput_counter
 id textinput_error
@@ -1343,6 +1357,7 @@ id unlabeled
 id up
 id useLogo
 id usernameBox
+id values_list
 id view_offset_helper
 id visible
 id wide
@@ -1400,6 +1415,7 @@ layout abc_tooltip
 layout activity_admin_menu
 layout activity_contest_set_up
 layout activity_contestants
+layout activity_grading
 layout activity_jury
 layout activity_main
 layout content_admin_menu
@@ -1422,6 +1438,7 @@ layout design_navigation_item_subheader
 layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_password_icon
+layout grading_form_element
 layout menu_main
 layout mtrl_layout_snackbar
 layout mtrl_layout_snackbar_include
@@ -1507,6 +1524,7 @@ string common_signin_button_text_long
 string default_web_client_id
 string fab_transformation_scrim_behavior
 string fab_transformation_sheet_behavior
+string finished_grading_message
 string firebase_database_url
 string gcm_defaultSenderId
 string google_api_key
@@ -1742,6 +1760,7 @@ style Platform_V21_AppCompat_Light
 style Platform_V25_AppCompat
 style Platform_V25_AppCompat_Light
 style Platform_Widget_AppCompat_Spinner
+style RatingBar
 style RtlOverlay_DialogWindowTitle_AppCompat
 style RtlOverlay_Widget_AppCompat_ActionBar_TitleItem
 style RtlOverlay_Widget_AppCompat_DialogTitle_Icon

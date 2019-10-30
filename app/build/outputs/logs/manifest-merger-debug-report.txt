@@ -4,6 +4,8 @@ ADDED from D:\mps\app\src\main\AndroidManifest.xml:2:1-41:12
 INJECTED from D:\mps\app\src\main\AndroidManifest.xml:2:1-41:12
 INJECTED from D:\mps\app\src\main\AndroidManifest.xml:2:1-41:12
 INJECTED from D:\mps\app\src\main\AndroidManifest.xml:2:1-41:12
+MERGED from [androidx.databinding:databinding-adapters:3.5.1] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\5b921dd1bf80f29cc4d3dc39c89b3a95\databinding-adapters-3.5.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.databinding:databinding-runtime:3.5.1] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\ba796c61c803a0835cba5230bce8e8ed\databinding-runtime-3.5.1\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.android.material:material:1.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\fd5af5ed399c2fe2609d80691d79245e\material-1.0.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.appcompat:appcompat:1.0.2] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\85843906538799809b860890e03c3306\appcompat-1.0.2\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\f3727a8777fd24b60f54249987d59532\constraintlayout-1.1.3\AndroidManifest.xml:2:1-11:12
@@ -30,18 +32,18 @@ MERGED from [androidx.customview:customview:1.0.0] C:\Users\teodora.labusca\.gra
 MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\3d546ff4cebcd01f3e9ef1c20a0fbff4\swiperefreshlayout-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\1ba13e78580396645a1c72528ad933b1\asynclayoutinflater-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.core:core:1.0.1] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\7af9464903b8a503017df0a97e0258a2\core-1.0.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\d995825eac125ea0dbe1740b2a77afe8\lifecycle-runtime-2.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\08dc003a8d730f1cd14413ef933142f3\versionedparcelable-1.0.0\AndroidManifest.xml:17:1-25:12
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\878b964d78564d0d46095360e074f07c\cursoradapter-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\f6a2e342028971f08b98514d4fe14869\cardview-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\46064b9613e01513c77c425125634a03\localbroadcastmanager-1.0.0\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\d995825eac125ea0dbe1740b2a77afe8\lifecycle-runtime-2.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\04ca6ca8519f3d6559c3627ba70da8d8\lifecycle-livedata-2.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\65b62d34fffb8020447f7298ffab5bbb\lifecycle-livedata-core-2.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\86fe573e00c587008c6329aa2663058c\core-runtime-2.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\3b5f33a5677108152932e8b8d7b62176\documentfile-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.print:print:1.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\bb3390a370f1a633e35be4c965db9d43\print-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\54b1eff228bc9be080bf4e96bc0126e3\lifecycle-viewmodel-2.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\be7acfdbfd31e8a0b5dad63939a8f1de\interpolator-1.0.0\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\04ca6ca8519f3d6559c3627ba70da8d8\lifecycle-livedata-2.0.0\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\65b62d34fffb8020447f7298ffab5bbb\lifecycle-livedata-core-2.0.0\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\86fe573e00c587008c6329aa2663058c\core-runtime-2.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [com.google.firebase:firebase-database-collection:17.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\ab411508481fbbaa4349cd9db2849940\firebase-database-collection-17.0.0\AndroidManifest.xml:2:1-7:12
 INJECTED from D:\mps\app\src\main\AndroidManifest.xml:2:1-41:12
 INJECTED from D:\mps\app\src\main\AndroidManifest.xml:2:1-41:12
@@ -130,32 +132,40 @@ ADDED from D:\mps\app\src\main\AndroidManifest.xml:24:9-27:59
 		ADDED from D:\mps\app\src\main\AndroidManifest.xml:27:13-56
 	android:name
 		ADDED from D:\mps\app\src\main\AndroidManifest.xml:25:13-46
-activity#com.example.testproject.MainActivity
-ADDED from D:\mps\app\src\main\AndroidManifest.xml:28:9-37:20
-	android:label
-		ADDED from D:\mps\app\src\main\AndroidManifest.xml:30:13-45
-	android:theme
-		ADDED from D:\mps\app\src\main\AndroidManifest.xml:31:13-56
-	android:name
-		ADDED from D:\mps\app\src\main\AndroidManifest.xml:29:13-41
-intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from D:\mps\app\src\main\AndroidManifest.xml:32:13-36:29
-action#android.intent.action.MAIN
-ADDED from D:\mps\app\src\main\AndroidManifest.xml:33:17-69
-	android:name
-		ADDED from D:\mps\app\src\main\AndroidManifest.xml:33:25-66
-category#android.intent.category.LAUNCHER
-ADDED from D:\mps\app\src\main\AndroidManifest.xml:35:17-77
-	android:name
-		ADDED from D:\mps\app\src\main\AndroidManifest.xml:35:27-74
 activity#com.example.testproject.AuthActivity
-ADDED from D:\mps\app\src\main\AndroidManifest.xml:38:9-50
+ADDED from D:\mps\app\src\main\AndroidManifest.xml:28:9-50
 	android:name
-		ADDED from D:\mps\app\src\main\AndroidManifest.xml:38:19-47
+		ADDED from D:\mps\app\src\main\AndroidManifest.xml:28:19-47
+activity#com.example.testproject.GradingActivity
+ADDED from D:\mps\app\src\main\AndroidManifest.xml:29:9-53
+	android:name
+		ADDED from D:\mps\app\src\main\AndroidManifest.xml:29:19-50
+activity#com.example.testproject.MainActivity
+ADDED from D:\mps\app\src\main\AndroidManifest.xml:30:9-38:20
+	android:label
+		ADDED from D:\mps\app\src\main\AndroidManifest.xml:32:13-45
+	android:theme
+		ADDED from D:\mps\app\src\main\AndroidManifest.xml:33:13-56
+	android:name
+		ADDED from D:\mps\app\src\main\AndroidManifest.xml:31:13-41
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from D:\mps\app\src\main\AndroidManifest.xml:34:13-37:29
+action#android.intent.action.MAIN
+ADDED from D:\mps\app\src\main\AndroidManifest.xml:35:17-69
+	android:name
+		ADDED from D:\mps\app\src\main\AndroidManifest.xml:35:25-66
+category#android.intent.category.LAUNCHER
+ADDED from D:\mps\app\src\main\AndroidManifest.xml:36:17-77
+	android:name
+		ADDED from D:\mps\app\src\main\AndroidManifest.xml:36:27-74
 uses-sdk
 INJECTED from D:\mps\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from D:\mps\app\src\main\AndroidManifest.xml
 INJECTED from D:\mps\app\src\main\AndroidManifest.xml
+MERGED from [androidx.databinding:databinding-adapters:3.5.1] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\5b921dd1bf80f29cc4d3dc39c89b3a95\databinding-adapters-3.5.1\AndroidManifest.xml:22:5-44
+MERGED from [androidx.databinding:databinding-adapters:3.5.1] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\5b921dd1bf80f29cc4d3dc39c89b3a95\databinding-adapters-3.5.1\AndroidManifest.xml:22:5-44
+MERGED from [androidx.databinding:databinding-runtime:3.5.1] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\ba796c61c803a0835cba5230bce8e8ed\databinding-runtime-3.5.1\AndroidManifest.xml:22:5-44
+MERGED from [androidx.databinding:databinding-runtime:3.5.1] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\ba796c61c803a0835cba5230bce8e8ed\databinding-runtime-3.5.1\AndroidManifest.xml:22:5-44
 MERGED from [com.google.android.material:material:1.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\fd5af5ed399c2fe2609d80691d79245e\material-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.material:material:1.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\fd5af5ed399c2fe2609d80691d79245e\material-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.appcompat:appcompat:1.0.2] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\85843906538799809b860890e03c3306\appcompat-1.0.2\AndroidManifest.xml:20:5-44
@@ -208,6 +218,8 @@ MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\te
 MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\1ba13e78580396645a1c72528ad933b1\asynclayoutinflater-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.core:core:1.0.1] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\7af9464903b8a503017df0a97e0258a2\core-1.0.1\AndroidManifest.xml:20:5-44
 MERGED from [androidx.core:core:1.0.1] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\7af9464903b8a503017df0a97e0258a2\core-1.0.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\d995825eac125ea0dbe1740b2a77afe8\lifecycle-runtime-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\d995825eac125ea0dbe1740b2a77afe8\lifecycle-runtime-2.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\08dc003a8d730f1cd14413ef933142f3\versionedparcelable-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\08dc003a8d730f1cd14413ef933142f3\versionedparcelable-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\878b964d78564d0d46095360e074f07c\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
@@ -216,8 +228,12 @@ MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\teodora.labusca\.gradle\
 MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\f6a2e342028971f08b98514d4fe14869\cardview-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\46064b9613e01513c77c425125634a03\localbroadcastmanager-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\46064b9613e01513c77c425125634a03\localbroadcastmanager-1.0.0\AndroidManifest.xml:20:5-44
-MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\d995825eac125ea0dbe1740b2a77afe8\lifecycle-runtime-2.0.0\AndroidManifest.xml:20:5-44
-MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\d995825eac125ea0dbe1740b2a77afe8\lifecycle-runtime-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\04ca6ca8519f3d6559c3627ba70da8d8\lifecycle-livedata-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\04ca6ca8519f3d6559c3627ba70da8d8\lifecycle-livedata-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\65b62d34fffb8020447f7298ffab5bbb\lifecycle-livedata-core-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\65b62d34fffb8020447f7298ffab5bbb\lifecycle-livedata-core-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\86fe573e00c587008c6329aa2663058c\core-runtime-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\86fe573e00c587008c6329aa2663058c\core-runtime-2.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\3b5f33a5677108152932e8b8d7b62176\documentfile-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\3b5f33a5677108152932e8b8d7b62176\documentfile-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.print:print:1.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\bb3390a370f1a633e35be4c965db9d43\print-1.0.0\AndroidManifest.xml:20:5-44
@@ -226,12 +242,6 @@ MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.0.0] C:\Users\teodora.labu
 MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\54b1eff228bc9be080bf4e96bc0126e3\lifecycle-viewmodel-2.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\be7acfdbfd31e8a0b5dad63939a8f1de\interpolator-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\be7acfdbfd31e8a0b5dad63939a8f1de\interpolator-1.0.0\AndroidManifest.xml:20:5-44
-MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\04ca6ca8519f3d6559c3627ba70da8d8\lifecycle-livedata-2.0.0\AndroidManifest.xml:20:5-44
-MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\04ca6ca8519f3d6559c3627ba70da8d8\lifecycle-livedata-2.0.0\AndroidManifest.xml:20:5-44
-MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\65b62d34fffb8020447f7298ffab5bbb\lifecycle-livedata-core-2.0.0\AndroidManifest.xml:20:5-44
-MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\65b62d34fffb8020447f7298ffab5bbb\lifecycle-livedata-core-2.0.0\AndroidManifest.xml:20:5-44
-MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\86fe573e00c587008c6329aa2663058c\core-runtime-2.0.0\AndroidManifest.xml:20:5-44
-MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\86fe573e00c587008c6329aa2663058c\core-runtime-2.0.0\AndroidManifest.xml:20:5-44
 MERGED from [com.google.firebase:firebase-database-collection:17.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\ab411508481fbbaa4349cd9db2849940\firebase-database-collection-17.0.0\AndroidManifest.xml:5:5-44
 MERGED from [com.google.firebase:firebase-database-collection:17.0.0] C:\Users\teodora.labusca\.gradle\caches\transforms-2\files-2.1\ab411508481fbbaa4349cd9db2849940\firebase-database-collection-17.0.0\AndroidManifest.xml:5:5-44
 INJECTED from D:\mps\app\src\main\AndroidManifest.xml
