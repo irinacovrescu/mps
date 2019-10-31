@@ -53,6 +53,12 @@
                 android:layout_height="wrap_content"
                 android:text="@string/finished_grading_message"
                 />
+
+            <Button
+                android:id="@+id/returnbutton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Return" />
         </LinearLayout>
     </ViewFlipper>
 </layout>

@@ -28,9 +28,6 @@ public class ContestSetUpActivity extends AppCompatActivity implements AdapterVi
 
     private Spinner contestType;
 
-    private EditText roundsNumberBox;
-    private Button roundsSetButton;
-
     private Button reset;
 
     private EditText originalityNumberBox;
@@ -63,22 +60,6 @@ public class ContestSetUpActivity extends AppCompatActivity implements AdapterVi
                 String toParse = contestantNameBox.getText().toString();
                 if (TextUtils.isEmpty(toParse))
                     contestantNameBox.setError("Required");
-                else {
-                    // add contestant to DB
-                }
-            }
-        });
-
-        roundsNumberBox = findViewById(R.id.rounds);
-        roundsSetButton = findViewById(R.id.setroundsbutton);
-
-        roundsSetButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String toParse = roundsNumberBox.getText().toString();
-                if (TextUtils.isEmpty(toParse))
-                    roundsNumberBox.setError("Required");
                 else {
                     // add contestant to DB
                 }
