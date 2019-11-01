@@ -25,21 +25,26 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/rounds"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Add a new contestant" />
+                android:text="Define number of sets" />
 
             <EditText
-                android:id="@+id/addcontestant"
+                android:id="@+id/addsets"
                 android:layout_width="180dp"
                 android:layout_height="match_parent"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:hint="Contestant Name" />
+                android:inputType="number"
+                android:hint="Sets" />
 
             <Button
-                android:id="@+id/addcontestantbutton"
+                android:id="@+id/addsetsbutton"
                 android:layout_width="98dp"
                 android:layout_height="38dp"
                 android:text="Add Contestant" />
@@ -187,6 +192,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Set" />
+
+            <Button
+                android:id="@+id/submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Submit" />
 
         </LinearLayout>
     </ScrollView>
