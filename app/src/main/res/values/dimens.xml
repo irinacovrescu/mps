@@ -14,5 +14,4 @@
     <dimen name="default_text_size">20dp</dimen>
     <dimen name="text_size_big">45dp</dimen>
     <dimen name="text_size_small">15dp</dimen>
-
 </resources>
