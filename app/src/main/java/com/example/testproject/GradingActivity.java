@@ -64,6 +64,14 @@ public class GradingActivity extends AppCompatActivity {
         listView = findViewById(R.id.values_list);
         listView.setItemsCanFocus(true);
         contestantsLayout = findViewById(R.id.contestants);
+
+        final Button submitButtonC = findViewById(R.id.submit_button_contestant);
+        submitButtonC.setText("Done");
+        submitButtonC.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                submitForOneContestant();
+            }
+        });
     }
 
     private void createContestantElements() {
@@ -141,6 +149,13 @@ public class GradingActivity extends AppCompatActivity {
         // TO DO: prepare data and send to database
 
         createReturnButton();
+    }
+
+    public void submitForOneContestant() {
+        vf.setDisplayedChild(CONTESTANTS_LAYOUT);
+        updateContestantButton();
+        updateSubmitButton();
+        inGradingForm = false;
     }
 
     public void openForm(int contestantId) {
