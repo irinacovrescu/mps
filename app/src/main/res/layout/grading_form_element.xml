@@ -11,29 +11,35 @@
 
         <TextView
             android:id="@+id/qname"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textAlignment="center"
             android:layout_alignParentTop="true"
-            android:textSize="@dimen/default_text_size"
+            android:layout_marginHorizontal="20dp"
+            android:fontFamily="sans-serif-condensed"
+            android:textSize="17sp"
             android:textColor="@android:color/black" />
 
         <TextView
             android:id="@+id/qdetails"
             android:layout_below="@+id/qname"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:textAlignment="center"
+            android:layout_marginHorizontal="20dp"
             android:layout_alignParentTop="true"
-            android:textSize="@dimen/text_size_small"
+            android:textSize="14sp"
             android:textColor="@android:color/black" />
 
         <RatingBar
             android:id="@+id/rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/grade_value"
+            android:layout_below="@+id/qdetails"
             android:numStars="5"
             android:stepSize="1"
-            android:layout_margin="20dp"
+            android:layout_marginHorizontal="70dp"
             android:theme="@style/RatingBar" />
     </LinearLayout>
 </layout>

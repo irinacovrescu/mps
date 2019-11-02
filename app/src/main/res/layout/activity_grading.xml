@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
     <data>
         <variable
             name="viewModel"
@@ -14,24 +14,33 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:id="@+id/contestants"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content">
-        </LinearLayout>
+        <ScrollView
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/contestants"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:background="@drawable/blue_background">
+
+                <include layout="@layout/toolbar" />
+                <include layout="@layout/text_view_template"
+                    android:id="@+id/contestants_text"/>
+            </LinearLayout>
+        </ScrollView>
 
         <LinearLayout
             android:orientation="vertical"
             android:id="@+id/grading_form"
+            android:background="@drawable/blue_background"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{viewModel.name}"
-                />
+            <include layout="@layout/toolbar" />
+            <include layout="@layout/text_view_template"
+                android:id="@+id/name_of_contestant"/>
 
             <ListView xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
@@ -42,29 +51,23 @@
                 tools:context="com.example.testproject.GradingActivity">
             </ListView>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <include layout="@layout/submit_button_template"
                 android:id="@+id/submit_button_contestant"/>
         </LinearLayout>
 
         <LinearLayout
             android:orientation="vertical"
             android:id="@+id/finished_grading"
+            android:background="@drawable/fly11"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/finished_grading_message"
-                />
+            <include layout="@layout/text_view_template"
+                android:id="@+id/thank_you_text"/>
 
-            <Button
-                android:id="@+id/returnbutton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Return" />
+            <include layout="@layout/submit_button_template"
+                android:id="@+id/returnbutton"/>
+
         </LinearLayout>
     </ViewFlipper>
 </layout>

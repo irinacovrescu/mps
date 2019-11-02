@@ -1,9 +1,7 @@
 package com.example.testproject;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
@@ -16,6 +14,7 @@ import com.example.testproject.databinding.ActivityGradingBinding;
 
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import java.util.ArrayList;
@@ -35,6 +34,7 @@ public class GradingActivity extends AppCompatActivity {
     private Button returnButton;
     private ViewFlipper vf;
     LinearLayout contestantsLayout;
+    LinearLayout finishedGradingLayout;
 
     private boolean inGradingForm = false;
     private boolean finishedGrading = false;
@@ -42,6 +42,14 @@ public class GradingActivity extends AppCompatActivity {
     private final int CONTESTANTS_LAYOUT = 0;
     private final int GRADING_LAYOUT = 1;
     private final int FINISHED_GRADING_LAYOUT = 2;
+
+    private final int CONTESTANT_NOT_GRADED = 0;
+    private final int CONTESTANT_OUT = 1;
+    private final int CONTESTANT_DISQUALIFIED = 2;
+    private final int CONTESTANT_GRADED = 3;
+    private final int DONE = 4;
+    private final int SUBMIT = 5;
+    private final int RETURN = 6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,9 +72,14 @@ public class GradingActivity extends AppCompatActivity {
         listView = findViewById(R.id.values_list);
         listView.setItemsCanFocus(true);
         contestantsLayout = findViewById(R.id.contestants);
+        finishedGradingLayout = findViewById(R.id.finished_grading);
+
+        TextView contestantsText = findViewById(R.id.contestants_text);
+        contestantsText.setText("CONTESTANTS");
 
         final Button submitButtonC = findViewById(R.id.submit_button_contestant);
-        submitButtonC.setText("Done");
+        submitButtonC.getBackground().setLevel(DONE);
+        submitButtonC.setText("DONE");
         submitButtonC.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 submitForOneContestant();
@@ -93,6 +106,8 @@ public class GradingActivity extends AppCompatActivity {
 
     private void createReturnButton() {
         returnButton = findViewById(R.id.returnbutton);
+        returnButton.getBackground().setLevel(RETURN);
+        returnButton.setText("Return");
         returnButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent myIntent = new Intent(GradingActivity.this,   MainActivity.class);
@@ -102,9 +117,10 @@ public class GradingActivity extends AppCompatActivity {
     }
 
     private void createButtonForContestant(Contestant c) {
-        final Button contestantButton = new Button(this);
+        final Button contestantButton = (Button) getLayoutInflater()
+                .inflate(R.layout.contestant_button_template, contestantsLayout, false);
+        contestantButton.getBackground().setLevel(CONTESTANT_NOT_GRADED);
         contestantButton.setId(c.getId());
-        contestantButton.setTag("C" + c.getName());
         contestantButton.setText(c.getName());
         contestantsLayout.addView(contestantButton);
         contestantButton.setOnClickListener(new View.OnClickListener() {
@@ -119,20 +135,23 @@ public class GradingActivity extends AppCompatActivity {
 
     private void setColorForContestantButton(Contestant c, Button contestantButton) {
         if(c.isDisqualified()) {
-            contestantButton.setBackgroundColor(Color.RED);
             contestantButton.setEnabled(false);
+            contestantButton.getBackground().setLevel(CONTESTANT_DISQUALIFIED);
+
         }
 
         if(c.isOutOfCompetition()) {
-            contestantButton.setBackgroundColor(Color.BLUE);
             contestantButton.setEnabled(false);
+            contestantButton.getBackground().setLevel(CONTESTANT_OUT);
         }
     }
 
     private void createSubmitButton() {
-        submitButton = new Button(this);
-        submitButton.setText("Submit grades");
+        submitButton = (Button) getLayoutInflater()
+                .inflate(R.layout.submit_button_template, contestantsLayout, false);
+        submitButton.getBackground().setLevel(SUBMIT);
         submitButton.setEnabled(false);
+        submitButton.setText("Submit");
         submitButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 submit();
@@ -146,6 +165,8 @@ public class GradingActivity extends AppCompatActivity {
     public void submit() {
         vf.setDisplayedChild(FINISHED_GRADING_LAYOUT);
         finishedGrading = true;
+        TextView thank_you_text = findViewById(R.id.thank_you_text);
+        thank_you_text.setText("Thank you for submitting your grades!");
         // TO DO: prepare data and send to database
 
         createReturnButton();
@@ -163,6 +184,9 @@ public class GradingActivity extends AppCompatActivity {
         adapter = new RatingAdapter(getApplicationContext(), questions, currentGradingForm);
         listView.setAdapter(adapter);
         binding.setViewModel(currentGradingForm.getContestant());
+
+        TextView nameOfContestant = findViewById(R.id.name_of_contestant);
+        nameOfContestant.setText(currentGradingForm.getContestant().getName());
 
         currentGradingForm.getContestant().setGraded(true);
         inGradingForm = true;
@@ -189,11 +213,12 @@ public class GradingActivity extends AppCompatActivity {
         Contestant currentContestant = binding.getViewModel();
         Button contestantButton = findViewById(currentContestant.getId());
         if(currentContestant.isGraded()) {
-            contestantButton.setBackgroundColor(Color.GREEN);
+            contestantButton.getBackground().setLevel(CONTESTANT_GRADED);
         }
     }
 
     private void updateSubmitButton() {
+
         submitButton.setEnabled(isSubmitEnabled());
     }
 
@@ -207,6 +232,7 @@ public class GradingActivity extends AppCompatActivity {
     }
 
     private void changeDisplayedLayout(int layout) {
+
         vf.setDisplayedChild(layout);
     }
 
