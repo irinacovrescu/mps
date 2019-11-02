@@ -16,6 +16,15 @@ import java.util.List;
 
 Metode:
 
+
+    public void addCriterias(ArrayList<Criteria> list){
+
+        //Obtine referinta catre baza de date la adresa dorita
+        final DatabaseReference databaseRef =  FirebaseDatabase.getInstance().getReference("criteria");
+        databaseRef.setValue(list);
+
+    }
+
     public void addParticipant(String serie, String id, String nume, Integer nrProbe){
 
         //Obtine referinta catre baza de date la adresa dorita
@@ -25,26 +34,26 @@ Metode:
         databaseRef.child(id).setValue(p);
 
     }
-
     public void getCriteria(){
 
         //Obtine referinta catre baza de date la adresa dorita
         final DatabaseReference databaseRef =  FirebaseDatabase.getInstance().getReference("criteria");
 
         //La fiecare schimbare de date
-        databaseRef.addValueEventListener(new ValueEventListener() {
+        databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Iterator<DataSnapshot> it =  dataSnapshot.getChildren().iterator();
-                ArrayList<String> list =new ArrayList<>();
-
                 //Creaza lista
-                while (it.hasNext()) {
-                    list.add(it.next().getValue(String.class));
-                }
+                ArrayList<Criteria> list = new ArrayList<>();
 
-                //Use the criteria list here , sterge linia de mai jos pt ca e de test
-                FirebaseDatabase.getInstance().getReference("criterias").setValue(list.size());
+                //Itereaza prin dataSnapshot-uri (ce reprezinta serii)
+                Iterator<DataSnapshot> serieIterator = dataSnapshot.getChildren().iterator();
+                while (serieIterator.hasNext()) {
+                    //Itereaza prin dataSnapshot-uri (ce reprezinta participanti)
+                    DataSnapshot d = serieIterator.next();
+
+                    list.add(d.getValue(Criteria.class));
+                }
 
             }
 

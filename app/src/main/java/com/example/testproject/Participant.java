@@ -18,8 +18,6 @@ public class Participant implements Comparable<Participant>{
         this.name = name;
 
         outOfCompetition = false;
-        
-        isDisqualified = false;
 
         thisRound_juriesThatVoted = 0;
 
@@ -34,7 +32,9 @@ public class Participant implements Comparable<Participant>{
             thisRound_results.add(0);
         }
 
+        isDisqualified = false;
     }
+
 
     public String getName() {
         return name;
@@ -56,8 +56,8 @@ public class Participant implements Comparable<Participant>{
         return thisRound_juriesThatVoted;
     }
 
-    public void setThisRound_juriesThatVoted(Integer thisRound_juriesThatVoted) {
-        this.thisRound_juriesThatVoted = thisRound_juriesThatVoted;
+    public void addThisRound_juriesThatVoted() {
+        thisRound_juriesThatVoted ++;
     }
 
     public Integer getThisRound_number() {
@@ -80,16 +80,18 @@ public class Participant implements Comparable<Participant>{
         return thisRounds_points;
     }
 
-    public void setThisRounds_points(Integer thisRounds_points) {
-        this.thisRounds_points = thisRounds_points;
-    }
 
     public ArrayList<Integer> getThisRound_results() {
         return thisRound_results;
     }
 
-    public void setThisRound_results(ArrayList<Integer> thisRound_results) {
-        this.thisRound_results = thisRound_results;
+    public void addToThisRound_results(ArrayList<Integer> thisRound_results,ArrayList<Criteria> weight) {
+        int points = 0;
+        for (int i = 0; i < thisRound_results.size() ; i++) {
+            this.thisRound_results.set(i,(thisRound_results.get(i) + this.thisRound_results.get(i)));
+            points += thisRound_results.get(i) * weight.get(i).pondere;
+        }
+        thisRounds_points += points;
     }
 
     public Boolean getDisqualified() {
