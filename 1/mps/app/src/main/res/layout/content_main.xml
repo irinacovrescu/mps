@@ -1,0 +1,100 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+
+<RelativeLayout
+    xmlns:android = "http://schemas.android.com/apk/res/android"
+    xmlns:tools = "http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height = "match_parent"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:animateLayoutChanges="true"
+    android:paddingTop="@dimen/default_padding"
+    android:background="@drawable/fly11"
+    tools:context = ".AuthActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height = "match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="120dp">
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:id="@+id/usernameBox"
+            android:focusable="true"
+            android:drawablePadding="12dp"
+            android:padding="8dp"
+            android:textColor="#ffffff"
+            android:textColorHighlight="#ff7eff15"
+            android:textColorHint="#ffffff"
+            android:hint="Username"
+            android:maxLines="1"
+            android:layout_marginTop="20dp"
+            android:drawableRight="@drawable/usr"
+            android:textSize="@dimen/default_text_size" />
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:id="@+id/passwordBox"
+            android:layout_below="@+id/usernameBox"
+            android:layout_alignEnd="@+id/usernameBox"
+            android:layout_alignRight="@+id/usernameBox"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:drawablePadding="12dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:textColor="#ffffff"
+            android:textColorHighlight="#ff7eff15"
+            android:textColorHint="#ffffff"
+            android:maxLines="1"
+            android:layout_marginTop="6dp"
+            android:hint="Password"
+            android:drawableRight="@drawable/lck"
+            android:textSize="@dimen/default_text_size" />
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/loginButton"
+            android:text="Log In"
+            android:textAllCaps="false"
+            android:textStyle="normal"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:padding="15sp"
+            android:clickable="true"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/et_bg" />
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/cancelButton"
+            android:text="Cancel"
+            android:textAllCaps="false"
+            android:textStyle="normal"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:padding="15sp"
+            android:clickable="true"
+            android:layout_marginTop="14dp"
+            android:background="@drawable/et_bg" />
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>
