@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,31 +33,49 @@ public class JuryActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        InitUIElem();
+        setJury();
 
+
+    }
+
+    private void InitUIElem() {
         juryNumberBox = findViewById(R.id.jurynumber);
         jurySetButton = findViewById(R.id.setjury);
+    }
 
+    private void setJury() {
         jurySetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 String toParse = juryNumberBox.getText().toString();
-                if (TextUtils.isEmpty(toParse))
+                if (TextUtils.isEmpty(toParse)) {
                     juryNumberBox.setError("Required");
-                else
-                    juryNumber = setJury(toParse);
+                } else {
+                    juryNumber = Integer.parseInt(toParse);
+                    Toast.makeText(getApplicationContext(), "Numbers of judges set to " + Integer.toString(juryNumber), Toast.LENGTH_SHORT).show();
+                    addJuryNumberToDB(juryNumber);
+                    Intent myIntent = new Intent(JuryActivity.this, AdminMenuActivity.class);
+                    JuryActivity.this.startActivity(myIntent);
+                }
+
             }
         });
+    }
 
+    private void addJuryNumberToDB(int number){
 
     }
 
-    private int setJury(String text) {
-        int number = Integer.parseInt(text);
-        Toast.makeText(getApplicationContext(), "Numbers of judges set to " + Integer.toString(number), Toast.LENGTH_SHORT).show();
-        return number;
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (keyCode == KeyEvent.KEYCODE_BACK ) {
+            //do your stuff
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
     }
-
-
 
 }

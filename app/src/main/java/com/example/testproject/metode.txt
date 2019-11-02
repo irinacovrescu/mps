@@ -1,0 +1,117 @@
+
+Importuri folosite de mine:
+
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+
+Metode:
+
+    public void addParticipant(String serie, String id, String nume, Integer nrProbe){
+
+        //Obtine referinta catre baza de date la adresa dorita
+        final DatabaseReference databaseRef =  FirebaseDatabase.getInstance().getReference("participants").child(serie);
+
+        Participant p = new Participant(nume,nrProbe);
+        databaseRef.child(id).setValue(p);
+
+    }
+
+    public void leaderboard(){
+
+        //Obtine referinta catre baza de date la adresa dorita
+        final DatabaseReference databaseRef =  FirebaseDatabase.getInstance().getReference("participants");
+
+        //La fiecare schimbare de date
+        databaseRef.orderByValue().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                StringBuilder str = new StringBuilder();
+                ArrayList<Participant> list = new ArrayList<>();
+
+                Iterator<DataSnapshot> serieIterator = dataSnapshot.getChildren().iterator();
+                while (serieIterator.hasNext()) {
+                    Iterator<DataSnapshot> idIterator = serieIterator.next().getChildren().iterator();
+                    while (idIterator.hasNext()) {
+                        DataSnapshot d = idIterator.next();
+                        Participant p = d.getValue(Participant.class);
+
+                        //Pastreaza numai participantii eligibili
+                        if(!p.getDisqualified() && !p.getOutOfCompetition())
+                            list.add(p);
+                    }
+                }
+
+
+                //sorteaza descrescator dupa punctajul de la thisRound_points
+                Collections.sort(list);
+                int lastConcurent = list.size()/2;
+
+                //Pastreaza doar prima jumatate in runda urmatoare
+                for(int i=0;i<lastConcurent;i++){
+                    str.append(list.get(i).getName()+";  ");
+                }
+
+
+                FirebaseDatabase.getInstance().getReference().child("leaderboard").setValue(str.toString());
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
+
+    public void getParticipants(){
+
+        //Obtine referinta catre baza de date la adresa dorita
+        final DatabaseReference databaseRef =  FirebaseDatabase.getInstance().getReference("participants");
+
+        //La fiecare schimbare de date
+        databaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //Creaza lista
+                ArrayList<HashMap<String,Participant>> list = new ArrayList<>();
+
+                //Itereaza prin dataSnapshot-uri (ce reprezinta serii)
+                Iterator<DataSnapshot> serieIterator = dataSnapshot.getChildren().iterator();
+                while (serieIterator.hasNext()) {
+                    //Itereaza prin dataSnapshot-uri (ce reprezinta participanti)
+                    DataSnapshot dS = serieIterator.next();
+                    String key = dS.getKey();
+                    Iterator<DataSnapshot> idIterator = dS.getChildren().iterator();
+                    HashMap<String,Participant> hashMap = new HashMap<>();
+                    while (idIterator.hasNext()) {
+                        DataSnapshot d = idIterator.next();
+                        hashMap.put(d.getKey(), d.getValue(Participant.class));
+                    }
+                    list.add(hashMap);
+
+                    //Linie de test, trebuie stearsa - Afiseaza numarul de participanti din serie
+                    //Hashmap e lista cu participantii din serie
+                    FirebaseDatabase.getInstance().getReference().child("nrParticipantiPerSerie").child(key).setValue(hashMap.size());
+
+
+                }
+
+                //Lista este actualizata si poti pune codul aici, in lista la fiecare index se afla un hashmap cu participantii din acea serie
+                //Linie de test, trebuie stearsa - Afiseaza numarul de serii
+                FirebaseDatabase.getInstance().getReference().child("anotherTest").setValue(list.size());
+
+    }
+
