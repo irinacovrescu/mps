@@ -26,6 +26,45 @@ Metode:
 
     }
 
+    public void getCriteria(){
+
+        //Obtine referinta catre baza de date la adresa dorita
+        final DatabaseReference databaseRef =  FirebaseDatabase.getInstance().getReference("criteria");
+
+        //La fiecare schimbare de date
+        databaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterator<DataSnapshot> it =  dataSnapshot.getChildren().iterator();
+                ArrayList<String> list =new ArrayList<>();
+
+                //Creaza lista
+                while (it.hasNext()) {
+                    list.add(it.next().getValue(String.class));
+                }
+
+                //Use the criteria list here , sterge linia de mai jos pt ca e de test
+                FirebaseDatabase.getInstance().getReference("criterias").setValue(list.size());
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+    
+    public void addParticipant(String serie, String id, String nume, Integer nrProbe){
+
+        //Obtine referinta catre baza de date la adresa dorita
+        final DatabaseReference databaseRef =  FirebaseDatabase.getInstance().getReference("participants").child(serie);
+
+        Participant p = new Participant(nume,nrProbe);
+        databaseRef.child(id).setValue(p);
+
+    }
+
     public void leaderboard(){
 
         //Obtine referinta catre baza de date la adresa dorita
