@@ -11,6 +11,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class AdminMenuActivity extends AppCompatActivity {
     private Button logoutButton;
     private Button juryButton, contestSetButton, contestantsButton, startContestButton;
@@ -33,24 +36,22 @@ public class AdminMenuActivity extends AppCompatActivity {
         contest();
 
         logout();
-
-
     }
 
     private void InitUIElem() {
-        juryButton = (Button)findViewById(R.id.jurybutton);
-        contestSetButton = (Button)findViewById(R.id.contestbutton);
-        contestantsButton = (Button)findViewById(R.id.contestantsbutton);
-        startContestButton = (Button)findViewById(R.id.startcontestbutton);
+        juryButton = (Button) findViewById(R.id.jurybutton);
+        contestSetButton = (Button) findViewById(R.id.contestbutton);
+        contestantsButton = (Button) findViewById(R.id.contestantsbutton);
+        startContestButton = (Button) findViewById(R.id.startcontestbutton);
         startContestButton.setText("Start Contest");
-        logoutButton = (Button)findViewById(R.id.logoutbutton);
+        logoutButton = (Button) findViewById(R.id.logoutbutton);
     }
 
     private void jurySetUp() {
         juryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(AdminMenuActivity.this,   JuryActivity.class);
+                Intent myIntent = new Intent(AdminMenuActivity.this, JuryActivity.class);
                 AdminMenuActivity.this.startActivity(myIntent);
             }
         });
@@ -60,23 +61,26 @@ public class AdminMenuActivity extends AppCompatActivity {
         contestSetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(AdminMenuActivity.this,   ContestSetUpActivity.class);
+                Intent myIntent = new Intent(AdminMenuActivity.this, ContestSetUpActivity.class);
                 AdminMenuActivity.this.startActivity(myIntent);
             }
         });
     }
 
-    private void logout(){
+    private void logout() {
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(AdminMenuActivity.this,   AuthActivity.class);
+                // set ADMIN as logged out in the database
+                AuthActivity.setLoggedStatus(FirebaseDatabase.getInstance().getReference("ADMIN").child("loggedIn"), false);
+                Toast.makeText(getApplicationContext(), "Log out successfully!!", Toast.LENGTH_SHORT).show();
+                Intent myIntent = new Intent(AdminMenuActivity.this, AuthActivity.class);
                 AdminMenuActivity.this.startActivity(myIntent);
             }
         });
     }
 
-    private void contestantsSetUp(){
+    private void contestantsSetUp() {
         contestantsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,25 +119,25 @@ public class AdminMenuActivity extends AppCompatActivity {
         return false;
     }
 
-    private boolean isJurySet(){
+    private boolean isJurySet() {
 
         // val > 0 from DB, true else false
         return true;
     }
 
-    private boolean isContestSet(){
+    private boolean isContestSet() {
         // val > 0 from DB, true else false
         return true;
     }
 
-    private boolean isContestantsSet(){
+    private boolean isContestantsSet() {
         // val > 0 from DB, true else false
         return true;
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
-        if (keyCode == KeyEvent.KEYCODE_BACK ) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             //do your stuff
             return true;
         }
