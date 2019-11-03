@@ -24,7 +24,7 @@ public class ContestantsSetUpActivity extends AppCompatActivity {
     /* list of contestants extracted from DB
         so they can be disqualified as needed
      */
-    private static final int CONTESTANTSPERSERIES = 10;
+    private static final int PARTICIPANTSPERSERIES = 10;
     private int participantsNumber = 0;
     private int participantsLeft;
 
@@ -114,12 +114,12 @@ public class ContestantsSetUpActivity extends AppCompatActivity {
 
     private int setSeries(int id){
 
-        int series = participantsNumber / CONTESTANTSPERSERIES;
+        int series = participantsNumber / PARTICIPANTSPERSERIES;
         int new_cps;
         if (series == 0) {
-            new_cps = CONTESTANTSPERSERIES;
+            new_cps = PARTICIPANTSPERSERIES;
         } else {
-            new_cps = CONTESTANTSPERSERIES + ((participantsNumber % CONTESTANTSPERSERIES) / series);
+            new_cps = PARTICIPANTSPERSERIES + ((participantsNumber % PARTICIPANTSPERSERIES) / series);
         }
         ArrayList<Integer> end = new ArrayList<Integer>(series);
         int offset = 0;
