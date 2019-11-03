@@ -1,8 +1,9 @@
-package com.example.testproject;
+package com.example.testproject.AdminMenu;
 
 import android.os.Bundle;
 
 import com.example.testproject.Data.Judge;
+import com.example.testproject.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -34,8 +35,6 @@ public class JuryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jury);
-        final Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         InitUIElem();
         setJury();

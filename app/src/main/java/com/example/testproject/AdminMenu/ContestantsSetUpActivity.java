@@ -1,10 +1,9 @@
-package com.example.testproject;
+package com.example.testproject.AdminMenu;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -12,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.testproject.R;
 
 public class ContestantsSetUpActivity extends AppCompatActivity {
 
@@ -33,8 +34,6 @@ public class ContestantsSetUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contestants_set_up);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         InitUIElem();
         contestantsNumber();
@@ -64,6 +63,7 @@ public class ContestantsSetUpActivity extends AppCompatActivity {
                     contestantsNumber = Integer.parseInt(toParse);
                     contestantsLeft = contestantsNumber;
                     addNumberOfContestantsToDB(contestantsNumber);
+                    Toast.makeText(getApplicationContext(), "Contestants number set to " + Integer.toString(contestantsNumber), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -77,8 +77,14 @@ public class ContestantsSetUpActivity extends AppCompatActivity {
                 if (TextUtils.isEmpty(toParse)) {
                     contestantNameBox.setError("Required");
                 } else {
-                    addContestantToDB(toParse);
-                    contestantsLeft--;
+                    if (contestantsLeft > 0) {
+                        addContestantToDB(toParse);
+                        contestantsLeft--;
+                        contestantNameBox.getText().clear();
+                        Toast.makeText(getApplicationContext(), "Contestants left to add: " + Integer.toString(contestantsLeft), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Too many contestants!", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

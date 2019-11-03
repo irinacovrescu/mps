@@ -1,3 +1,7 @@
+package com.example.testproject;
+
+import com.example.testproject.Data.Criteria;
+
 import java.util.ArrayList;
 
 public class Participant implements Comparable<Participant>{
@@ -89,7 +93,7 @@ public class Participant implements Comparable<Participant>{
         int points = 0;
         for (int i = 0; i < thisRound_results.size() ; i++) {
             this.thisRound_results.set(i,(thisRound_results.get(i) + this.thisRound_results.get(i)));
-            points += thisRound_results.get(i) * weight.get(i).pondere;
+            points += thisRound_results.get(i) * weight.get(i).getWeight();
         }
         thisRounds_points += points;
     }

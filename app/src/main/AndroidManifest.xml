@@ -10,15 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ContestantsSetUpActivity"
+            android:name=".AdminMenu.ContestantsSetUpActivity"
             android:label="@string/title_activity_contestants"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".ContestSetUpActivity"
+            android:name=".AdminMenu.ContestSetUpActivity"
             android:label="@string/title_activity_contest_set_up"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".JuryActivity"
+            android:name=".AdminMenu.JuryActivity"
             android:label="@string/title_activity_jury"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -26,7 +26,7 @@
             android:label="LeaderBoardActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".AdminMenuActivity"
+            android:name=".AdminMenu.AdminMenuActivity"
             android:label="@string/title_activity_admin_menu"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".AuthActivity" />

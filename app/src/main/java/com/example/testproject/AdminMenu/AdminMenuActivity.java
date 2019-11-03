@@ -1,17 +1,17 @@
-package com.example.testproject;
+package com.example.testproject.AdminMenu;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.google.firebase.database.DatabaseReference;
+import com.example.testproject.AuthActivity;
+import com.example.testproject.R;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class AdminMenuActivity extends AppCompatActivity {
@@ -23,8 +23,6 @@ public class AdminMenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_menu);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
 
         // Admin control buttons
