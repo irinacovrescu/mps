@@ -13,7 +13,16 @@ tools:context="com.example.testproject.MainActivity">
     android:theme="@style/AppTheme.AppBarOverlay">
 
 </com.google.android.material.appbar.AppBarLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/roundsExtended"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:background="@drawable/blue_background">
 
-<include layout="@layout/content_leaderboard" />
+<!--        <include layout="@layout/content_leaderboard" />-->
+        <include layout="@layout/text_view_template"
+            android:id="@+id/roundNumber"/>
+    </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
