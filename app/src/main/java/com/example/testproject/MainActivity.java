@@ -11,18 +11,13 @@ import androidx.appcompat.widget.Toolbar;
 public class MainActivity extends AppCompatActivity {
 
     Button authenticateBtn, leaderboardsBtn;
-
-    private static final String TAG = "AuthActivity";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_main);
-        //Toolbar toolbar = findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
 
-        authenticateBtn = (Button)findViewById(R.id.authenticateBtn);
-        leaderboardsBtn = (Button)findViewById(R.id.leaderboardsBtn);
+        authenticateBtn = findViewById(R.id.authenticateBtn);
+        leaderboardsBtn = findViewById(R.id.leaderboardsBtn);
 
         authenticateBtn.setOnClickListener(new View.OnClickListener() {
             @Override

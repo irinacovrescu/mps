@@ -39,7 +39,7 @@ public class GradingActivity extends AppCompatActivity {
     private Button submitButton;
     private Button returnButton;
     private ViewFlipper vf;
-    LinearLayout contestantsLayout;
+    LinearLayout participantsLayout;
     LinearLayout finishedGradingLayout;
 
     private boolean inGradingForm = false;
@@ -59,7 +59,7 @@ public class GradingActivity extends AppCompatActivity {
                 DatabaseHelper.getParticipants(criteria, new CallbackParticipants() {
                     @Override
                     public void onCallBack(ArrayList<HashMap<String, Participant>>  participants, ArrayList<Criteria> criteria) {
-                        participantsExtended = getParticipantExtendeds(participants);
+                        participantsExtended = getParticipantExtended(participants);
                         prepareData(criteria);
                         prepareUIElements();
                         createContestantElements(criteria, participantsExtended);
@@ -79,11 +79,11 @@ public class GradingActivity extends AppCompatActivity {
         vf = findViewById( R.id.grading_activity);
         listView = findViewById(R.id.values_list);
         listView.setItemsCanFocus(true);
-        contestantsLayout = findViewById(R.id.participantsExtended);
+        participantsLayout = findViewById(R.id.participantsExtended);
         finishedGradingLayout = findViewById(R.id.finished_grading);
 
-        TextView contestantsText = findViewById(R.id.contestants_text);
-        contestantsText.setText("CONTESTANTS");
+        TextView participantsText = findViewById(R.id.contestants_text);
+        participantsText.setText("PARTICIPANTS");
 
         final Button submitButtonC = findViewById(R.id.submit_button_contestant);
         submitButtonC.getBackground().setLevel(Constants.DONE);
@@ -126,38 +126,38 @@ public class GradingActivity extends AppCompatActivity {
     }
 
     private void createButtonForContestant(ParticipantExtended c) {
-        final Button contestantButton = (Button) getLayoutInflater()
-                .inflate(R.layout.contestant_button_template, contestantsLayout, false);
-        contestantButton.getBackground().setLevel(Constants.CONTESTANT_NOT_GRADED);
-        contestantButton.setId(c.getId());
-        contestantButton.setText(c.getName());
-        contestantsLayout.addView(contestantButton);
-        contestantButton.setOnClickListener(new View.OnClickListener() {
+        final Button participantButton = (Button) getLayoutInflater()
+                .inflate(R.layout.contestant_button_template, participantsLayout, false);
+        participantButton.getBackground().setLevel(Constants.CONTESTANT_NOT_GRADED);
+        participantButton.setId(c.getId());
+        participantButton.setText(c.getName());
+        participantsLayout.addView(participantButton);
+        participantButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                int contestantId = v.getId();
-                openForm(contestantId);
+                int participantId = v.getId();
+                openForm(participantId);
             }
         });
 
-        setColorForContestantButton(c, contestantButton);
+        setColorForParticipantButton(c, participantButton);
     }
 
-    private void setColorForContestantButton(ParticipantExtended c, Button contestantButton) {
+    private void setColorForParticipantButton(ParticipantExtended c, Button participantButton) {
         if(c.getDisqualified()) {
-            contestantButton.setEnabled(false);
-            contestantButton.getBackground().setLevel(Constants.CONTESTANT_DISQUALIFIED);
+            participantButton.setEnabled(false);
+            participantButton.getBackground().setLevel(Constants.CONTESTANT_DISQUALIFIED);
 
         }
 
         if(c.getOutOfCompetition()) {
-            contestantButton.setEnabled(false);
-            contestantButton.getBackground().setLevel(Constants.CONTESTANT_OUT);
+            participantButton.setEnabled(false);
+            participantButton.getBackground().setLevel(Constants.CONTESTANT_OUT);
         }
     }
 
     private void createSubmitButton() {
         submitButton = (Button) getLayoutInflater()
-                .inflate(R.layout.submit_button_template, contestantsLayout, false);
+                .inflate(R.layout.submit_button_template, participantsLayout, false);
         submitButton.getBackground().setLevel(Constants.SUBMIT);
         submitButton.setEnabled(false);
         submitButton.setText("Submit");
@@ -167,7 +167,7 @@ public class GradingActivity extends AppCompatActivity {
             }
         });
 
-        contestantsLayout.addView(submitButton);
+        participantsLayout.addView(submitButton);
     }
 
 
@@ -188,8 +188,8 @@ public class GradingActivity extends AppCompatActivity {
         inGradingForm = false;
     }
 
-    public void openForm(int contestantId) {
-        GradingForm currentGradingForm = GradingForm.getGradingFormByContestantId(formData, contestantId);
+    public void openForm(int participantId) {
+        GradingForm currentGradingForm = GradingForm.getGradingFormByContestantId(formData, participantId);
         adapter = new RatingAdapter(getApplicationContext(), criteriaExtended, currentGradingForm);
         listView.setAdapter(adapter);
         binding.setViewModel(currentGradingForm.getParticipantExtended());
@@ -220,9 +220,9 @@ public class GradingActivity extends AppCompatActivity {
 
     private void updateContestantButton() {
         ParticipantExtended currentParticipantExtended = binding.getViewModel();
-        Button contestantButton = findViewById(currentParticipantExtended.getId());
+        Button participantButton = findViewById(currentParticipantExtended.getId());
         if(currentParticipantExtended.isGraded()) {
-            contestantButton.getBackground().setLevel(Constants.CONTESTANT_GRADED);
+            participantButton.getBackground().setLevel(Constants.CONTESTANT_GRADED);
         }
     }
 
@@ -248,7 +248,7 @@ public class GradingActivity extends AppCompatActivity {
 
 
 
-    private ArrayList<ParticipantExtended> getParticipantExtendeds(ArrayList<HashMap<String, Participant>>  participants) {
+    private ArrayList<ParticipantExtended> getParticipantExtended(ArrayList<HashMap<String, Participant>>  participants) {
 
         ArrayList<ParticipantExtended> participantsExtended = new ArrayList<>();
         HashMap<String, Participant> allParticipants = participants.get(0);
