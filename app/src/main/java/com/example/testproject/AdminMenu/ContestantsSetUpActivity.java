@@ -12,14 +12,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.testproject.Participant;
 import com.example.testproject.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
 
 public class ContestantsSetUpActivity extends AppCompatActivity {
 
     /* list of contestants extracted from DB
         so they can be disqualified as needed
      */
-
+    private static final int CONTESTANTSPERSERIES = 10;
     private int contestantsNumber = 0;
     private int contestantsLeft;
 
@@ -61,9 +66,13 @@ public class ContestantsSetUpActivity extends AppCompatActivity {
                     contestantNumberBox.setError("Required");
                 } else {
                     contestantsNumber = Integer.parseInt(toParse);
-                    contestantsLeft = contestantsNumber;
-                    addNumberOfContestantsToDB(contestantsNumber);
-                    Toast.makeText(getApplicationContext(), "Contestants number set to " + Integer.toString(contestantsNumber), Toast.LENGTH_SHORT).show();
+                    if (contestantsNumber == 0) {
+                        contestantNumberBox.setError("Can't be 0");
+                    } else {
+                        contestantsLeft = contestantsNumber;
+                        addNumberOfContestantsToDB(contestantsNumber);
+                        Toast.makeText(getApplicationContext(), "Contestants number set to " + Integer.toString(contestantsNumber), Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -78,7 +87,8 @@ public class ContestantsSetUpActivity extends AppCompatActivity {
                     contestantNameBox.setError("Required");
                 } else {
                     if (contestantsLeft > 0) {
-                        addContestantToDB(toParse);
+                        int id = contestantsNumber - contestantsLeft + 1;
+                        addParticipant(Integer.toString(setSeries(id)), Integer.toString(id), toParse, setRounds());
                         contestantsLeft--;
                         contestantNameBox.getText().clear();
                         Toast.makeText(getApplicationContext(), "Contestants left to add: " + Integer.toString(contestantsLeft), Toast.LENGTH_SHORT).show();
@@ -90,12 +100,49 @@ public class ContestantsSetUpActivity extends AppCompatActivity {
         });
     }
 
-    private void addContestantToDB(String name) {
-        // add to DB;
+    public void addParticipant(String series, String id, String name, Integer rounds){
+
+        //Obtine referinta catre baza de date la adresa dorita
+        final DatabaseReference databaseRef =  FirebaseDatabase.getInstance().getReference("participants").child(series);
+
+        Participant p = new Participant(name,rounds);
+        databaseRef.child(id).setValue(p);
+
     }
 
     private void addNumberOfContestantsToDB(int number) {
         // add to DB
+    }
+
+    private int setRounds(){
+        return (int) Math.ceil(Math.log(contestantsNumber)/ Math.log(2));
+    }
+
+    private int setSeries(int id){
+
+        int series = contestantsNumber / CONTESTANTSPERSERIES;
+        int new_cps;
+        if (series == 0) {
+            new_cps = CONTESTANTSPERSERIES;
+        } else {
+            new_cps = CONTESTANTSPERSERIES + ((contestantsNumber % CONTESTANTSPERSERIES) / series);
+        }
+        ArrayList<Integer> end = new ArrayList<Integer>(series);
+        int offset = 0;
+        for (int i = 0; i < series; i++)
+        {
+            end.add(i, (i + 1) * new_cps + Math.min(contestantsNumber%new_cps, ++offset));
+        }
+        int x_series = 1;
+        for (int i = 0; i < series; i++)
+        {
+            if (id <= end.get(i))
+            {
+                x_series += i;
+                break;
+            }
+        }
+        return x_series;
     }
 
     private void submit() {
@@ -112,13 +159,4 @@ public class ContestantsSetUpActivity extends AppCompatActivity {
         });
     }
 
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-
-        if (keyCode == KeyEvent.KEYCODE_BACK ) {
-            //do your stuff
-            return true;
-        }
-
-        return super.onKeyDown(keyCode, event);
-    }
 }

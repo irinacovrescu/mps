@@ -3,7 +3,10 @@ package com.example.testproject.AdminMenu;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.testproject.Data.Criteria;
 import com.example.testproject.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,16 +21,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class ContestSetUpActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
 
-    private static final int TOTALPOINTS = 60;
-    private int pointsUsed = 0;
-
-    private EditText setsNumberBox;
-    private Button setsButton;
-
     private TextView rounds;
+    private TextView series;
 
     private Spinner contestType;
 
@@ -49,12 +49,25 @@ public class ContestSetUpActivity extends AppCompatActivity implements AdapterVi
     private Button submitButton;
 
     private int originality = 0;
+    private int originalityId = 1;
+    private String originalityDetail = "Consider: Exhibits creativity";
     private int craftmanship = 0;
+    private int craftmanshipId = 2;
+    private String craftmanshipDetail = "Consider: Artist’s skills in the use of material";
     private int composition = 0;
+    private int compositionId = 3;
+    private String compositionDetail = "Consider: Effective use of forms or abstract techniques";
     private int unity = 0;
+    private int unityId = 4;
+    private String unityDetail = "Consider: Balance of elements, repetition, visual rhythm";
     private int space = 0;
+    private int spaceId = 5;
+    private String spaceDetail = "Consider: Perspective and mass";
     private int interpretation = 0;
-    private int sets = 0;
+    private int interpretationId = 6;
+    private String interpretationDetail = "Consider: Clarity of the theme to the viewer";
+    private ArrayList<Criteria> criterias = new ArrayList<Criteria>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +78,6 @@ public class ContestSetUpActivity extends AppCompatActivity implements AdapterVi
         InitUIElem();
 
         criteriaSet();
-
-        setsSet();
 
         rounds.setText("Number of rounds: " +
                 Integer.toString((int) Math.ceil
@@ -91,8 +102,6 @@ public class ContestSetUpActivity extends AppCompatActivity implements AdapterVi
     }
 
     private void InitUIElem(){
-        setsNumberBox = findViewById(R.id.addsets);
-        setsButton = findViewById(R.id.addsetsbutton);
 
         contestType = findViewById(R.id.contesttype);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -127,13 +136,20 @@ public class ContestSetUpActivity extends AppCompatActivity implements AdapterVi
 
     }
 
+    public void addCriterias(ArrayList<Criteria> list){
+
+        final DatabaseReference databaseRef =  FirebaseDatabase.getInstance().getReference("criteria");
+        databaseRef.setValue(list);
+
+    }
+
     private void criteriaSet(){
         originalitySetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                originality = verifyPoints(originalityNumberBox, originality);
-                addCriteriaToDB("originality", originality);
+                originality = verifyPoints(originalityNumberBox);
+                addCriteria("originality", originality, criterias, originalityId, originalityDetail);
 
             }
         });
@@ -142,8 +158,8 @@ public class ContestSetUpActivity extends AppCompatActivity implements AdapterVi
             @Override
             public void onClick(View v) {
 
-                craftmanship = verifyPoints(craftmanshipNumberBox, craftmanship);
-                addCriteriaToDB("craftmanship", craftmanship);
+                craftmanship = verifyPoints(craftmanshipNumberBox);
+                addCriteria("craftmanship", craftmanship, criterias, craftmanshipId, craftmanshipDetail);
             }
         });
 
@@ -151,8 +167,8 @@ public class ContestSetUpActivity extends AppCompatActivity implements AdapterVi
             @Override
             public void onClick(View v) {
 
-                composition = verifyPoints(compositionNumberBox, composition);
-                addCriteriaToDB("composition", composition);
+                composition = verifyPoints(compositionNumberBox);
+                addCriteria("composition", composition, criterias, compositionId, compositionDetail);
             }
         });
 
@@ -160,8 +176,8 @@ public class ContestSetUpActivity extends AppCompatActivity implements AdapterVi
             @Override
             public void onClick(View v) {
 
-                unity = verifyPoints(unityNumberBox, unity);
-                addCriteriaToDB("unity", unity);
+                unity = verifyPoints(unityNumberBox);
+                addCriteria("unity", unity, criterias, unityId, unityDetail);
             }
         });
 
@@ -169,8 +185,8 @@ public class ContestSetUpActivity extends AppCompatActivity implements AdapterVi
             @Override
             public void onClick(View v) {
 
-                space = verifyPoints(spaceNumberBox, space);
-                addCriteriaToDB("space", space);
+                space = verifyPoints(spaceNumberBox);
+                addCriteria("space", space, criterias, spaceId, spaceDetail);
             }
         });
 
@@ -178,34 +194,24 @@ public class ContestSetUpActivity extends AppCompatActivity implements AdapterVi
             @Override
             public void onClick(View v) {
 
-                interpretation = verifyPoints(interpretationNumberBox, interpretation);
-                addCriteriaToDB("interpretation", interpretation);
+                interpretation = verifyPoints(interpretationNumberBox);
+                addCriteria("interpretation", interpretation, criterias, interpretationId, interpretationDetail);
             }
         });
     }
 
-    private void setsSet(){
-        setsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String toParse = setsNumberBox.getText().toString();
-                if (TextUtils.isEmpty(toParse))
-                    setsNumberBox.setError("Required");
-                else {
-                    sets = Integer.parseInt(toParse);
-                    addSetsToDB(sets);
-                }
-            }
-        });
-    }
 
     private void reset(){
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                pointsUsed = 0;
+                originality = 0;
+                craftmanship = 0;
+                composition = 0;
+                unity = 0;
+                space = 0;
+                interpretation = 0;;
             }
         });
     }
@@ -214,9 +220,10 @@ public class ContestSetUpActivity extends AppCompatActivity implements AdapterVi
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(sets == 0 || pointsUsed == 0) {
+                if(true) {
                     Toast.makeText(getApplicationContext(), "Set up contest first!", Toast.LENGTH_SHORT).show();
                 } else {
+                    addCriterias(criterias);
                     Intent myIntent = new Intent(ContestSetUpActivity.this, AdminMenuActivity.class);
                     ContestSetUpActivity.this.startActivity(myIntent);
                 }
@@ -224,25 +231,33 @@ public class ContestSetUpActivity extends AppCompatActivity implements AdapterVi
         });
     }
 
-    private void addCriteriaToDB(String type, int number){
-        // add to DB
+    private void addCriteria(String type, int number, ArrayList<Criteria> list, int id, String details){
+
+        int index = 0;
+        for (Criteria c : list) {
+            String name = c.getName();
+            if (name.equals(type)){
+                break;
+            }
+            index++;
+        }
+        if (index != 0) {
+            list.remove(index);
+        } else {
+            Criteria c = new Criteria(type, details, number,id);
+        }
     }
 
-    private int verifyPoints (EditText box, int criteria) {
+    private int verifyPoints (EditText box) {
         String toParse = box.getText().toString();
         if (TextUtils.isEmpty(toParse))
             box.setError("Required");
         else {
             int number = Integer.parseInt(toParse);
-            if (criteria > 0) {
-                pointsUsed -= criteria;
-            }
-            if (number + pointsUsed > TOTALPOINTS) {
-                pointsUsed += criteria;
-                box.setError("Limit Exceeded");
+            if(number < 1 || number > 10) {
+                box.setError("Wrong Weight");
             } else {
-                pointsUsed += number;
-                Toast.makeText(getApplicationContext(), "Points left: " + Integer.toString(TOTALPOINTS - pointsUsed), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Set to " + Integer.toString(number), Toast.LENGTH_SHORT).show();
                 return number;
             }
         }
@@ -252,20 +267,6 @@ public class ContestSetUpActivity extends AppCompatActivity implements AdapterVi
     private int getContestantsNumberFromDB() {
         // get no of contestants from DB
         return 24;
-    }
-
-    private void addSetsToDB(int number){
-
-    }
-
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-
-        if (keyCode == KeyEvent.KEYCODE_BACK ) {
-            //do your stuff
-            return true;
-        }
-
-        return super.onKeyDown(keyCode, event);
     }
 
 }
