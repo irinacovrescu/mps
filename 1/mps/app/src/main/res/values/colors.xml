@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#33A7D8</color>
+    <color name="colorPrimaryDark">#33A7D8</color>
+    <color name="colorAccent">#FFFFFF</color>
+    <color name="transparent">#000000</color>
+
+    <color name="grape">#000000</color>
+    <color name="purpleMonster">#000000</color>
+    <color name="oil">#3b3131</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+
+    <color name="ceva">#23A7D8</color>
+
+    <color name="gradStart">#19AA8B</color>
+    <color name="gradStop">#23A7D8</color>
+</resources>
