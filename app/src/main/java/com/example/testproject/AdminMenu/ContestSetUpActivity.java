@@ -48,23 +48,11 @@ public class ContestSetUpActivity extends AppCompatActivity implements AdapterVi
     private Button submitButton;
 
     private int originality = 0;
-    private int originalityId = 1;
-    private String originalityDetail = "Consider: Exhibits creativity";
     private int craftsmanship = 0;
-    private int craftsmanshipId = 2;
-    private String craftsmanshipDetail = "Consider: Artist’s skills in the use of material";
     private int composition = 0;
-    private int compositionId = 3;
-    private String compositionDetail = "Consider: Effective use of forms or abstract techniques";
     private int unity = 0;
-    private int unityId = 4;
-    private String unityDetail = "Consider: Balance of elements, repetition, visual rhythm";
     private int space = 0;
-    private int spaceId = 5;
-    private String spaceDetail = "Consider: Perspective and mass";
     private int interpretation = 0;
-    private int interpretationId = 6;
-    private String interpretationDetail = "Consider: Clarity of the theme to the viewer";
     private ArrayList<Criteria> criterias = new ArrayList<Criteria>();
 
 
@@ -148,7 +136,7 @@ public class ContestSetUpActivity extends AppCompatActivity implements AdapterVi
             public void onClick(View v) {
 
                 originality = verifyPoints(originalityNumberBox);
-                addCriteria("originality", originality, criterias, originalityId, originalityDetail);
+                addCriteria("originality", originality, criterias);
 
             }
         });
@@ -158,7 +146,7 @@ public class ContestSetUpActivity extends AppCompatActivity implements AdapterVi
             public void onClick(View v) {
 
                 craftsmanship = verifyPoints(craftsmanshipNumberBox);
-                addCriteria("craftsmanship", craftsmanship, criterias, craftsmanshipId, craftsmanshipDetail);
+                addCriteria("craftsmanship", craftsmanship, criterias);
             }
         });
 
@@ -167,7 +155,7 @@ public class ContestSetUpActivity extends AppCompatActivity implements AdapterVi
             public void onClick(View v) {
 
                 composition = verifyPoints(compositionNumberBox);
-                addCriteria("composition", composition, criterias, compositionId, compositionDetail);
+                addCriteria("composition", composition, criterias);
             }
         });
 
@@ -176,7 +164,7 @@ public class ContestSetUpActivity extends AppCompatActivity implements AdapterVi
             public void onClick(View v) {
 
                 unity = verifyPoints(unityNumberBox);
-                addCriteria("unity", unity, criterias, unityId, unityDetail);
+                addCriteria("unity", unity, criterias);
             }
         });
 
@@ -185,7 +173,7 @@ public class ContestSetUpActivity extends AppCompatActivity implements AdapterVi
             public void onClick(View v) {
 
                 space = verifyPoints(spaceNumberBox);
-                addCriteria("space", space, criterias, spaceId, spaceDetail);
+                addCriteria("space", space, criterias);
             }
         });
 
@@ -194,7 +182,7 @@ public class ContestSetUpActivity extends AppCompatActivity implements AdapterVi
             public void onClick(View v) {
 
                 interpretation = verifyPoints(interpretationNumberBox);
-                addCriteria("interpretation", interpretation, criterias, interpretationId, interpretationDetail);
+                addCriteria("interpretation", interpretation, criterias);
             }
         });
     }
@@ -219,7 +207,7 @@ public class ContestSetUpActivity extends AppCompatActivity implements AdapterVi
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(true) {
+                if(criterias.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Set up contest first!", Toast.LENGTH_SHORT).show();
                 } else {
                     addManyCriteria(criterias);
@@ -230,7 +218,7 @@ public class ContestSetUpActivity extends AppCompatActivity implements AdapterVi
         });
     }
 
-    private void addCriteria(String type, int number, ArrayList<Criteria> list, int id, String details){
+    private void addCriteria(String type, int number, ArrayList<Criteria> list){
 
         int index = 0;
         for (Criteria c : list) {
@@ -240,11 +228,10 @@ public class ContestSetUpActivity extends AppCompatActivity implements AdapterVi
             }
             index++;
         }
-        if (index != 0) {
+        if (index != 0)
             list.remove(index);
-        } else {
-           // Criteria c = new Criteria(type, details, number,id);
-        }
+        Criteria c = new Criteria(type, number);
+        list.add(c);
     }
 
     private int verifyPoints (EditText box) {

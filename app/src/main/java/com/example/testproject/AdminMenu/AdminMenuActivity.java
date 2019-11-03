@@ -16,7 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class AdminMenuActivity extends AppCompatActivity {
     private Button logoutButton;
-    private Button juryButton, contestSetButton, contestantsButton, startContestButton;
+    private Button juryButton, contestSetButton, contestantsSetButton, startContestButton, contestantsButton;
     private boolean hasStarted = false;
 
     @Override
@@ -24,12 +24,11 @@ public class AdminMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_menu);
 
-
-        // Admin control buttons
         InitUIElem();
         jurySetUp();
         contestSetUp();
         contestantsSetUp();
+        contestants();
 
         contest();
 
@@ -37,12 +36,13 @@ public class AdminMenuActivity extends AppCompatActivity {
     }
 
     private void InitUIElem() {
-        juryButton = (Button) findViewById(R.id.jurybutton);
-        contestSetButton = (Button) findViewById(R.id.contestbutton);
-        contestantsButton = (Button) findViewById(R.id.contestantsbutton);
-        startContestButton = (Button) findViewById(R.id.startcontestbutton);
+        juryButton = findViewById(R.id.jurybutton);
+        contestSetButton = findViewById(R.id.contestbutton);
+        contestantsSetButton = findViewById(R.id.contestantssetbutton);
+        startContestButton = findViewById(R.id.startcontestbutton);
         startContestButton.setText("Start Contest");
-        logoutButton = (Button) findViewById(R.id.logoutbutton);
+        logoutButton = findViewById(R.id.logoutbutton);
+        contestantsButton = findViewById(R.id.contestantsbutton);
     }
 
     private void jurySetUp() {
@@ -79,14 +79,28 @@ public class AdminMenuActivity extends AppCompatActivity {
     }
 
     private void contestantsSetUp() {
-        contestantsButton.setOnClickListener(new View.OnClickListener() {
+        contestantsSetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isContestantsSet()) {
+                if (areContestantsSet()) {
                     Intent myIntent = new Intent(AdminMenuActivity.this, ContestantsSetUpActivity.class);
                     AdminMenuActivity.this.startActivity(myIntent);
                 } else {
                     Toast.makeText(getApplicationContext(), "Set up contestants first!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void contestants(){
+        contestantsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (areContestantsSet()) {
+                    Intent myIntent = new Intent(AdminMenuActivity.this, ContestantsActivity.class);
+                    AdminMenuActivity.this.startActivity(myIntent);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Start contest first!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -128,7 +142,7 @@ public class AdminMenuActivity extends AppCompatActivity {
         return true;
     }
 
-    private boolean isContestantsSet() {
+    private boolean areContestantsSet() {
         // val > 0 from DB, true else false
         return true;
     }

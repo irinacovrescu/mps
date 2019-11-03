@@ -21,9 +21,6 @@ import java.util.ArrayList;
 
 public class ContestantsSetUpActivity extends AppCompatActivity {
 
-    /* list of contestants extracted from DB
-        so they can be disqualified as needed
-     */
     private static final int PARTICIPANTSPERSERIES = 10;
     private int participantsNumber = 0;
     private int participantsLeft;
@@ -88,7 +85,7 @@ public class ContestantsSetUpActivity extends AppCompatActivity {
                 } else {
                     if (participantsLeft > 0) {
                         int id = participantsNumber - participantsLeft + 1;
-                        final DatabaseReference databaseRef =  FirebaseDatabase.getInstance().getReference("participants").child(Integer.toString(setSeries(id)));
+                        final DatabaseReference databaseRef =  FirebaseDatabase.getInstance().getReference("participants").child("series"+Integer.toString(setSeries(id)));
 
                         Participant p = new Participant(toParse,setRounds());
                         databaseRef.child(Integer.toString(id)).setValue(p);
