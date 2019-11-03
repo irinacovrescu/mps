@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class LeaderBoardActivity extends AppCompatActivity {
-    private Button bunaButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
