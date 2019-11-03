@@ -221,14 +221,16 @@ public class ContestSetUpActivity extends AppCompatActivity implements AdapterVi
     private void addCriteria(String type, int number, ArrayList<Criteria> list){
 
         int index = 0;
+        boolean found = false;
         for (Criteria c : list) {
             String name = c.getNume();
             if (name.equals(type)){
+                found = true;
                 break;
             }
             index++;
         }
-        if (index != 0)
+        if (found)
             list.remove(index);
         Criteria c = new Criteria(type, number);
         list.add(c);
