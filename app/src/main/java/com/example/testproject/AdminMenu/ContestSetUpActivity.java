@@ -234,7 +234,7 @@ public class ContestSetUpActivity extends AppCompatActivity implements AdapterVi
 
         int index = 0;
         for (Criteria c : list) {
-            String name = c.getName();
+            String name = c.getNume();
             if (name.equals(type)){
                 break;
             }
@@ -243,7 +243,7 @@ public class ContestSetUpActivity extends AppCompatActivity implements AdapterVi
         if (index != 0) {
             list.remove(index);
         } else {
-            Criteria c = new Criteria(type, details, number,id);
+           // Criteria c = new Criteria(type, details, number,id);
         }
     }
 
