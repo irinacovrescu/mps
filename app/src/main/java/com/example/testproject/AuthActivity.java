@@ -2,7 +2,6 @@ package com.example.testproject;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -16,8 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.testproject.Data.Judge;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,9 +24,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 public class AuthActivity extends AppCompatActivity {
 
@@ -40,7 +34,6 @@ public class AuthActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase db;
-    public DocumentSnapshot documentSnapshot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +47,6 @@ public class AuthActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance();
-        documentSnapshot = null;
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
