@@ -14,7 +14,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.text.TextUtils;
 import android.util.Log;
@@ -51,12 +50,27 @@ public class JuryActivity extends AppCompatActivity {
         jurySetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String toParse = juryNumberBox.getText().toString();
+                final String toParse = juryNumberBox.getText().toString();
                 if (TextUtils.isEmpty(toParse)) {
                     juryNumberBox.setError("Required");
                 } else if (Integer.parseInt(toParse) <= 7) {
                     clearOldJudgeData();
-                    setJury(toParse);
+                    final int nrOfJudges = Integer.parseInt(toParse);
+                    final DatabaseReference judgesRef = db.getReference("JUDGE").child("nrOfJudges");
+
+                    judgesRef.setValue(nrOfJudges).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d(TAG, "NrOfJudges successfully updated!");
+                            createJuryObjects(Integer.parseInt(toParse));
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w(TAG, "Error updating document", e);
+                            Toast.makeText(getApplicationContext(), "Failed to set" + nrOfJudges, Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
                 else
                     juryNumberBox.setError("Should be less than 7");
@@ -81,29 +95,7 @@ public class JuryActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * Updates nrOfJudges field in judges document
-     *
-     * @param nr number of judges as String to be set
-     */
-    private void setJury(final String nr) {
-        final int nrOfJudges = Integer.parseInt(nr);
-        final DatabaseReference judgesRef = db.getReference("JUDGE").child("nrOfJudges");
 
-        judgesRef.setValue(nrOfJudges).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Log.d(TAG, "NrOfJudges successfully updated!");
-                createJuryObjects(Integer.parseInt(nr));
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.w(TAG, "Error updating document", e);
-                Toast.makeText(getApplicationContext(), "Failed to set" + nrOfJudges, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
     private void createJuryObjects(Integer nrOfJudges) {
         for (int i = 1; i <= nrOfJudges; i++) {
