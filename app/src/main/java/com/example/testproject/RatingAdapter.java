@@ -59,7 +59,7 @@ public class RatingAdapter extends ArrayAdapter<Grade>{
         viewHolder.noStars.setId(position);
         viewHolder.noStars.setTag(dataModel.getCriteriaId());
 
-        CriteriaExtended question = CriteriaExtended.findCriteriaaById(questions, dataModel.getCriteriaId());
+        CriteriaExtended question = CriteriaExtended.findCriteriaById(questions, dataModel.getCriteriaId());
 
         if (question != null) {
             viewHolder.txtQuestion.setText(question.getName());

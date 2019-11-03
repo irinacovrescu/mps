@@ -36,7 +36,7 @@ public class CriteriaExtended extends Criteria {
         return pondere;
     }
 
-    public static CriteriaExtended findCriteriaaById(ArrayList<CriteriaExtended> array, int id) {
+    public static CriteriaExtended findCriteriaById(ArrayList<CriteriaExtended> array, int id) {
         for(CriteriaExtended c : array) {
             if(c.id == id) {
                 return c;
