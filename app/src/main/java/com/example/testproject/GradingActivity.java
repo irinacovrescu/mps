@@ -2,6 +2,7 @@ package com.example.testproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
@@ -16,6 +17,10 @@ import com.example.testproject.Data.DatabaseHelper;
 import com.example.testproject.Data.GradingForm;
 import com.example.testproject.Data.CallbackCriteria;
 import com.example.testproject.databinding.ActivityGradingBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import android.view.View;
 import android.widget.ListView;
@@ -176,9 +181,20 @@ public class GradingActivity extends AppCompatActivity {
         finishedGrading = true;
         TextView thank_you_text = findViewById(R.id.thank_you_text);
         thank_you_text.setText("Thank you for submitting your grades!");
+        signoutJury();
         // TO DO: prepare data and send to database
 
         createReturnButton();
+    }
+
+    private void signoutJury() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String juryUID = user.getEmail().substring(4, 5);
+            final DatabaseReference juryRef = FirebaseDatabase.getInstance().getReference("JUDGE").child(juryUID).child("loggedIn");
+            AuthActivity.setLoggedStatus(juryRef, false);
+            Log.d(TAG, "Jury signed out!");
+        }
     }
 
     public void submitForOneContestant() {
