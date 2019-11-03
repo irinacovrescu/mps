@@ -252,7 +252,7 @@ public class ContestSetUpActivity extends AppCompatActivity implements AdapterVi
         return 0;
     }
 
-    private int getParticipantsNumberFromDB() {
+    public static int getParticipantsNumberFromDB() {
         // get no of participants from DB
         return 24;
     }
