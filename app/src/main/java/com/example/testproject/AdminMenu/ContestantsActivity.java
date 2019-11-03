@@ -1,16 +1,172 @@
 package com.example.testproject.AdminMenu;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Pair;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
+import com.example.testproject.Participant;
 import com.example.testproject.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 
 public class ContestantsActivity extends AppCompatActivity {
+    LinearLayout layout;
+
+    private EditText contestantNameBox;
+    private Button contestantSetButton;
+    TableLayout tl;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contestants_display);
+        setContentView(R.layout.activity_contestants);
+
+        InitUIElem();
+        getParticipants();
+    }
+
+    private void InitUIElem(){
+        contestantNameBox = findViewById(R.id.disqualifiedname);
+        contestantSetButton = findViewById(R.id.disqualifybutton);
+        layout = findViewById(R.id.linearlayout);
+    }
+
+    private void getParticipants(){
+
+        //Obtine referinta catre baza de date la adresa dorita
+        final DatabaseReference databaseRef =  FirebaseDatabase.getInstance().getReference("participants");
+
+        //La fiecare schimbare de date
+        databaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //Creaza lista
+                ArrayList<HashMap<Pair<String, String>, Participant>> list = new ArrayList<>();
+
+                //Itereaza prin dataSnapshot-uri (ce reprezinta serii)
+                Iterator<DataSnapshot> serieIterator = dataSnapshot.getChildren().iterator();
+                while (serieIterator.hasNext()) {
+                    //Itereaza prin dataSnapshot-uri (ce reprezinta participanti)
+                    DataSnapshot dS = serieIterator.next();
+                    String key = dS.getKey();
+                    Iterator<DataSnapshot> idIterator = dS.getChildren().iterator();
+                    HashMap<Pair<String, String>, Participant> hashMap = new HashMap<>();
+                    while (idIterator.hasNext()) {
+                        DataSnapshot d = idIterator.next();
+                        hashMap.put(new Pair<String, String>(key, d.getKey()), d.getValue(Participant.class));
+                    }
+                    list.add(hashMap);
+
+                    //Linie de test, trebuie stearsa - Afiseaza numarul de participanti din serie
+                    //Hashmap e lista cu participantii din serie
+                    FirebaseDatabase.getInstance().getReference().child("nrParticipantiPerSerie").child(key).setValue(hashMap.size());
+
+
+                }
+
+                //Lista este actualizata si poti pune codul aici, in lista la fiecare index se afla un hashmap cu participantii din acea serie
+                //Linie de test, trebuie stearsa - Afiseaza numarul de serii
+                //FirebaseDatabase.getInstance().getReference().child("anotherTest").setValue(list.size());
+
+                displayCandidates(list);
+                disqualify(list);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void displayCandidates (ArrayList<HashMap<Pair<String, String>, Participant>> list){
+
+        tl = new TableLayout(this);
+
+        TableRow row = new TableRow(this);
+        TextView cellN = new TextView(this);
+        cellN.setText("Name");
+        row.addView(cellN);
+        TextView cellS = new TextView(this);
+        cellS.setText("Series");
+        row.addView(cellS);
+        TextView cellD = new TextView(this);
+        cellD.setText("Disqualified");
+        row.addView(cellD);
+        tl.addView(row);
+
+        for (HashMap<Pair<String, String>, Participant> s : list) {
+            for (HashMap.Entry<Pair<String, String>, Participant> entry : s.entrySet()) {
+
+                Pair<String, String> aux = entry.getKey();
+                String series = aux.first;
+                String id = aux.second;
+                Participant p = entry.getValue();
+
+                row = new TableRow(this);
+
+                cellN = new TextView(this);
+                cellN.setText(p.getName());
+                row.addView(cellN);
+
+                cellS = new TextView(this);
+                cellS.setText(series);
+                row.addView(cellS);
+
+                cellD = new TextView(this);
+                cellD.setText(Boolean.toString(p.getDisqualified()));
+                row.addView(cellD);
+
+                tl.addView(row);
+            }
+        }
+        layout.addView(tl);
+    }
+
+    private void disqualify(final ArrayList<HashMap<Pair<String, String>, Participant>> list){
+        contestantSetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String toParse = contestantNameBox.getText().toString();
+                if (TextUtils.isEmpty(toParse)) {
+                    contestantNameBox.setError("Required");
+                } else {
+                    for (HashMap<Pair<String, String>, Participant> s : list) {
+                        for (HashMap.Entry<Pair<String, String>, Participant> entry : s.entrySet()) {
+
+                            Pair<String, String> aux = entry.getKey();
+                            String series = aux.first;
+                            String id = aux.second;
+                            Participant p = entry.getValue();
+                            if (p.getName().equals(toParse)) {
+                                final DatabaseReference databaseRef =  FirebaseDatabase.getInstance().getReference("participants/"+series);
+
+                                databaseRef.child(id).child("disqualified").setValue(true);
+                                layout.removeAllViews();
+                            }
+                        }
+                    }
+                }
+            }
+        });
     }
 }

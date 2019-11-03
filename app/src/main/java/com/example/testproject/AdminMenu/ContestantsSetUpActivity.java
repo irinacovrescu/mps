@@ -68,6 +68,9 @@ public class ContestantsSetUpActivity extends AppCompatActivity {
                     } else {
                         participantsLeft = participantsNumber;
                         addNumberOfParticipantsToDB(participantsNumber);
+                        final DatabaseReference databaseRef =  FirebaseDatabase.getInstance().getReference("participants");
+
+                        databaseRef.removeValue();
                         Toast.makeText(getApplicationContext(), "Participants number set to " + participantsNumber, Toast.LENGTH_SHORT).show();
                     }
                 }
