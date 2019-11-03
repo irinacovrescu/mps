@@ -1,6 +1,6 @@
 package com.example.testproject;
 
-import com.example.testproject.Data.Criteria;
+import com.example.testproject.Data.CriteriaExtended;
 
 import java.util.ArrayList;
 
@@ -89,7 +89,7 @@ public class Participant implements Comparable<Participant>{
         return thisRound_results;
     }
 
-    public void addToThisRound_results(ArrayList<Integer> thisRound_results,ArrayList<Criteria> weight) {
+    public void addToThisRound_results(ArrayList<Integer> thisRound_results,ArrayList<CriteriaExtended> weight) {
         int points = 0;
         for (int i = 0; i < thisRound_results.size() ; i++) {
             this.thisRound_results.set(i,(thisRound_results.get(i) + this.thisRound_results.get(i)));

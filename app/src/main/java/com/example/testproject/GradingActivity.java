@@ -8,9 +8,16 @@ import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import com.example.testproject.Data.CriteriaExtended;
 import com.example.testproject.Data.Criteria;
 import com.example.testproject.Data.GradingForm;
+import com.example.testproject.Data.MyCallback;
 import com.example.testproject.databinding.ActivityGradingBinding;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import android.view.View;
 import android.widget.ListView;
@@ -18,6 +25,7 @@ import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class GradingActivity extends AppCompatActivity {
 
@@ -25,7 +33,7 @@ public class GradingActivity extends AppCompatActivity {
     private static RatingAdapter adapter;
 
     private ArrayList<GradingForm> formData;
-    private ArrayList<Criteria> questions;
+    private ArrayList<CriteriaExtended> criteriaExtended;
     private ArrayList<Contestant> contestants;
 
     private ListView listView;
@@ -54,16 +62,24 @@ public class GradingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         getDataFromServer();
-        prepareUIElements();
-        createContestantElements();
-        createSubmitButton();
     }
 
     public void getDataFromServer() {
-        contestants = getContestants();
-        questions = getCriteria();
+        getCriteria(new MyCallback() {
+            @Override
+            public void onCallBack(ArrayList<Criteria> criteria) {
+                contestants = getContestants();
+                prepareData(criteria);
+                prepareUIElements();
+                createContestantElements(criteria);
+                createSubmitButton();
+            }
+        });
+    }
+
+    public void prepareData(ArrayList<Criteria> criteria) {
+        criteriaExtended = getExtendedCriteria(criteria);
     }
 
     private void prepareUIElements() {
@@ -87,20 +103,21 @@ public class GradingActivity extends AppCompatActivity {
         });
     }
 
-    private void createContestantElements() {
+    private void createContestantElements(ArrayList<Criteria> criteria) {
         formData = new ArrayList<>();
 
         for(Contestant c : contestants) {
             createButtonForContestant(c);
-            formData.add(createGradingFormForContestant(c));
+            formData.add(createGradingFormForContestant(c, criteria));
         }
     }
 
-    public GradingForm createGradingFormForContestant(Contestant c) {
+    public GradingForm createGradingFormForContestant(Contestant c, ArrayList<Criteria> criteria) {
         GradingForm gradingForm = new GradingForm(c);
-        for(Criteria q : questions) {
-            gradingForm.addGrade(q.getId());
+        for(int i = 0; i < criteria.size(); i++) {
+            gradingForm.addGrade(i);
         }
+
         return gradingForm;
     }
 
@@ -181,7 +198,7 @@ public class GradingActivity extends AppCompatActivity {
 
     public void openForm(int contestantId) {
         GradingForm currentGradingForm = GradingForm.getGradingFormByContestantId(formData, contestantId);
-        adapter = new RatingAdapter(getApplicationContext(), questions, currentGradingForm);
+        adapter = new RatingAdapter(getApplicationContext(), criteriaExtended, currentGradingForm);
         listView.setAdapter(adapter);
         binding.setViewModel(currentGradingForm.getContestant());
 
@@ -223,6 +240,7 @@ public class GradingActivity extends AppCompatActivity {
     }
 
     private boolean isSubmitEnabled() {
+
         for(Contestant c : contestants) {
             if(!c.isGraded() && !c.isOutOfCompetition() && !c.isDisqualified()) {
                 return false;
@@ -234,6 +252,30 @@ public class GradingActivity extends AppCompatActivity {
     private void changeDisplayedLayout(int layout) {
 
         vf.setDisplayedChild(layout);
+    }
+
+    public void getCriteria(final MyCallback myCallback){
+
+        final DatabaseReference databaseRef =  FirebaseDatabase.getInstance().getReference("criteria");
+        databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<Criteria> list = new ArrayList<>();
+
+                Iterator<DataSnapshot> serieIterator = dataSnapshot.getChildren().iterator();
+                while (serieIterator.hasNext()) {
+                    //Itereaza prin dataSnapshot-uri (ce reprezinta participanti)
+                    DataSnapshot d = serieIterator.next();
+                    list.add(d.getValue(Criteria.class));
+                }
+                myCallback.onCallBack(list);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private ArrayList<Contestant> getContestants() {
@@ -250,16 +292,12 @@ public class GradingActivity extends AppCompatActivity {
         return contestants;
     }
 
-    private ArrayList<Criteria> getCriteria() {
-        ArrayList<Criteria> questions = new ArrayList<>();
-        questions.add(new Criteria("Originality", "Consider: Exhibits creativity", 1, 1));
-        questions.add(new Criteria("Craftsmanship", "Consider: Artist’s skills in the use of material", 1, 2));
-        questions.add(new Criteria("Composition", "Consider: Effective use of forms or abstract techniques", 1, 3));
-        questions.add(new Criteria("Unity and Variety", "Consider: Balance of elements, repetition, visual rhythm", 1, 4));
-        questions.add(new Criteria("Use of space", "Consider: Perspective and mass", 1, 5));
-        questions.add(new Criteria("Interpretation", "Consider: Clarity of the theme to the viewer", 1, 6));
-        questions.add(new Criteria("Overall impression", "", 1, 7));
+    private ArrayList<CriteriaExtended> getExtendedCriteria(ArrayList<Criteria> criteria) {
 
-        return questions;
+        ArrayList<CriteriaExtended> criteriaExtended = new ArrayList<>();
+        for(int i = 0; i < criteria.size(); i++) {
+            criteriaExtended.add(new CriteriaExtended(criteria.get(i).getNume(), criteria.get(i).getPondere(), i));
+        }
+        return criteriaExtended;
     }
 }

@@ -1,45 +1,31 @@
 package com.example.testproject.Data;
 
-import java.util.ArrayList;
-
 public class Criteria {
+    String nume;
+    Integer pondere;
 
-    private int id;
-    private String name;
-    private String details;
-    private float weight;
+    public Criteria() {
 
-    public Criteria(String name, String details, float weight, int id) {
-        this.name = name;
-        this.details = details;
-        this.weight = weight;
-        this.id = id;
     }
 
-    public int getId() {
-        return id;
+    public Criteria(String nume, Integer pondere) {
+
+            this.nume = nume;
+            this.pondere = pondere;
+    }
+    public String getNume() {
+        return nume;
     }
 
-    public String getName() {
-        return name;
+    public void setNume(String nume) {
+        this.nume = nume;
     }
 
-    public String getDetails() {
-        return details;
+    public Integer getPondere() {
+        return pondere;
     }
 
-    public float getWeight() {
-        return weight;
+    public void setPondere(Integer pondere) {
+        this.pondere = pondere;
     }
-
-    public static Criteria findCriteriaaById(ArrayList<Criteria> array, int id) {
-        for(Criteria c : array) {
-            if(c.id == id) {
-                return c;
-            }
-        }
-
-        return null;
-    }
-
 }

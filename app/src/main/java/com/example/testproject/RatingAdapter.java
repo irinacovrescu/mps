@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.example.testproject.Data.Criteria;
+import com.example.testproject.Data.CriteriaExtended;
 import com.example.testproject.Data.Grade;
 import com.example.testproject.Data.GradingForm;
 
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class RatingAdapter extends ArrayAdapter<Grade>{
 
     Context context;
-    private ArrayList<Criteria> questions;
+    private ArrayList<CriteriaExtended> questions;
     private GradingForm viewModel;
 
     private static class ViewHolder {
@@ -26,7 +26,7 @@ public class RatingAdapter extends ArrayAdapter<Grade>{
         RatingBar noStars;
     }
 
-    public RatingAdapter(Context context, ArrayList<Criteria> questions, GradingForm viewModel) {
+    public RatingAdapter(Context context, ArrayList<CriteriaExtended> questions, GradingForm viewModel) {
 
         super(context, R.layout.grading_form_element, viewModel.getGrades());
         this.questions = questions;
@@ -59,7 +59,7 @@ public class RatingAdapter extends ArrayAdapter<Grade>{
         viewHolder.noStars.setId(position);
         viewHolder.noStars.setTag(dataModel.getCriteriaId());
 
-        Criteria question = Criteria.findCriteriaaById(questions, dataModel.getCriteriaId());
+        CriteriaExtended question = CriteriaExtended.findCriteriaaById(questions, dataModel.getCriteriaId());
 
         if (question != null) {
             viewHolder.txtQuestion.setText(question.getName());
