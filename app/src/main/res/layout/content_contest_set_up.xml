@@ -1,39 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ContestSetUpActivity"
     tools:showIn="@layout/activity_contest_set_up">
 
-    <ScrollView
-        android:id="@+id/scrollView"
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="match_parent"
+        android:background="#3ABEAA">
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        android:layout_marginBottom="10dp">
+
+        <TextView
+            android:id="@+id/rounds"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="25dp">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Set contest type"
+            android:textColor="#000000"
+            android:textSize="25sp" />
+
+        <Spinner
+            android:id="@+id/contesttype"
+            android:layout_width="140dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/rounds"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="70dp">
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Define number of sets" />
+                android:text="Define number of sets"
+                android:textSize="30sp"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:fontFamily="sans-serif-condensed"/>
 
             <EditText
                 android:id="@+id/addsets"
@@ -41,164 +92,300 @@
                 android:layout_height="match_parent"
                 android:ems="10"
                 android:inputType="number"
-                android:hint="Sets" />
+                android:hint="Sets"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:textSize="20sp"/>
 
             <Button
                 android:id="@+id/addsetsbutton"
-                android:layout_width="98dp"
+                android:layout_width="200dp"
                 android:layout_height="38dp"
-                android:text="Add Contestant" />
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Set contest type" />
-
-            <Spinner
-                android:id="@+id/contesttype"
-                android:layout_width="180dp"
-                android:layout_height="35dp" />
-
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Set the evaluation criterias" />
-
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#F00"
-                android:text="Warning: Max 60 points total!" />
-
-            <Button
-                android:id="@+id/pointsbutton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Reset Points allocated" />
-
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Originality" />
-
-            <EditText
-                android:id="@+id/originality"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="number" />
-
-            <Button
-                android:id="@+id/originalitybutton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Set" />
-
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Craftmanship" />
-
-            <EditText
-                android:id="@+id/craftmanship"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="number" />
-
-            <Button
-                android:id="@+id/craftmanshipbutton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Set" />
-
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Composition" />
-
-            <EditText
-                android:id="@+id/composition"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="number" />
-
-            <Button
-                android:id="@+id/compositionbutton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Set" />
-
-            <TextView
-                android:id="@+id/textView10"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Unity and Variety" />
-
-            <EditText
-                android:id="@+id/unity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="number" />
-
-            <Button
-                android:id="@+id/unitybutton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Set" />
-
-            <TextView
-                android:id="@+id/textView11"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Use of space" />
-
-            <EditText
-                android:id="@+id/space"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="number" />
-
-            <Button
-                android:id="@+id/spacebutton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Set" />
-
-            <TextView
-                android:id="@+id/textView12"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Interpretation" />
-
-            <EditText
-                android:id="@+id/interpretation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="number" />
-
-            <Button
-                android:id="@+id/interpretationbutton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Set" />
-
-            <Button
-                android:id="@+id/submit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Submit" />
+                android:text="Add Sets"
+                android:layout_gravity="center"
+                android:background="@drawable/btn_bg"
+                android:layout_marginTop="0dp"
+                android:fontFamily="sans-serif-condensed"/>
 
         </LinearLayout>
-    </ScrollView>
+
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="338dp"
+            android:layout_height="480dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_gravity="center"
+            android:background="@drawable/white_box"
+            android:layout_marginTop="20dp">
+
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Set the evaluation criterias"
+                    android:textAlignment="center"
+                    android:textColor="#000000"
+                    android:textSize="25sp"
+                    android:layout_marginTop="20dp"/>
+
+
+                <RelativeLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView7"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="Originality"
+                        android:textColor="#000000"
+                        android:textSize="25sp"
+                        android:layout_marginStart="20dp"/>
+
+                    <EditText
+                        android:id="@+id/originality"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@id/originalitybutton"
+                        android:ems="10"
+                        android:hint="0-60"
+                        android:inputType="number" />
+
+                    <Button
+                        android:id="@+id/originalitybutton"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:drawableStart="@drawable/add_black"
+                        android:background="#00000000"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="190dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="Craftmanship"
+                        android:textColor="#000000"
+                        android:textSize="25sp"
+                        android:layout_marginStart="20dp"/>
+
+                    <EditText
+                        android:id="@+id/craftmanship"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@id/craftmanshipbutton"
+                        android:ems="10"
+                        android:hint="0-60"
+                        android:inputType="number" />
+
+                    <Button
+                        android:id="@+id/craftmanshipbutton"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:drawableStart="@drawable/add_black"
+                        android:background="#00000000"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView9"
+                        android:layout_width="190dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="Composition"
+                        android:textColor="#000000"
+                        android:textSize="25sp"
+                        android:layout_marginStart="20dp"/>
+
+                    <EditText
+                        android:id="@+id/composition"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@id/compositionbutton"
+                        android:ems="10"
+                        android:hint="0-60"
+                        android:inputType="number" />
+
+                    <Button
+                        android:id="@+id/compositionbutton"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:drawableStart="@drawable/add_black"
+                        android:background="#00000000"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView10"
+                        android:layout_width="230dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="Unity and Variety"
+                        android:textColor="#000000"
+                        android:textSize="25sp"
+                        android:layout_marginStart="20dp"/>
+
+                    <EditText
+                        android:id="@+id/unity"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@id/unitybutton"
+                        android:ems="10"
+                        android:hint="0-60"
+                        android:inputType="number" />
+
+                    <Button
+                        android:id="@+id/unitybutton"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:drawableStart="@drawable/add_black"
+                        android:background="#00000000"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView11"
+                        android:layout_width="180dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="Use of space"
+                        android:textColor="#000000"
+                        android:textSize="25sp"
+                        android:layout_marginStart="20dp"/>
+
+                    <EditText
+                        android:id="@+id/space"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@id/spacebutton"
+                        android:ems="10"
+                        android:hint="0-60"
+                        android:inputType="number" />
+
+                    <Button
+                        android:id="@+id/spacebutton"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:drawableStart="@drawable/add_black"
+                        android:background="#00000000"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView12"
+                        android:layout_width="190dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="Interpretation"
+                        android:textColor="#000000"
+                        android:textSize="25sp"
+                        android:layout_marginStart="20dp"/>
+
+                    <EditText
+                        android:id="@+id/interpretation"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@id/interpretationbutton"
+                        android:ems="10"
+                        android:hint="0-60"
+                        android:inputType="number" />
+
+                    <Button
+                        android:id="@+id/interpretationbutton"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:drawableStart="@drawable/add_black"
+                        android:background="#00000000"/>
+
+                </RelativeLayout>
+
+                <Button
+                    android:id="@+id/pointsbutton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/et_bg"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Reset Points allocated" />
+
+                <Button
+                    android:id="@+id/submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/et_bg"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Submit" />
+
+            </GridLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+

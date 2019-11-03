@@ -13,11 +13,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.testproject.Data.Judge;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class AuthActivity extends AppCompatActivity {
 
@@ -27,6 +33,7 @@ public class AuthActivity extends AppCompatActivity {
     EditText usernameBox, passwordBox;
 
     private FirebaseAuth firebaseAuth;
+    private FirebaseDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +46,12 @@ public class AuthActivity extends AppCompatActivity {
         cancelButton = findViewById(R.id.cancelButton);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        db = FirebaseDatabase.getInstance();
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signIn(usernameBox.getText().toString(), passwordBox.getText().toString());
+                StartLogIn(usernameBox.getText().toString(), passwordBox.getText().toString());
             }
         });
 
@@ -67,7 +75,7 @@ public class AuthActivity extends AppCompatActivity {
         switchActivity(currentUser);
     }
 
-    private void signIn(String email, String password) {
+    private void StartLogIn(String email, String password) {
         if (!validateForm()) {
             return;
         }
@@ -75,12 +83,64 @@ public class AuthActivity extends AppCompatActivity {
         // hardcode email address because reasons :)
         email += "@mps.com";
 
+        if (email.equals("admin@mps.com")) {
+            final DatabaseReference adminRef =  FirebaseDatabase.getInstance().getReference("ADMIN").child("loggedIn");
+            getAdminAuthAndSignIn(adminRef, email, password);
+        } else if (email.contains("jury")) {
+            String juryUID = email.substring(4,5);
+            final DatabaseReference juryRef = FirebaseDatabase.getInstance().getReference("JUDGE").child(juryUID).child("loggedIn");
+
+            getJuryAuthAndSignIn(juryRef, juryUID, email, password);
+        }
+    }
+
+    private void getJuryAuthAndSignIn(final DatabaseReference juryRef, final String juryUID, final String email, final String password) {
+        FirebaseDatabase.getInstance().getReference("JUDGE").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Judge judge = dataSnapshot.child(juryUID).getValue(Judge.class);
+                if (!judge.getLoggedIn()) {
+                    signIn(email, password, juryRef);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Already LOGGED IN", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void getAdminAuthAndSignIn(final DatabaseReference docRef, final String email, final String password) {
+        docRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Boolean adminAuth = (Boolean) dataSnapshot.getValue();
+                if (!adminAuth)
+                    signIn(email, password, docRef);
+                else {
+                    Toast.makeText(getApplicationContext(), "Already LOGGED IN", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void signIn(final String email, final String password, final DatabaseReference documentReference) {
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     Log.d(TAG, "signedInSuccesfully");
                     FirebaseUser user = firebaseAuth.getCurrentUser();
+                    //setLoggedStatus(documentReference, email.substring(0, email.indexOf('@')), true);
+                    setLoggedStatus(documentReference, true);
                     switchActivity(user);
                 } else {
                     Log.d(TAG, "signInFailed!");
@@ -91,8 +151,12 @@ public class AuthActivity extends AppCompatActivity {
     }
 
     private void signOut() {
-
+        //TODO: SET TO FALSE
         firebaseAuth.signOut();
+    }
+
+    public static void setLoggedStatus(DatabaseReference documentReference, final Boolean loggedIn) {
+        documentReference.setValue(loggedIn);
     }
 
     private boolean validateForm() {
@@ -122,12 +186,12 @@ public class AuthActivity extends AppCompatActivity {
             if (user.getEmail().equals("admin@mps.com")) {
                 //switch activity to admin
                 Toast.makeText(getApplicationContext(), "Welcome Admin!", Toast.LENGTH_SHORT).show();
-                Intent myIntent = new Intent(AuthActivity.this,   AdminMenuActivity.class);
+                Intent myIntent = new Intent(AuthActivity.this, AdminMenuActivity.class);
                 AuthActivity.this.startActivity(myIntent);
-            } else if (user.getEmail().equals("jury1@mps.com") || user.getEmail().equals("jury1@mps.com")) {
+            } else if (user.getEmail().contains("jury")) {
                 //switch activity to jury
                 Toast.makeText(getApplicationContext(), "Welcome Jury!", Toast.LENGTH_SHORT).show();
-                Intent myIntent = new Intent(AuthActivity.this,   GradingActivity.class);
+                Intent myIntent = new Intent(AuthActivity.this, GradingActivity.class);
                 AuthActivity.this.startActivity(myIntent);
             }
         }

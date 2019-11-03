@@ -41,7 +41,7 @@
             android:background="@drawable/button2"
             android:clickable="true"
             android:padding="15sp"
-            android:text="Leader board"
+            android:text="Leaderboard"
             android:textAllCaps="false"
             android:textColor="#000000"
             android:textSize="20sp"

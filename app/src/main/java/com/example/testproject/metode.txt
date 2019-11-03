@@ -16,6 +16,54 @@ import java.util.List;
 
 Metode:
 
+
+    public void addCriterias(ArrayList<Criteria> list){
+
+        //Obtine referinta catre baza de date la adresa dorita
+        final DatabaseReference databaseRef =  FirebaseDatabase.getInstance().getReference("criteria");
+        databaseRef.setValue(list);
+
+    }
+
+    public void addParticipant(String serie, String id, String nume, Integer nrProbe){
+
+        //Obtine referinta catre baza de date la adresa dorita
+        final DatabaseReference databaseRef =  FirebaseDatabase.getInstance().getReference("participants").child(serie);
+
+        Participant p = new Participant(nume,nrProbe);
+        databaseRef.child(id).setValue(p);
+
+    }
+    public void getCriteria(){
+
+        //Obtine referinta catre baza de date la adresa dorita
+        final DatabaseReference databaseRef =  FirebaseDatabase.getInstance().getReference("criteria");
+
+        //La fiecare schimbare de date
+        databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //Creaza lista
+                ArrayList<Criteria> list = new ArrayList<>();
+
+                //Itereaza prin dataSnapshot-uri (ce reprezinta serii)
+                Iterator<DataSnapshot> serieIterator = dataSnapshot.getChildren().iterator();
+                while (serieIterator.hasNext()) {
+                    //Itereaza prin dataSnapshot-uri (ce reprezinta participanti)
+                    DataSnapshot d = serieIterator.next();
+
+                    list.add(d.getValue(Criteria.class));
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+    
     public void addParticipant(String serie, String id, String nume, Integer nrProbe){
 
         //Obtine referinta catre baza de date la adresa dorita
