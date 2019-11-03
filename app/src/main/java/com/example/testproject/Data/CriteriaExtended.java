@@ -12,7 +12,9 @@ public class CriteriaExtended extends Criteria {
         super(nume, pondere);
         String[] s = nume.split("=");
         qname = s[0];
-        details = s[1];
+        if(s.length > 1) {
+            details = s[1];
+        }
         this.id = id;
     }
 
