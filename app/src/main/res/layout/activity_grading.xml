@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.testproject.Contestant"/>
+            type="com.example.testproject.ParticipantExtended"/>
     </data>
 
     <ViewFlipper
@@ -20,7 +20,7 @@
 
             <LinearLayout
                 android:orientation="vertical"
-                android:id="@+id/contestants"
+                android:id="@+id/participantsExtended"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:background="@drawable/blue_background">
