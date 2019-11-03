@@ -1,21 +1,21 @@
 package com.example.testproject.Data;
 
 import androidx.databinding.BaseObservable;
-import com.example.testproject.Contestant;
+import com.example.testproject.ParticipantExtended;
 import java.util.ArrayList;
 
 public class GradingForm extends BaseObservable {
 
-    private Contestant contestant;
+    private ParticipantExtended participantExtended;
     private ArrayList<Grade> grades;
 
-    public GradingForm(Contestant contestant) {
+    public GradingForm(ParticipantExtended participantExtended) {
 
-        this.contestant = contestant;
+        this.participantExtended = participantExtended;
     }
 
-    public Contestant getContestant() {
-        return contestant;
+    public ParticipantExtended getParticipantExtended() {
+        return participantExtended;
     }
 
     public ArrayList<Grade> getGrades() {
@@ -41,7 +41,7 @@ public class GradingForm extends BaseObservable {
 
     public static GradingForm getGradingFormByContestantId(ArrayList<GradingForm> array, int contestantId) {
         for(GradingForm g : array) {
-            if(g.contestant.getId() == contestantId)
+            if(g.participantExtended.getId() == contestantId)
                 return g;
         }
 

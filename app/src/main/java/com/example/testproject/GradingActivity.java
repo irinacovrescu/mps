@@ -8,16 +8,14 @@ import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import com.example.testproject.Data.CallbackParticipants;
+import com.example.testproject.Data.Constants;
 import com.example.testproject.Data.CriteriaExtended;
 import com.example.testproject.Data.Criteria;
+import com.example.testproject.Data.DatabaseHelper;
 import com.example.testproject.Data.GradingForm;
-import com.example.testproject.Data.MyCallback;
+import com.example.testproject.Data.CallbackCriteria;
 import com.example.testproject.databinding.ActivityGradingBinding;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import android.view.View;
 import android.widget.ListView;
@@ -25,7 +23,7 @@ import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashMap;
 
 public class GradingActivity extends AppCompatActivity {
 
@@ -34,7 +32,7 @@ public class GradingActivity extends AppCompatActivity {
 
     private ArrayList<GradingForm> formData;
     private ArrayList<CriteriaExtended> criteriaExtended;
-    private ArrayList<Contestant> contestants;
+    ArrayList<ParticipantExtended> participantsExtended;
 
     private ListView listView;
     private ActivityGradingBinding binding;
@@ -47,18 +45,6 @@ public class GradingActivity extends AppCompatActivity {
     private boolean inGradingForm = false;
     private boolean finishedGrading = false;
 
-    private final int CONTESTANTS_LAYOUT = 0;
-    private final int GRADING_LAYOUT = 1;
-    private final int FINISHED_GRADING_LAYOUT = 2;
-
-    private final int CONTESTANT_NOT_GRADED = 0;
-    private final int CONTESTANT_OUT = 1;
-    private final int CONTESTANT_DISQUALIFIED = 2;
-    private final int CONTESTANT_GRADED = 3;
-    private final int DONE = 4;
-    private final int SUBMIT = 5;
-    private final int RETURN = 6;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,14 +52,20 @@ public class GradingActivity extends AppCompatActivity {
     }
 
     public void getDataFromServer() {
-        getCriteria(new MyCallback() {
+        DatabaseHelper.getCriteria(new CallbackCriteria() {
             @Override
             public void onCallBack(ArrayList<Criteria> criteria) {
-                contestants = getContestants();
-                prepareData(criteria);
-                prepareUIElements();
-                createContestantElements(criteria);
-                createSubmitButton();
+
+                DatabaseHelper.getParticipants(criteria, new CallbackParticipants() {
+                    @Override
+                    public void onCallBack(ArrayList<HashMap<String, Participant>>  participants, ArrayList<Criteria> criteria) {
+                        participantsExtended = getParticipantExtendeds(participants);
+                        prepareData(criteria);
+                        prepareUIElements();
+                        createContestantElements(criteria, participantsExtended);
+                        createSubmitButton();
+                    }
+                });
             }
         });
     }
@@ -87,14 +79,14 @@ public class GradingActivity extends AppCompatActivity {
         vf = findViewById( R.id.grading_activity);
         listView = findViewById(R.id.values_list);
         listView.setItemsCanFocus(true);
-        contestantsLayout = findViewById(R.id.contestants);
+        contestantsLayout = findViewById(R.id.participantsExtended);
         finishedGradingLayout = findViewById(R.id.finished_grading);
 
         TextView contestantsText = findViewById(R.id.contestants_text);
         contestantsText.setText("CONTESTANTS");
 
         final Button submitButtonC = findViewById(R.id.submit_button_contestant);
-        submitButtonC.getBackground().setLevel(DONE);
+        submitButtonC.getBackground().setLevel(Constants.DONE);
         submitButtonC.setText("DONE");
         submitButtonC.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -103,16 +95,16 @@ public class GradingActivity extends AppCompatActivity {
         });
     }
 
-    private void createContestantElements(ArrayList<Criteria> criteria) {
+    private void createContestantElements(ArrayList<Criteria> criteria, ArrayList<ParticipantExtended> participantsExtended) {
         formData = new ArrayList<>();
 
-        for(Contestant c : contestants) {
+        for(ParticipantExtended c : participantsExtended) {
             createButtonForContestant(c);
             formData.add(createGradingFormForContestant(c, criteria));
         }
     }
 
-    public GradingForm createGradingFormForContestant(Contestant c, ArrayList<Criteria> criteria) {
+    public GradingForm createGradingFormForContestant(ParticipantExtended c, ArrayList<Criteria> criteria) {
         GradingForm gradingForm = new GradingForm(c);
         for(int i = 0; i < criteria.size(); i++) {
             gradingForm.addGrade(i);
@@ -123,7 +115,7 @@ public class GradingActivity extends AppCompatActivity {
 
     private void createReturnButton() {
         returnButton = findViewById(R.id.returnbutton);
-        returnButton.getBackground().setLevel(RETURN);
+        returnButton.getBackground().setLevel(Constants.RETURN);
         returnButton.setText("Return");
         returnButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -133,10 +125,10 @@ public class GradingActivity extends AppCompatActivity {
         });
     }
 
-    private void createButtonForContestant(Contestant c) {
+    private void createButtonForContestant(ParticipantExtended c) {
         final Button contestantButton = (Button) getLayoutInflater()
                 .inflate(R.layout.contestant_button_template, contestantsLayout, false);
-        contestantButton.getBackground().setLevel(CONTESTANT_NOT_GRADED);
+        contestantButton.getBackground().setLevel(Constants.CONTESTANT_NOT_GRADED);
         contestantButton.setId(c.getId());
         contestantButton.setText(c.getName());
         contestantsLayout.addView(contestantButton);
@@ -150,23 +142,23 @@ public class GradingActivity extends AppCompatActivity {
         setColorForContestantButton(c, contestantButton);
     }
 
-    private void setColorForContestantButton(Contestant c, Button contestantButton) {
-        if(c.isDisqualified()) {
+    private void setColorForContestantButton(ParticipantExtended c, Button contestantButton) {
+        if(c.getDisqualified()) {
             contestantButton.setEnabled(false);
-            contestantButton.getBackground().setLevel(CONTESTANT_DISQUALIFIED);
+            contestantButton.getBackground().setLevel(Constants.CONTESTANT_DISQUALIFIED);
 
         }
 
-        if(c.isOutOfCompetition()) {
+        if(c.getOutOfCompetition()) {
             contestantButton.setEnabled(false);
-            contestantButton.getBackground().setLevel(CONTESTANT_OUT);
+            contestantButton.getBackground().setLevel(Constants.CONTESTANT_OUT);
         }
     }
 
     private void createSubmitButton() {
         submitButton = (Button) getLayoutInflater()
                 .inflate(R.layout.submit_button_template, contestantsLayout, false);
-        submitButton.getBackground().setLevel(SUBMIT);
+        submitButton.getBackground().setLevel(Constants.SUBMIT);
         submitButton.setEnabled(false);
         submitButton.setText("Submit");
         submitButton.setOnClickListener(new View.OnClickListener() {
@@ -180,7 +172,7 @@ public class GradingActivity extends AppCompatActivity {
 
 
     public void submit() {
-        vf.setDisplayedChild(FINISHED_GRADING_LAYOUT);
+        vf.setDisplayedChild(Constants.FINISHED_GRADING_LAYOUT);
         finishedGrading = true;
         TextView thank_you_text = findViewById(R.id.thank_you_text);
         thank_you_text.setText("Thank you for submitting your grades!");
@@ -190,7 +182,7 @@ public class GradingActivity extends AppCompatActivity {
     }
 
     public void submitForOneContestant() {
-        vf.setDisplayedChild(CONTESTANTS_LAYOUT);
+        vf.setDisplayedChild(Constants.CONTESTANTS_LAYOUT);
         updateContestantButton();
         updateSubmitButton();
         inGradingForm = false;
@@ -200,15 +192,15 @@ public class GradingActivity extends AppCompatActivity {
         GradingForm currentGradingForm = GradingForm.getGradingFormByContestantId(formData, contestantId);
         adapter = new RatingAdapter(getApplicationContext(), criteriaExtended, currentGradingForm);
         listView.setAdapter(adapter);
-        binding.setViewModel(currentGradingForm.getContestant());
+        binding.setViewModel(currentGradingForm.getParticipantExtended());
 
         TextView nameOfContestant = findViewById(R.id.name_of_contestant);
-        nameOfContestant.setText(currentGradingForm.getContestant().getName());
+        nameOfContestant.setText(currentGradingForm.getParticipantExtended().getName());
 
-        currentGradingForm.getContestant().setGraded(true);
+        currentGradingForm.getParticipantExtended().setGraded(true);
         inGradingForm = true;
 
-        changeDisplayedLayout(GRADING_LAYOUT);
+        changeDisplayedLayout(Constants.GRADING_LAYOUT);
     }
 
     @Override
@@ -219,30 +211,30 @@ public class GradingActivity extends AppCompatActivity {
         if(inGradingForm) {
             updateContestantButton();
             updateSubmitButton();
-            changeDisplayedLayout(CONTESTANTS_LAYOUT);
+            changeDisplayedLayout(Constants.CONTESTANTS_LAYOUT);
         } else {
-            changeDisplayedLayout(GRADING_LAYOUT);
+            changeDisplayedLayout(Constants.GRADING_LAYOUT);
         }
         inGradingForm = !inGradingForm;
     }
 
     private void updateContestantButton() {
-        Contestant currentContestant = binding.getViewModel();
-        Button contestantButton = findViewById(currentContestant.getId());
-        if(currentContestant.isGraded()) {
-            contestantButton.getBackground().setLevel(CONTESTANT_GRADED);
+        ParticipantExtended currentParticipantExtended = binding.getViewModel();
+        Button contestantButton = findViewById(currentParticipantExtended.getId());
+        if(currentParticipantExtended.isGraded()) {
+            contestantButton.getBackground().setLevel(Constants.CONTESTANT_GRADED);
         }
     }
 
     private void updateSubmitButton() {
 
-        submitButton.setEnabled(isSubmitEnabled());
+        submitButton.setEnabled(isSubmitEnabled(participantsExtended));
     }
 
-    private boolean isSubmitEnabled() {
+    private boolean isSubmitEnabled(ArrayList<ParticipantExtended> participantsExtended) {
 
-        for(Contestant c : contestants) {
-            if(!c.isGraded() && !c.isOutOfCompetition() && !c.isDisqualified()) {
+        for(ParticipantExtended c : participantsExtended) {
+            if(!c.isGraded() && !c.getOutOfCompetition() && !c.getDisqualified()) {
                 return false;
             }
         }
@@ -254,42 +246,20 @@ public class GradingActivity extends AppCompatActivity {
         vf.setDisplayedChild(layout);
     }
 
-    public void getCriteria(final MyCallback myCallback){
 
-        final DatabaseReference databaseRef =  FirebaseDatabase.getInstance().getReference("criteria");
-        databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<Criteria> list = new ArrayList<>();
 
-                Iterator<DataSnapshot> serieIterator = dataSnapshot.getChildren().iterator();
-                while (serieIterator.hasNext()) {
-                    //Itereaza prin dataSnapshot-uri (ce reprezinta participanti)
-                    DataSnapshot d = serieIterator.next();
-                    list.add(d.getValue(Criteria.class));
-                }
-                myCallback.onCallBack(list);
-            }
+    private ArrayList<ParticipantExtended> getParticipantExtendeds(ArrayList<HashMap<String, Participant>>  participants) {
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+        ArrayList<ParticipantExtended> participantsExtended = new ArrayList<>();
+        HashMap<String, Participant> allParticipants = participants.get(0);
 
-            }
-        });
-    }
+        for(String key : allParticipants.keySet()) {
+            participantsExtended.add(new ParticipantExtended(allParticipants.get(key).getName(),
+                    allParticipants.get(key).getThisRound_results().size(),
+                    Integer.parseInt(key)));
+        }
 
-    private ArrayList<Contestant> getContestants() {
-        ArrayList<Contestant> contestants = new ArrayList<>();
-        contestants.add(new Contestant("Irina Covrescu", 1));
-        contestants.add(new Contestant("Teodora Labusca", 2));
-        contestants.add(new Contestant("Daniela Ion", 3));
-        contestants.add(new Contestant("Raul Cremenescu", 4));
-        contestants.add(new Contestant("Eric Postolache", 5));
-
-        contestants.get(1).setDisqualified(true);
-        contestants.get(3).setOutOfCompetition(true);
-
-        return contestants;
+        return participantsExtended;
     }
 
     private ArrayList<CriteriaExtended> getExtendedCriteria(ArrayList<Criteria> criteria) {

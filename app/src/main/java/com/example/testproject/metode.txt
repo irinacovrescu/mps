@@ -122,8 +122,6 @@ Metode:
         });
     }
 
-
-
     public void getParticipants(){
 
         //Obtine referinta catre baza de date la adresa dorita
