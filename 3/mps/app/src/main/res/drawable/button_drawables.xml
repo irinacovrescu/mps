@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<level-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--    Contestant button -->
+    <item android:maxLevel="0">
+        <shape>
+            <stroke android:width="3dp"
+                android:color="#8B6735B8" />
+            <corners android:radius="25dp" />
+            <solid android:color="#5B6735B8"/>
+        </shape>
+    </item>
+    <!--    Contestant button out -->
+    <item android:maxLevel="1">
+        <shape>
+            <stroke android:width="3dp"
+                android:color="#86615174" />
+            <corners android:radius="25dp" />
+            <solid android:color="#4F8972A3"/>
+        </shape>
+    </item>
+    <!--    Contestant button disqualified -->
+    <item android:maxLevel="2">
+        <shape xmlns:android="http://schemas.android.com/apk/res/android" >
+            <stroke android:width="3dp"
+                android:color="#B5444444" />
+            <corners android:radius="25dp" />
+            <solid android:color="#86444444"/>
+        </shape>
+    </item>
+    <!--    Contestant button graded -->
+    <item android:maxLevel="3">
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
+            <stroke android:width="3dp"
+                android:color="#4A36685F" />
+            <corners android:radius="25dp" />
+            <solid android:color="#4A63BAAA"/>
+        </shape>
+    </item>
+    <!--    Contestant button done -->
+    <item android:maxLevel="4">
+        <shape xmlns:android="http://schemas.android.com/apk/res/android" >
+            <stroke android:width="3dp"
+                android:color="#56DDC69E" />
+            <corners android:radius="1000dp" />
+            <solid android:color="#92DDC69E"/>
+        </shape>
+    </item>
+    <!--    Contestant button submit -->
+    <item android:maxLevel="5">
+        <shape xmlns:android="http://schemas.android.com/apk/res/android" >
+            <stroke android:width="3dp"
+                android:color="#4B3D5853" />
+            <corners android:radius="1000dp" />
+            <solid android:color="#BE3C9282"/>
+        </shape>
+    </item>
+    <!--    Contestant button return -->
+    <item android:maxLevel="6">
+        <shape xmlns:android="http://schemas.android.com/apk/res/android" >
+            <stroke android:width="3dp"
+                android:color="#4B3D5853" />
+            <corners android:radius="1000dp" />
+            <solid android:color="#BE3C9282"/>
+        </shape>
+    </item>
+
+</level-list>
