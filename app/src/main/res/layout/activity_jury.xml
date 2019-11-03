@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AdminMenu.JuryActivity">
+    tools:context=".JuryActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -12,6 +12,8 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
     </com.google.android.material.appbar.AppBarLayout>
+
+    <include layout="@layout/toolbar" />
 
     <include layout="@layout/content_jury" />
 
