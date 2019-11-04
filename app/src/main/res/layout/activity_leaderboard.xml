@@ -13,16 +13,38 @@ tools:context="com.example.testproject.MainActivity">
     android:theme="@style/AppTheme.AppBarOverlay">
 
 </com.google.android.material.appbar.AppBarLayout>
-    <LinearLayout
-        android:orientation="vertical"
-        android:id="@+id/roundsExtended"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:background="@drawable/blue_background">
 
-<!--        <include layout="@layout/content_leaderboard" />-->
-        <include layout="@layout/text_view_template"
-            android:id="@+id/roundNumber"/>
-    </LinearLayout>
+    <ViewFlipper
+        android:id="@+id/viewflipper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/roundsExtended"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:background="@drawable/blue_background">
+
+            <!--        <include layout="@layout/content_leaderboard" />-->
+            <include layout="@layout/text_view_template"
+                android:id="@+id/roundNumber"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearlayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:background="@drawable/blue_background">
+
+            <Button
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Button" />
+        </LinearLayout>
+    </ViewFlipper>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
