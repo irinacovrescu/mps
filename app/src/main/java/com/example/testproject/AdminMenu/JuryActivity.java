@@ -56,7 +56,7 @@ public class JuryActivity extends AppCompatActivity {
                 } else if (Integer.parseInt(toParse) <= 7) {
                     clearOldJudgeData();
                     final int nrOfJudges = Integer.parseInt(toParse);
-                    final DatabaseReference judgesRef = db.getReference("JUDGE").child("nrOfJudges");
+                    final DatabaseReference judgesRef = db.getReference("nrOfJudges");
 
                     judgesRef.setValue(nrOfJudges).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
@@ -83,8 +83,7 @@ public class JuryActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot judgeSnapshot : dataSnapshot.getChildren()) {
-                    if (!judgeSnapshot.getKey().equals("nrOfJudges"))
-                        judgeSnapshot.getRef().removeValue();
+                    judgeSnapshot.getRef().removeValue();
                 }
             }
 
