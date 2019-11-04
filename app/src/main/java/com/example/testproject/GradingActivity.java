@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.example.testproject.Data.CallbackParticipants;
+import com.example.testproject.Data.CallbackSubmit;
 import com.example.testproject.Data.Constants;
 import com.example.testproject.Data.CriteriaExtended;
 import com.example.testproject.Data.Criteria;
@@ -37,7 +38,10 @@ public class GradingActivity extends AppCompatActivity {
 
     private ArrayList<GradingForm> formData;
     private ArrayList<CriteriaExtended> criteriaExtended;
-    ArrayList<ParticipantExtended> participantsExtended;
+    private ArrayList<ParticipantExtended> participantsExtended;
+
+    // to do: get value from database
+    private final Integer roundNumber = 1;
 
     private ListView listView;
     private ActivityGradingBinding binding;
@@ -63,8 +67,9 @@ public class GradingActivity extends AppCompatActivity {
 
                 DatabaseHelper.getParticipants(criteria, new CallbackParticipants() {
                     @Override
-                    public void onCallBack(ArrayList<HashMap<String, Participant>>  participants, ArrayList<Criteria> criteria) {
-                        participantsExtended = getParticipantExtended(participants);
+                    public void onCallBack(HashMap<String, HashMap<String, Participant>> participants,
+                                           ArrayList<Criteria> criteria) {
+                        participantsExtended = getParticipantExtended(participants, criteria);
                         prepareData(criteria);
                         prepareUIElements();
                         createContestantElements(criteria, participantsExtended);
@@ -100,7 +105,8 @@ public class GradingActivity extends AppCompatActivity {
         });
     }
 
-    private void createContestantElements(ArrayList<Criteria> criteria, ArrayList<ParticipantExtended> participantsExtended) {
+    private void createContestantElements(ArrayList<Criteria> criteria,
+                                          ArrayList<ParticipantExtended> participantsExtended) {
         formData = new ArrayList<>();
 
         for(ParticipantExtended c : participantsExtended) {
@@ -109,7 +115,8 @@ public class GradingActivity extends AppCompatActivity {
         }
     }
 
-    public GradingForm createGradingFormForContestant(ParticipantExtended c, ArrayList<Criteria> criteria) {
+    public GradingForm createGradingFormForContestant(ParticipantExtended c,
+                                                      ArrayList<Criteria> criteria) {
         GradingForm gradingForm = new GradingForm(c);
         for(int i = 0; i < criteria.size(); i++) {
             gradingForm.addGrade(i);
@@ -124,7 +131,7 @@ public class GradingActivity extends AppCompatActivity {
         returnButton.setText("Return");
         returnButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent myIntent = new Intent(GradingActivity.this,   MainActivity.class);
+                Intent myIntent = new Intent(GradingActivity.this, MainActivity.class);
                 GradingActivity.this.startActivity(myIntent);
             }
         });
@@ -175,23 +182,35 @@ public class GradingActivity extends AppCompatActivity {
         participantsLayout.addView(submitButton);
     }
 
-
     public void submit() {
-        vf.setDisplayedChild(Constants.FINISHED_GRADING_LAYOUT);
-        finishedGrading = true;
-        TextView thank_you_text = findViewById(R.id.thank_you_text);
-        thank_you_text.setText("Thank you for submitting your grades!");
-        signoutJury();
-        // TO DO: prepare data and send to database
 
-        createReturnButton();
+        //prepare data and send to database
+        Integer lastParticipantId = formData.size();
+        for(GradingForm gf : formData) {
+            ParticipantExtended p = gf.getParticipantExtended();
+            DatabaseHelper.evaluateParticipants(p.getNrSerie(), p.getId().toString(), roundNumber,
+                    gf.getResultsForDatabase(), this.criteriaExtended, lastParticipantId,
+                    new CallbackSubmit() {
+                        @Override
+                        public void onCallBack() {
+                            vf.setDisplayedChild(Constants.FINISHED_GRADING_LAYOUT);
+                            finishedGrading = true;
+                            TextView thank_you_text = findViewById(R.id.thank_you_text);
+                            thank_you_text.setText("Thank you for submitting your grades!");
+                            signoutJury();
+
+                            createReturnButton();
+                        }
+                    });
+        }
     }
 
     private void signoutJury() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             String juryUID = user.getEmail().substring(4, 5);
-            final DatabaseReference juryRef = FirebaseDatabase.getInstance().getReference("JUDGE").child(juryUID).child("loggedIn");
+            final DatabaseReference juryRef = FirebaseDatabase.getInstance()
+                    .getReference("JUDGE").child(juryUID).child("loggedIn");
             AuthActivity.setLoggedStatus(juryRef, false);
             Log.d(TAG, "Jury signed out!");
         }
@@ -262,17 +281,19 @@ public class GradingActivity extends AppCompatActivity {
         vf.setDisplayedChild(layout);
     }
 
-
-
-    private ArrayList<ParticipantExtended> getParticipantExtended(ArrayList<HashMap<String, Participant>>  participants) {
+    private ArrayList<ParticipantExtended> getParticipantExtended(HashMap<String, HashMap<String, Participant>> participants,
+                                                                  ArrayList<Criteria> criteria) {
 
         ArrayList<ParticipantExtended> participantsExtended = new ArrayList<>();
-        HashMap<String, Participant> allParticipants = participants.get(0);
 
-        for(String key : allParticipants.keySet()) {
-            participantsExtended.add(new ParticipantExtended(allParticipants.get(key).getName(),
-                    allParticipants.get(key).getThisRound_results().size(),
-                    Integer.parseInt(key)));
+        for(String seriesKey : participants.keySet()) {
+            for(String key : participants.get(seriesKey).keySet()) {
+                ParticipantExtended p = new ParticipantExtended(participants.get(seriesKey).get(key),
+                        criteria.size(),
+                        Integer.parseInt(key),
+                        seriesKey);
+                participantsExtended.add(p);
+            }
         }
 
         return participantsExtended;
@@ -282,7 +303,8 @@ public class GradingActivity extends AppCompatActivity {
 
         ArrayList<CriteriaExtended> criteriaExtended = new ArrayList<>();
         for(int i = 0; i < criteria.size(); i++) {
-            criteriaExtended.add(new CriteriaExtended(criteria.get(i).getNume(), criteria.get(i).getPondere(), i));
+            criteriaExtended.add(new CriteriaExtended(criteria.get(i).getNume(),
+                    criteria.get(i).getPondere(), i));
         }
         return criteriaExtended;
     }

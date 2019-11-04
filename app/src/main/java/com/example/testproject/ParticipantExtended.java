@@ -2,15 +2,19 @@ package com.example.testproject;
 
 public class ParticipantExtended extends Participant {
 
-    private int id;
+    private Integer id;
     private boolean graded;
+    private String nrSerie;
 
-    public ParticipantExtended(String name, Integer nrProbe, int id) {
-        super(name, nrProbe);
+    public ParticipantExtended(Participant p, Integer nrProbe, int id, String nrSerie) {
+        super(p.getName(), nrProbe);
         this.id = id;
+        this.nrSerie = nrSerie;
+        this.setDisqualified(p.getDisqualified());
+        this.setOutOfCompetition(p.getOutOfCompetition());
     }
 
-    public int getId() {
+    public Integer getId() {
         return this.id;
     }
 
@@ -20,5 +24,9 @@ public class ParticipantExtended extends Participant {
 
     public void setGraded(boolean graded) {
         this.graded = graded;
+    }
+
+    public String getNrSerie() {
+        return nrSerie;
     }
 }

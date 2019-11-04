@@ -18,6 +18,15 @@ public class GradingForm extends BaseObservable {
         return participantExtended;
     }
 
+    public ArrayList<Integer> getResultsForDatabase() {
+        ArrayList<Integer> results = new ArrayList<>();
+        for(Grade g : grades) {
+            results.add(g.getNoStars());
+        }
+
+        return results;
+    }
+
     public ArrayList<Grade> getGrades() {
         return grades;
     }

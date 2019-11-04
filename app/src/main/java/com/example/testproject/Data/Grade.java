@@ -3,7 +3,7 @@ package com.example.testproject.Data;
 public class Grade {
 
     private int criteriaId;
-    private int noStars;
+    private Integer noStars;
 
     public Grade(int criteriaId) {
         this.criteriaId = criteriaId;
@@ -14,7 +14,7 @@ public class Grade {
         return criteriaId;
     }
 
-    public int getNoStars() {
+    public Integer getNoStars() {
         return noStars;
     }
 

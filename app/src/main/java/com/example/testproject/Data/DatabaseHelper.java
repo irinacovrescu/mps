@@ -15,7 +15,8 @@ public class DatabaseHelper {
 
     public static void getCriteria(final CallbackCriteria myCallback){
 
-        final DatabaseReference databaseRef =  FirebaseDatabase.getInstance().getReference("criteria");
+        final DatabaseReference databaseRef =  FirebaseDatabase.getInstance()
+                .getReference("criteria");
         databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -36,17 +37,19 @@ public class DatabaseHelper {
             }
         });
     }
-    public static void getParticipants(final ArrayList<Criteria> criteria, final CallbackParticipants myCallback){
+    public static void getParticipants(final ArrayList<Criteria> criteria,
+                                       final CallbackParticipants myCallback){
 
         //Obtine referinta catre baza de date la adresa dorita
-        final DatabaseReference databaseRef =  FirebaseDatabase.getInstance().getReference("participants");
+        final DatabaseReference databaseRef =  FirebaseDatabase.getInstance()
+                .getReference("participants");
 
         //La fiecare schimbare de date
-        databaseRef.addValueEventListener(new ValueEventListener() {
+        databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //Creaza lista
-                ArrayList<HashMap<String, Participant>> list = new ArrayList<>();
+                HashMap<String, HashMap<String, Participant>> list = new HashMap<>();
 
                 //Itereaza prin dataSnapshot-uri (ce reprezinta serii)
                 Iterator<DataSnapshot> serieIterator = dataSnapshot.getChildren().iterator();
@@ -60,9 +63,53 @@ public class DatabaseHelper {
                         DataSnapshot d = idIterator.next();
                         hashMap.put(d.getKey(), d.getValue(Participant.class));
                     }
-                    list.add(hashMap);
+                    list.put(key, hashMap);
                 }
                 myCallback.onCallBack(list, criteria);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public static void evaluateParticipants(String serie, final String id, final Integer nrRound,
+                                            final ArrayList<Integer> results,
+                                            final ArrayList<CriteriaExtended> criteria,
+                                            final Integer lastParticipantId,
+                                            final CallbackSubmit myCallback) {
+
+        final DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("participants").child(serie).child(id);
+
+        databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange( DataSnapshot dataSnapshot) {
+                Participant p = dataSnapshot.getValue(Participant.class);
+                if(!p.getDisqualified() && !p.getOutOfCompetition()) {
+                    if(nrRound != p.getThisRound_number()){
+                        p.setThisRound_number(nrRound);
+
+                        //This round points set to 0
+                        p.setThisRounds_points(0);
+                        p.setThisRound_juriesThatVoted(0);
+
+                        //This results set to 0
+                        int size = p.getThisRound_results().size();
+                        p.resetThisRound_results(size);
+                    }
+
+                    p.addToThisRound_results(results,criteria);
+                    p.addThisRound_juriesThatVoted();
+
+                    //overwrite
+                    databaseRef.setValue(p);
+
+                    if(id.equals(lastParticipantId.toString())) {
+                        myCallback.onCallBack();
+                    }
+                }
             }
 
             @Override

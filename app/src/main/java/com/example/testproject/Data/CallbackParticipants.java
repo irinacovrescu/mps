@@ -7,5 +7,5 @@ import java.util.HashMap;
 
 public interface CallbackParticipants {
 
-    void onCallBack(ArrayList<HashMap<String, Participant>>  value, ArrayList<Criteria> criteria);
+    void onCallBack(HashMap<String, HashMap<String, Participant>> value, ArrayList<Criteria> criteria);
 }

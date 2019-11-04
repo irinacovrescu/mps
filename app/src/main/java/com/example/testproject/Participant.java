@@ -80,6 +80,25 @@ public class Participant implements Comparable<Participant>{
         this.lastRounds_points = lastRounds_points;
     }
 
+    public void setThisRound_juriesThatVoted(Integer thisRound_juriesThatVoted) {
+        this.thisRound_juriesThatVoted = thisRound_juriesThatVoted;
+    }
+
+    public void setThisRounds_points(Integer thisRounds_points) {
+        this.thisRounds_points = thisRounds_points;
+    }
+
+    public void setThisRound_results(ArrayList<Integer> thisRound_results) {
+        this.thisRound_results = thisRound_results;
+    }
+
+    public void resetThisRound_results(Integer size) {
+        this.thisRound_results = new ArrayList<>();
+        for(int i = 0; i < size; i++) {
+            this.thisRound_results.add(0);
+        }
+    }
+
     public Integer getThisRounds_points() {
         return thisRounds_points;
     }
