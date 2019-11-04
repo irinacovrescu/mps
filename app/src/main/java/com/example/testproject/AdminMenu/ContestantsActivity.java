@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Pair;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.testproject.Participant;
 import com.example.testproject.R;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -46,7 +48,7 @@ public class ContestantsActivity extends AppCompatActivity {
     private void InitUIElem(){
         contestantNameBox = findViewById(R.id.disqualifiedname);
         contestantSetButton = findViewById(R.id.disqualifybutton);
-        layout = findViewById(R.id.linearlayout);
+        layout = findViewById(R.id.constestants_layout_admin);
     }
 
     private void getParticipants(){
@@ -100,19 +102,8 @@ public class ContestantsActivity extends AppCompatActivity {
 
     private void displayCandidates (ArrayList<HashMap<Pair<String, String>, Participant>> list){
 
-        tl = new TableLayout(this);
-
-        TableRow row = new TableRow(this);
-        TextView cellN = new TextView(this);
-        cellN.setText("Name");
-        row.addView(cellN);
-        TextView cellS = new TextView(this);
-        cellS.setText("Series");
-        row.addView(cellS);
-        TextView cellD = new TextView(this);
-        cellD.setText("Disqualified");
-        row.addView(cellD);
-        tl.addView(row);
+       // tl = new TableLayout(this);
+        tl = (TableLayout) getLayoutInflater().inflate(R.layout.contestants_table_layout, null);
 
         for (HashMap<Pair<String, String>, Participant> s : list) {
             for (HashMap.Entry<Pair<String, String>, Participant> entry : s.entrySet()) {
@@ -122,19 +113,14 @@ public class ContestantsActivity extends AppCompatActivity {
                 String id = aux.second;
                 Participant p = entry.getValue();
 
-                row = new TableRow(this);
+                TableRow row = (TableRow)getLayoutInflater().inflate(R.layout.contestants_table_row_template, null);
 
-                cellN = new TextView(this);
+                TextView cellN = (TextView)row.getChildAt(0);
                 cellN.setText(p.getName());
-                row.addView(cellN);
-
-                cellS = new TextView(this);
+                TextView cellS = (TextView)row.getChildAt(1);
                 cellS.setText(series);
-                row.addView(cellS);
-
-                cellD = new TextView(this);
+                TextView cellD = (TextView)row.getChildAt(2);
                 cellD.setText(Boolean.toString(p.getDisqualified()));
-                row.addView(cellD);
 
                 tl.addView(row);
             }
