@@ -96,7 +96,7 @@ public class DatabaseHelper {
                         p.setThisRound_juriesThatVoted(0);
 
                         //This results set to 0
-                        int size = p.getThisRound_results().size();
+                        int size = criteria.size();
                         p.resetThisRound_results(size);
                     }
 
