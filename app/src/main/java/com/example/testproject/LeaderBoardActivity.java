@@ -1,24 +1,20 @@
 package com.example.testproject;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.testproject.AdminMenu.ContestSetUpActivity;
+import com.example.testproject.Data.CallbackNoParticipants;
 import com.example.testproject.Data.Constants;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.testproject.Data.DatabaseHelper;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 public class LeaderBoardActivity extends AppCompatActivity {
@@ -33,17 +29,8 @@ public class LeaderBoardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaderboard);
 
-        nrOfRounds = (int) Math.ceil
-                (Math.log(ContestSetUpActivity.getParticipantsNumberFromDB())/
-                        Math.log(2));
-        roundsLayout = findViewById(R.id.roundsExtended);
-        tableLayout = findViewById(R.id.linearlayout);
-        vf = findViewById(R.id.viewflipper);
-        back = findViewById(R.id.back);
-        for (int i = 1; i <= nrOfRounds; i++) {
-            createRoundButtons(i, "Round " + i);
-        }
-        createRoundButtons(nrOfRounds + 1, "Final");
+        createButtons();
+
     }
 
     private void createRoundButtons(Integer buttonID, String buttonText) {
@@ -85,5 +72,24 @@ public class LeaderBoardActivity extends AppCompatActivity {
         row.addView(cellD);
         tl.addView(row);
         tableLayout.addView(tl);
+    }
+
+    private void createButtons() {
+        DatabaseHelper.getNrOfParticipants(new CallbackNoParticipants() {
+            @Override
+            public void onCallBack(Integer value) {
+                nrOfRounds = (int) Math.ceil
+                        (Math.log(value)/
+                                Math.log(2));
+                roundsLayout = findViewById(R.id.roundsExtended);
+                tableLayout = findViewById(R.id.linearlayout);
+                vf = findViewById(R.id.viewflipper);
+                back = findViewById(R.id.back);
+                for (int i = 1; i <= nrOfRounds; i++) {
+                    createRoundButtons(i, "Round " + i);
+                }
+                createRoundButtons(nrOfRounds + 1, "Final");
+            }
+        });
     }
 }

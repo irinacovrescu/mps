@@ -77,16 +77,8 @@ public class ContestantsActivity extends AppCompatActivity {
                     }
                     list.add(hashMap);
 
-                    //Linie de test, trebuie stearsa - Afiseaza numarul de participanti din serie
-                    //Hashmap e lista cu participantii din serie
-                    FirebaseDatabase.getInstance().getReference().child("nrParticipantiPerSerie").child(key).setValue(hashMap.size());
-
 
                 }
-
-                //Lista este actualizata si poti pune codul aici, in lista la fiecare index se afla un hashmap cu participantii din acea serie
-                //Linie de test, trebuie stearsa - Afiseaza numarul de serii
-                //FirebaseDatabase.getInstance().getReference().child("anotherTest").setValue(list.size());
 
                 displayCandidates(list);
                 disqualify(list);

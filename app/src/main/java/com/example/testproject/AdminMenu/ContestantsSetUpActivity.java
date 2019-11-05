@@ -67,7 +67,7 @@ public class ContestantsSetUpActivity extends AppCompatActivity {
                         participantNameBox.setError("Can't be 0");
                     } else {
                         participantsLeft = participantsNumber;
-                        addNumberOfParticipantsToDB(participantsNumber);
+                        addNrOfParticipants(participantsNumber);
                         final DatabaseReference databaseRef =  FirebaseDatabase.getInstance().getReference("participants");
 
                         databaseRef.removeValue();
@@ -103,9 +103,8 @@ public class ContestantsSetUpActivity extends AppCompatActivity {
         });
     }
 
-
-    private void addNumberOfParticipantsToDB(int number) {
-        // add to DB
+    private void addNrOfParticipants(Integer number) {
+        FirebaseDatabase.getInstance().getReference("nrOfParticipants").setValue(number);
     }
 
     private int setRounds(){

@@ -3,7 +3,9 @@ package com.example.testproject.AdminMenu;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.testproject.Data.CallbackNoParticipants;
 import com.example.testproject.Data.Criteria;
+import com.example.testproject.Data.DatabaseHelper;
 import com.example.testproject.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -25,10 +27,11 @@ import java.util.ArrayList;
 public class ContestSetUpActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
 
-    private TextView rounds;
+    private static TextView rounds;
     private TextView series;
 
     private Spinner contestType;
+    private static int nrOfParticipants;
 
     private Button reset;
 
@@ -65,11 +68,7 @@ public class ContestSetUpActivity extends AppCompatActivity implements AdapterVi
         InitUIElem();
 
         criteriaSet();
-
-        rounds.setText("Number of rounds: " +
-                (int) Math.ceil
-                (Math.log(getParticipantsNumberFromDB())/
-                Math.log(2)));
+        getNrOfParticipants();
 
         reset();
         submit();
@@ -252,9 +251,13 @@ public class ContestSetUpActivity extends AppCompatActivity implements AdapterVi
         return 0;
     }
 
-    public static int getParticipantsNumberFromDB() {
-        // get no of participants from DB
-        return 24;
+    private void getNrOfParticipants() {
+        DatabaseHelper.getNrOfParticipants(new CallbackNoParticipants() {
+            @Override
+            public void onCallBack(Integer value) {
+                rounds.setText("Number of rounds: " + (int) Math.ceil(Math.log(value)/ Math.log(2)));
+            }
+        });
     }
 
 }

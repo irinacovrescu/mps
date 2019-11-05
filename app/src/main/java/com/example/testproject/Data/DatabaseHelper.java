@@ -1,5 +1,7 @@
 package com.example.testproject.Data;
 
+import android.util.Log;
+
 import com.example.testproject.Participant;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -115,6 +117,46 @@ public class DatabaseHelper {
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+    }
+
+    public static void getNrOfParticipants(final CallbackNoParticipants myCallback) {
+        DatabaseReference databaseReference =  FirebaseDatabase.getInstance().getReference("nrOfParticipants");
+
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Integer nrOfParticipants = dataSnapshot.getValue(Integer.class);
+
+                //Here you have a number of participants to do whatever you want with it 🙂
+                myCallback.onCallBack(nrOfParticipants);
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
+    public static void getJury(final CallbackJury myCallback) {
+        final ArrayList<Judge> list = new ArrayList<>();
+        FirebaseDatabase.getInstance().getReference("JUDGE").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot judgeSnapshot : dataSnapshot.getChildren()) {
+                    list.add(judgeSnapshot.getValue(Judge.class));
+                }
+
+                //Here you have a list of Judges to do whatever you want
+                myCallback.onCallBack(list);
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("Admin", "onCancelled", databaseError.toException());
             }
         });
     }
