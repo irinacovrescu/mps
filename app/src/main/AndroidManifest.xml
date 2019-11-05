@@ -13,6 +13,7 @@
         <activity
             android:name=".AdminMenu.ParticipantsSetUpActivity"
             android:label="@string/title_activity_contestants"
+            android:windowSoftInputMode="adjustPan"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AdminMenu.ContestSetUpActivity"

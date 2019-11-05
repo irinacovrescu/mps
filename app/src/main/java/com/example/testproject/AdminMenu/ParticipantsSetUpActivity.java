@@ -104,6 +104,8 @@ public class ParticipantsSetUpActivity extends AppCompatActivity {
 
     private void addNrOfParticipants(Integer number) {
         FirebaseDatabase.getInstance().getReference("nrOfParticipants").setValue(number);
+
+        FirebaseDatabase.getInstance().getReference("nrOfRounds").setValue((int) Math.ceil(Math.log(number)/ Math.log(2)));
     }
 
     private int setRounds(){
