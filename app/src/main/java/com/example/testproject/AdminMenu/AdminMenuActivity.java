@@ -35,8 +35,8 @@ public class AdminMenuActivity extends AppCompatActivity {
         InitUIElem();
         jurySetUp();
         contestSetUp();
-        contestantsSetUp();
-        contestants();
+        participantsSetUp();
+        participants();
         contest();
 
 
@@ -48,7 +48,7 @@ public class AdminMenuActivity extends AppCompatActivity {
         contestSetButton = findViewById(R.id.contestbutton);
         contestantsSetButton = findViewById(R.id.contestantssetbutton);
         startContestButton = findViewById(R.id.startcontestbutton);
-        startContestButton.setText("Start Contest");
+        startContestButton.setText("Start Round");
         logoutButton = findViewById(R.id.logoutbutton);
         contestantsButton = findViewById(R.id.contestantsbutton);
     }
@@ -96,22 +96,22 @@ public class AdminMenuActivity extends AppCompatActivity {
         });
     }
 
-    private void contestantsSetUp() {
+    private void participantsSetUp() {
         contestantsSetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(AdminMenuActivity.this, ContestantsSetUpActivity.class);
+                Intent myIntent = new Intent(AdminMenuActivity.this, ParticipantsSetUpActivity.class);
                 AdminMenuActivity.this.startActivity(myIntent);
             }
         });
     }
 
-    private void contestants(){
+    private void participants(){
         contestantsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (hasStarted) {
-                    Intent myIntent = new Intent(AdminMenuActivity.this, ContestantsActivity.class);
+                    Intent myIntent = new Intent(AdminMenuActivity.this, ParticipantsActivity.class);
                     AdminMenuActivity.this.startActivity(myIntent);
                 } else {
                     Toast.makeText(getApplicationContext(), "Start contest first!", Toast.LENGTH_SHORT).show();
@@ -149,7 +149,7 @@ public class AdminMenuActivity extends AppCompatActivity {
                      @Override
                      public void onCallBack(Integer value) {
                          if (value > 0) {
-                             startContestButton.setText("Stop Contest");
+                             startContestButton.setText("Stop Round");
                              final DatabaseReference databaseRef =  FirebaseDatabase.getInstance().getReference("currentRound");
                              databaseRef.setValue(round);
                              round++;
@@ -171,13 +171,15 @@ public class AdminMenuActivity extends AppCompatActivity {
                 for (Judge j : value) {
                     if (!j.getVoted()) {
 
-                        Toast.makeText(getApplicationContext(), "Can't stop contest yet", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Can't stop round yet", Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }
 
-                startContestButton.setText("Start Contest");
+                startContestButton.setText("Start Round");
                 hasStarted = !hasStarted;
+
+
             }
         });
     }

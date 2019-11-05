@@ -9,9 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AdminMenu.ContestantsActivity"></activity>
+        <activity android:name=".AdminMenu.ParticipantsActivity"></activity>
         <activity
-            android:name=".AdminMenu.ContestantsSetUpActivity"
+            android:name=".AdminMenu.ParticipantsSetUpActivity"
             android:label="@string/title_activity_contestants"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

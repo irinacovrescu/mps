@@ -5,8 +5,8 @@ xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 app:layout_behavior="@string/appbar_scrolling_view_behavior"
-tools:context=".AdminMenu.ContestantsSetUpActivity"
-tools:showIn="@layout/activity_contestants_set_up">
+tools:context=".AdminMenu.ParticipantsSetUpActivity"
+tools:showIn="@layout/activity_participants_set_up">
 
     <RelativeLayout
         xmlns:android = "http://schemas.android.com/apk/res/android"

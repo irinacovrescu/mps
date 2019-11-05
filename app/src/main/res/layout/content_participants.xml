@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".AdminMenu.ContestantsActivity"
-    tools:showIn="@layout/activity_contestants"
+    tools:context=".AdminMenu.ParticipantsActivity"
+    tools:showIn="@layout/activity_participants"
     android:background="#3ABEAA">
 
     <TextView

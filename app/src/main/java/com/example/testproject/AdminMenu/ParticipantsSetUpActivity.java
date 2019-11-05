@@ -6,12 +6,12 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.testproject.Data.Constants;
 import com.example.testproject.Participant;
 import com.example.testproject.R;
 import com.google.firebase.database.DatabaseReference;
@@ -19,9 +19,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class ContestantsSetUpActivity extends AppCompatActivity {
+public class ParticipantsSetUpActivity extends AppCompatActivity {
 
-    private static final int PARTICIPANTSPERSERIES = 10;
     private int participantsNumber = 0;
     private int participantsLeft;
 
@@ -35,7 +34,7 @@ public class ContestantsSetUpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contestants_set_up);
+        setContentView(R.layout.activity_participants_set_up);
 
         InitUIElem();
         participantsNumber();
@@ -113,12 +112,12 @@ public class ContestantsSetUpActivity extends AppCompatActivity {
 
     private int setSeries(int id){
 
-        int series = participantsNumber / PARTICIPANTSPERSERIES;
+        int series = participantsNumber / Constants.PARTICIPANTSPERSERIES;
         int new_cps;
         if (series == 0) {
-            new_cps = PARTICIPANTSPERSERIES;
+            new_cps = Constants.PARTICIPANTSPERSERIES;
         } else {
-            new_cps = PARTICIPANTSPERSERIES + ((participantsNumber % PARTICIPANTSPERSERIES) / series);
+            new_cps = Constants.PARTICIPANTSPERSERIES + ((participantsNumber % Constants.PARTICIPANTSPERSERIES) / series);
         }
         ArrayList<Integer> end = new ArrayList<Integer>(series);
         int offset = 0;
@@ -145,8 +144,8 @@ public class ContestantsSetUpActivity extends AppCompatActivity {
                 if((participantsNumber == 0) || (participantsLeft != 0)) {
                     Toast.makeText(getApplicationContext(), "Set up participants first!", Toast.LENGTH_SHORT).show();
                 } else {
-                    Intent myIntent = new Intent(ContestantsSetUpActivity.this, AdminMenuActivity.class);
-                    ContestantsSetUpActivity.this.startActivity(myIntent);
+                    Intent myIntent = new Intent(ParticipantsSetUpActivity.this, AdminMenuActivity.class);
+                    ParticipantsSetUpActivity.this.startActivity(myIntent);
                 }
             }
         });
