@@ -154,6 +154,7 @@ public class AdminMenuActivity extends AppCompatActivity {
                              databaseRef.setValue(round);
                              round++;
                              hasStarted = !hasStarted;
+                             FirebaseDatabase.getInstance().getReference("isContestFinished").setValue(!hasStarted);
                          } else {
                              Toast.makeText(getApplicationContext(), "Set up contest first", Toast.LENGTH_SHORT).show();
                          }
@@ -178,6 +179,7 @@ public class AdminMenuActivity extends AppCompatActivity {
 
                 startContestButton.setText("Start Round");
                 hasStarted = !hasStarted;
+                FirebaseDatabase.getInstance().getReference("isContestFinished").setValue(!hasStarted);
 
 
             }

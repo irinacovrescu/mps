@@ -23,12 +23,16 @@ public class ParticipantsSetUpActivity extends AppCompatActivity {
 
     private int participantsNumber = 0;
     private int participantsLeft;
+    private int series = 0;
 
     private EditText participantNameBox;
     private Button participantSetButton;
     private EditText participantNumberBox;
     private Button participantAddButton;
     private Button submitButton;
+
+    private EditText seriesNumberBox;
+    private Button seriesButton;
 
 
     @Override
@@ -38,6 +42,7 @@ public class ParticipantsSetUpActivity extends AppCompatActivity {
 
         InitUIElem();
         participantsNumber();
+        series();
         participantAdd();
         submit();
 
@@ -49,6 +54,9 @@ public class ParticipantsSetUpActivity extends AppCompatActivity {
 
         participantNumberBox = findViewById(R.id.contestantsnumber);
         participantSetButton = findViewById(R.id.contestantsset);
+
+        seriesNumberBox = findViewById(R.id.seriesnumber);
+        seriesButton = findViewById(R.id.seriessset);
 
         submitButton = findViewById(R.id.submit);
     }
@@ -77,10 +85,15 @@ public class ParticipantsSetUpActivity extends AppCompatActivity {
         });
     }
 
-    private void participantAdd(){
+    private void participantAdd()
+    {
         participantAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (series == 0) {
+                    seriesNumberBox.setError("Set first");
+                    return;
+                }
                 String toParse = participantNameBox.getText().toString();
                 if (TextUtils.isEmpty(toParse)) {
                     participantNameBox.setError("Required");
@@ -112,31 +125,34 @@ public class ParticipantsSetUpActivity extends AppCompatActivity {
         return (int) Math.ceil(Math.log(participantsNumber)/ Math.log(2));
     }
 
-    private int setSeries(int id){
+    private void series(){
+        seriesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String toParse = seriesNumberBox.getText().toString();
+                if (TextUtils.isEmpty(toParse)) {
+                    seriesNumberBox.setError("Required");
+                } else {
+                    series = Integer.parseInt(toParse);
+                    Toast.makeText(getApplicationContext(), "Series set!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
-        int series = participantsNumber / Constants.PARTICIPANTSPERSERIES;
-        int new_cps;
-        if (series == 0) {
-            new_cps = Constants.PARTICIPANTSPERSERIES;
-        } else {
-            new_cps = Constants.PARTICIPANTSPERSERIES + ((participantsNumber % Constants.PARTICIPANTSPERSERIES) / series);
-        }
-        ArrayList<Integer> end = new ArrayList<Integer>(series);
-        int offset = 0;
-        for (int i = 0; i < series; i++)
-        {
-            end.add(i, (i + 1) * new_cps + Math.min(participantsNumber%new_cps, ++offset));
-        }
-        int x_series = 1;
-        for (int i = 0; i < series; i++)
-        {
-            if (id <= end.get(i))
-            {
-                x_series += i;
-                break;
+    }
+
+    private int setSeries(int id){
+        int aux = participantsNumber/series;
+        int r = participantsNumber % series;
+        int [] end = new int[aux];
+        int x = 0;
+        for (int i = 0; i < aux; i++) {
+            end[i] = (i + 1) * aux + Math.min(++x, r);
+            if (id <= end[i]) {
+                return i+1;
             }
         }
-        return x_series;
+        return 0;
     }
 
     private void submit() {
