@@ -3,24 +3,32 @@
     <TableRow xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/contestants_table_row"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="5dip" >
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/nameCol"
-            android:paddingHorizontal="10dp"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="5dp"
+            android:background="@drawable/table_white"
+            android:fontFamily="sans-serif-condensed"
             android:text="Name"
             />
 
         <TextView
             android:id="@+id/seriesCol"
-            android:paddingHorizontal="10dp"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="5dp"
+            android:background="@drawable/table_white"
+            android:fontFamily="sans-serif-condensed"
             android:text="Series"
             />
 
         <TextView
             android:id="@+id/disqCol"
-            android:paddingHorizontal="10dp"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="5dp"
+            android:background="@drawable/table_white"
+            android:fontFamily="sans-serif-condensed"
             android:text="Disqualified"
             />
     </TableRow>
