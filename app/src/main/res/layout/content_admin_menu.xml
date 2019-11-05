@@ -10,12 +10,12 @@
     tools:showIn="@layout/activity_admin_menu">
 
     <Button
-        android:id="@+id/contestantsbutton"
+        android:id="@+id/startcontestbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:layout_marginStart="2dp"
-        android:text="Contestants"
+        android:text="Start Round"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:textSize="15sp"
@@ -113,7 +113,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Register Contestants"
+                    android:text="Register Participants"
                     android:textAllCaps="false"
                     android:textColor="#FF8C00"
                     android:textSize="18dp"
@@ -123,11 +123,11 @@
                     app:layout_constraintEnd_toEndOf="parent" />
 
                 <Button
-                    android:id="@+id/startcontestbutton"
+                    android:id="@+id/contestantsbutton"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Start Constest"
+                    android:text="Participants"
                     android:textAllCaps="false"
                     android:textColor="#228B22"
                     android:textSize="18dp"
