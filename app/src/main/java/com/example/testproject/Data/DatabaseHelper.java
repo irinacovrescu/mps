@@ -133,9 +133,9 @@ public class DatabaseHelper {
                 myCallback.onCallBack(nrOfParticipants);
             }
 
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
+
             }
         });
     }
@@ -152,7 +152,6 @@ public class DatabaseHelper {
                 //Here you have a list of Judges to do whatever you want
                 myCallback.onCallBack(list);
             }
-
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -173,9 +172,26 @@ public class DatabaseHelper {
                 myCallback.onCallBack(nrOfParticipants);
             }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public static void getCurrentRound(final CallbackInt myCallback) {
+        DatabaseReference databaseReference =  FirebaseDatabase.getInstance().getReference("currentRound");
+
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Integer currentRound = dataSnapshot.getValue(Integer.class);
+                myCallback.onCallBack(currentRound);
+            }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                
             }
         });
     }
