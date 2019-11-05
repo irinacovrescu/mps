@@ -8,6 +8,8 @@ import com.example.testproject.Data.DatabaseHelper;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -16,11 +18,13 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import java.util.HashMap;
+
 public class LeaderBoardActivity extends AppCompatActivity {
     int nrOfRounds;
     LinearLayout roundsLayout, tableLayout;
     ViewFlipper vf;
-    Button back;
+    //Button back;
     TableLayout tl;
 
     @Override
@@ -30,6 +34,15 @@ public class LeaderBoardActivity extends AppCompatActivity {
 
         createButtons();
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (vf.getDisplayedChild() == 1)
+            vf.showPrevious();
+        else {
+            finish();
+        }
     }
 
     private void createRoundButtons(Integer buttonID, String buttonText) {
@@ -44,33 +57,26 @@ public class LeaderBoardActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //TODO:
                 vf.showNext();
-                display();
-                back.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        tl.removeAllViews();
-                        vf.showPrevious();
-                    }
-                });
+                leaderboardHandler();
             }
         });
     }
 
-    private void display(){
-        tl = new TableLayout(this);
+    private void leaderboardHandler() {
 
-        TableRow row = new TableRow(this);
-        TextView cellN = new TextView(this);
-        cellN.setText("Name");
-        row.addView(cellN);
-        TextView cellS = new TextView(this);
-        cellS.setText("Series");
-        row.addView(cellS);
-        TextView cellD = new TextView(this);
-        cellD.setText("Points");
-        row.addView(cellD);
+        tl = findViewById(R.id.leaderboard);
+        tl.setStretchAllColumns(true);
+
+        TableRow row = (TableRow) getLayoutInflater().inflate(R.layout.leaderboard_row, null);
+
+        TextView cellN = (TextView) row.getChildAt(0);
+        cellN.setText("ala");
+        TextView cellS = (TextView) row.getChildAt(1);
+        cellS.setText("bala");
+        TextView cellD = (TextView) row.getChildAt(2);
+        cellD.setText("portocala");
+
         tl.addView(row);
-        tableLayout.addView(tl);
     }
 
     private void createButtons() {
@@ -78,12 +84,10 @@ public class LeaderBoardActivity extends AppCompatActivity {
             @Override
             public void onCallBack(Integer value) {
                 nrOfRounds = (int) Math.ceil
-                        (Math.log(value)/
+                        (Math.log(value) /
                                 Math.log(2));
                 roundsLayout = findViewById(R.id.roundsExtended);
-                tableLayout = findViewById(R.id.linearlayout);
                 vf = findViewById(R.id.viewflipper);
-                back = findViewById(R.id.back);
                 for (int i = 1; i <= nrOfRounds; i++) {
                     createRoundButtons(i, "Round " + i);
                 }

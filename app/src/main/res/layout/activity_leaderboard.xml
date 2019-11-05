@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context="com.example.testproject.MainActivity">
-
-<com.google.android.material.appbar.AppBarLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:theme="@style/AppTheme.AppBarOverlay">
+    android:layout_height="match_parent"
+    tools:context="com.example.testproject.MainActivity">
 
-</com.google.android.material.appbar.AppBarLayout>
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <ViewFlipper
         android:id="@+id/viewflipper"
@@ -20,30 +19,37 @@ tools:context="com.example.testproject.MainActivity">
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:orientation="vertical"
             android:id="@+id/roundsExtended"
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:background="@drawable/blue_background">
+            android:layout_height="wrap_content"
+            android:background="@drawable/blue_background"
+            android:orientation="vertical">
 
             <!--        <include layout="@layout/content_leaderboard" />-->
-            <include layout="@layout/text_view_template"
-                android:id="@+id/roundNumber"/>
+            <include
+                android:id="@+id/roundNumber"
+                layout="@layout/text_view_template" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearlayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:background="@drawable/blue_background">
+            android:layout_height="wrap_content"
+            android:background="@drawable/blue_background"
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/back"
+            <include
+                android:id="@+id/leaderboard"
+                layout="@layout/content_leaderboard"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Button" />
+                android:layout_height="wrap_content"/>
+
+            <!--            <Button-->
+            <!--                android:id="@+id/back"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_weight="1"-->
+            <!--                android:text="Button" />-->
         </LinearLayout>
     </ViewFlipper>
 
