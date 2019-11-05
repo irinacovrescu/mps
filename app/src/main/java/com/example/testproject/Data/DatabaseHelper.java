@@ -121,7 +121,7 @@ public class DatabaseHelper {
         });
     }
 
-    public static void getNrOfParticipants(final CallbackNoParticipants myCallback) {
+    public static void getNrOfParticipants(final CallbackInt myCallback) {
         DatabaseReference databaseReference =  FirebaseDatabase.getInstance().getReference("nrOfParticipants");
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -157,6 +157,25 @@ public class DatabaseHelper {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.e("Admin", "onCancelled", databaseError.toException());
+            }
+        });
+    }
+
+    public static void getNrOfCriterias(final CallbackInt myCallback) {
+        DatabaseReference databaseReference =  FirebaseDatabase.getInstance().getReference("criterias");
+
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Integer nrOfParticipants = dataSnapshot.getValue(Integer.class);
+
+                //Here you have a number of participants to do whatever you want with it 🙂
+                myCallback.onCallBack(nrOfParticipants);
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
             }
         });
     }

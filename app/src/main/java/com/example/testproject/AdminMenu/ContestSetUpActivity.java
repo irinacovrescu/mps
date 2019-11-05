@@ -3,7 +3,7 @@ package com.example.testproject.AdminMenu;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.testproject.Data.CallbackNoParticipants;
+import com.example.testproject.Data.CallbackInt;
 import com.example.testproject.Data.Criteria;
 import com.example.testproject.Data.DatabaseHelper;
 import com.example.testproject.R;
@@ -252,7 +252,7 @@ public class ContestSetUpActivity extends AppCompatActivity implements AdapterVi
     }
 
     private void getNrOfParticipants() {
-        DatabaseHelper.getNrOfParticipants(new CallbackNoParticipants() {
+        DatabaseHelper.getNrOfParticipants(new CallbackInt() {
             @Override
             public void onCallBack(Integer value) {
                 rounds.setText("Number of rounds: " + (int) Math.ceil(Math.log(value)/ Math.log(2)));

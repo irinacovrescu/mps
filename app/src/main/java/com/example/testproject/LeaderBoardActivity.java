@@ -2,8 +2,7 @@ package com.example.testproject;
 
 import android.os.Bundle;
 
-import com.example.testproject.AdminMenu.ContestSetUpActivity;
-import com.example.testproject.Data.CallbackNoParticipants;
+import com.example.testproject.Data.CallbackInt;
 import com.example.testproject.Data.Constants;
 import com.example.testproject.Data.DatabaseHelper;
 
@@ -75,7 +74,7 @@ public class LeaderBoardActivity extends AppCompatActivity {
     }
 
     private void createButtons() {
-        DatabaseHelper.getNrOfParticipants(new CallbackNoParticipants() {
+        DatabaseHelper.getNrOfParticipants(new CallbackInt() {
             @Override
             public void onCallBack(Integer value) {
                 nrOfRounds = (int) Math.ceil

@@ -1,6 +1,6 @@
 package com.example.testproject.Data;
 
-public interface CallbackNoParticipants {
+public interface CallbackInt {
 
     void onCallBack(Integer value);
 }

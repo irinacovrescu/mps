@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +12,7 @@ import android.widget.Toast;
 
 import com.example.testproject.AuthActivity;
 import com.example.testproject.Data.CallbackJury;
-import com.example.testproject.Data.CallbackNoParticipants;
+import com.example.testproject.Data.CallbackInt;
 import com.example.testproject.Data.DatabaseHelper;
 import com.example.testproject.Data.Judge;
 import com.example.testproject.R;
@@ -26,7 +25,6 @@ public class AdminMenuActivity extends AppCompatActivity {
     private Button logoutButton;
     private Button juryButton, contestSetButton, contestantsSetButton, startContestButton, contestantsButton;
     private boolean hasStarted = false;
-    private boolean areContestantsSet = false;
     private static int round = 1;
 
     @Override
@@ -39,7 +37,6 @@ public class AdminMenuActivity extends AppCompatActivity {
         contestSetUp();
         contestantsSetUp();
         contestants();
-        getNrOfParticipants();
         contest();
 
 
@@ -71,13 +68,17 @@ public class AdminMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (areContestantsSet) {
-                    Intent myIntent = new Intent(AdminMenuActivity.this, ContestSetUpActivity.class);
-                    AdminMenuActivity.this.startActivity(myIntent);
-                } else {
-                    Toast.makeText(getApplicationContext(), "Set up contestants first!", Toast.LENGTH_SHORT).show();
-                }
-
+                DatabaseHelper.getNrOfParticipants(new CallbackInt() {
+                    @Override
+                    public void onCallBack(Integer value) {
+                        if (value > 0) {
+                            Intent myIntent = new Intent(AdminMenuActivity.this, ContestSetUpActivity.class);
+                            AdminMenuActivity.this.startActivity(myIntent);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Set up contestants first!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
         });
     }
@@ -140,18 +141,25 @@ public class AdminMenuActivity extends AppCompatActivity {
                 for (Judge j : value) {
                         if (!j.getLoggedIn()) {
 
-                            Toast.makeText(getApplicationContext(), "Can't start contest yet", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Jury not logged in", Toast.LENGTH_SHORT).show();
                             return;
                         }
                 }
+                 DatabaseHelper.getNrOfCriterias(new CallbackInt() {
+                     @Override
+                     public void onCallBack(Integer value) {
+                         if (value > 0) {
+                             startContestButton.setText("Stop Contest");
+                             final DatabaseReference databaseRef =  FirebaseDatabase.getInstance().getReference("currentRound");
+                             databaseRef.setValue(round);
+                             round++;
+                             hasStarted = !hasStarted;
+                         } else {
+                             Toast.makeText(getApplicationContext(), "Set up contest first", Toast.LENGTH_SHORT).show();
+                         }
 
-                if (areContestantsSet) {
-                    startContestButton.setText("Stop Contest");
-                    final DatabaseReference databaseRef =  FirebaseDatabase.getInstance().getReference("currentRound");
-                    databaseRef.setValue(round);
-                    round++;
-                    hasStarted = !hasStarted;
-                }
+                     }
+                 });
             }
         });
     }
@@ -170,17 +178,6 @@ public class AdminMenuActivity extends AppCompatActivity {
 
                 startContestButton.setText("Start Contest");
                 hasStarted = !hasStarted;
-            }
-        });
-    }
-
-    private void getNrOfParticipants() {
-        DatabaseHelper.getNrOfParticipants(new CallbackNoParticipants() {
-            @Override
-            public void onCallBack(Integer value) {
-                if (value > 0) {
-                    areContestantsSet = true;
-                }
             }
         });
     }
