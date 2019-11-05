@@ -179,6 +179,7 @@ public class AdminMenuActivity extends AppCompatActivity {
 
                 startContestButton.setText("Start Round");
                 hasStarted = !hasStarted;
+
                 FirebaseDatabase.getInstance().getReference("isContestFinished").setValue(!hasStarted);
 
 

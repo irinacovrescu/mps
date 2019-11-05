@@ -23,14 +23,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="40dp">
+        android:layout_marginTop="50dp"
+        android:id="@+id/relative1">
 
         <TextView
             android:id="@+id/rounds"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/btn_bg"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:paddingLeft="10dp"/>
@@ -46,8 +45,9 @@
         android:weightSum="2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="60dp">
+        app:layout_constraintTop_toTopOf="@id/relative1"
+        android:layout_marginTop="30dp"
+        android:id="@+id/relative2">
 
         <TextView
             android:id="@+id/textView3"
@@ -70,331 +70,289 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="100dp" >
 
-        <TextView
-            android:id="@+id/textView"
+    <RelativeLayout
+        android:id="@+id/scrollView"
+        android:layout_width="338dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/white_box"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relative2">
+
+
+        <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-condensed"
-            android:text="Define number of sets"
-            android:textAlignment="center"
-            android:textColor="#000000"
-            android:textSize="20sp" />
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/addsets"
-            android:layout_width="180dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:ems="10"
-            android:hint="Sets"
-            android:inputType="number"
-            android:textAlignment="center"
-            android:textSize="15sp" />
-
-        <Button
-            android:id="@+id/addsetsbutton"
-            android:layout_width="200dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:background="@drawable/btn_bg"
-            android:fontFamily="sans-serif-condensed"
-            android:text="Add Sets"
-            android:textSize="15sp" />
-
-    </LinearLayout>
-
-
-    <ScrollView
-            android:id="@+id/scrollView"
-            android:layout_width="338dp"
-            android:layout_height="480dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_gravity="center"
-            android:background="@drawable/white_box"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginBottom="10dp">
-
-
-            <GridLayout
+            <TextView
+                android:id="@+id/textView5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Set the evaluation criterias"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="match_parent"
+                    android:id="@+id/textView7"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="10dp"
                     android:fontFamily="sans-serif-condensed"
-                    android:text="Set the evaluation criterias"
-                    android:textAlignment="center"
+                    android:text="Originality"
                     android:textColor="#000000"
-                    android:textSize="20sp"
-                    android:layout_marginTop="10dp"/>
+                    android:textSize="25sp" />
 
-
-                <RelativeLayout
-                    xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="20dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView7"
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:fontFamily="sans-serif-condensed"
-                        android:text="Originality"
-                        android:textColor="#000000"
-                        android:textSize="25sp"
-                        android:layout_marginStart="20dp"/>
-
-                    <EditText
-                        android:id="@+id/originality"
-                        android:layout_width="60dp"
-                        android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@id/originalitybutton"
-                        android:ems="10"
-                        android:hint="0-60"
-                        android:inputType="number" />
-
-                    <Button
-                        android:id="@+id/originalitybutton"
-                        android:layout_width="60dp"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:drawableStart="@drawable/add_black"
-                        android:background="#00000000"/>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="20dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView8"
-                        android:layout_width="190dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:fontFamily="sans-serif-condensed"
-                        android:text="Craftmanship"
-                        android:textColor="#000000"
-                        android:textSize="25sp"
-                        android:layout_marginStart="20dp"/>
-
-                    <EditText
-                        android:id="@+id/craftmanship"
-                        android:layout_width="60dp"
-                        android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@id/craftmanshipbutton"
-                        android:ems="10"
-                        android:hint="0-60"
-                        android:inputType="number" />
-
-                    <Button
-                        android:id="@+id/craftmanshipbutton"
-                        android:layout_width="60dp"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:drawableStart="@drawable/add_black"
-                        android:background="#00000000"/>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="20dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView9"
-                        android:layout_width="190dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:fontFamily="sans-serif-condensed"
-                        android:text="Composition"
-                        android:textColor="#000000"
-                        android:textSize="25sp"
-                        android:layout_marginStart="20dp"/>
-
-                    <EditText
-                        android:id="@+id/composition"
-                        android:layout_width="60dp"
-                        android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@id/compositionbutton"
-                        android:ems="10"
-                        android:hint="0-60"
-                        android:inputType="number" />
-
-                    <Button
-                        android:id="@+id/compositionbutton"
-                        android:layout_width="60dp"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:drawableStart="@drawable/add_black"
-                        android:background="#00000000"/>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="20dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView10"
-                        android:layout_width="230dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:fontFamily="sans-serif-condensed"
-                        android:text="Unity and Variety"
-                        android:textColor="#000000"
-                        android:textSize="25sp"
-                        android:layout_marginStart="20dp"/>
-
-                    <EditText
-                        android:id="@+id/unity"
-                        android:layout_width="60dp"
-                        android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@id/unitybutton"
-                        android:ems="10"
-                        android:hint="0-60"
-                        android:inputType="number" />
-
-                    <Button
-                        android:id="@+id/unitybutton"
-                        android:layout_width="60dp"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:drawableStart="@drawable/add_black"
-                        android:background="#00000000"/>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="20dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView11"
-                        android:layout_width="180dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:fontFamily="sans-serif-condensed"
-                        android:text="Use of space"
-                        android:textColor="#000000"
-                        android:textSize="25sp"
-                        android:layout_marginStart="20dp"/>
-
-                    <EditText
-                        android:id="@+id/space"
-                        android:layout_width="60dp"
-                        android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@id/spacebutton"
-                        android:ems="10"
-                        android:hint="0-60"
-                        android:inputType="number" />
-
-                    <Button
-                        android:id="@+id/spacebutton"
-                        android:layout_width="60dp"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:drawableStart="@drawable/add_black"
-                        android:background="#00000000"/>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView12"
-                        android:layout_width="190dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:fontFamily="sans-serif-condensed"
-                        android:text="Interpretation"
-                        android:textColor="#000000"
-                        android:textSize="25sp"
-                        android:layout_marginStart="20dp"/>
-
-                    <EditText
-                        android:id="@+id/interpretation"
-                        android:layout_width="60dp"
-                        android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@id/interpretationbutton"
-                        android:ems="10"
-                        android:hint="0-60"
-                        android:inputType="number" />
-
-                    <Button
-                        android:id="@+id/interpretationbutton"
-                        android:layout_width="60dp"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:drawableStart="@drawable/add_black"
-                        android:background="#00000000"/>
-
-                </RelativeLayout>
+                <EditText
+                    android:id="@+id/originality"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/originalitybutton"
+                    android:ems="10"
+                    android:hint="0-60"
+                    android:inputType="number" />
 
                 <Button
-                    android:id="@+id/pointsbutton"
-                    android:layout_width="match_parent"
+                    android:id="@+id/originalitybutton"
+                    android:layout_width="60dp"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:background="#00000000"
+                    android:drawableStart="@drawable/add_black" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="190dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/et_bg"
                     android:fontFamily="sans-serif-condensed"
-                    android:text="Reset Points allocated" />
+                    android:text="Craftmanship"
+                    android:textColor="#000000"
+                    android:textSize="25sp" />
+
+                <EditText
+                    android:id="@+id/craftmanship"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/craftmanshipbutton"
+                    android:ems="10"
+                    android:hint="0-60"
+                    android:inputType="number" />
 
                 <Button
-                    android:id="@+id/submit"
-                    android:layout_width="match_parent"
+                    android:id="@+id/craftmanshipbutton"
+                    android:layout_width="60dp"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:background="#00000000"
+                    android:drawableStart="@drawable/add_black" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="190dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/et_bg"
                     android:fontFamily="sans-serif-condensed"
-                    android:text="Submit" />
+                    android:text="Composition"
+                    android:textColor="#000000"
+                    android:textSize="25sp" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/composition"
+                    android:layout_width="60dp"
                     android:layout_height="wrap_content"
-                    android:layout_row="0"
-                    android:layout_column="8"
-                    android:orientation="vertical">
+                    android:layout_toLeftOf="@id/compositionbutton"
+                    android:ems="10"
+                    android:hint="0-60"
+                    android:inputType="number" />
 
-                </LinearLayout>
+                <Button
+                    android:id="@+id/compositionbutton"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:background="#00000000"
+                    android:drawableStart="@drawable/add_black" />
 
-            </GridLayout>
+            </RelativeLayout>
 
-        </ScrollView>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="230dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Unity and Variety"
+                    android:textColor="#000000"
+                    android:textSize="25sp" />
+
+                <EditText
+                    android:id="@+id/unity"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/unitybutton"
+                    android:ems="10"
+                    android:hint="0-60"
+                    android:inputType="number" />
+
+                <Button
+                    android:id="@+id/unitybutton"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:background="#00000000"
+                    android:drawableStart="@drawable/add_black" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Use of space"
+                    android:textColor="#000000"
+                    android:textSize="25sp" />
+
+                <EditText
+                    android:id="@+id/space"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/spacebutton"
+                    android:ems="10"
+                    android:hint="0-60"
+                    android:inputType="number" />
+
+                <Button
+                    android:id="@+id/spacebutton"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:background="#00000000"
+                    android:drawableStart="@drawable/add_black" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="190dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Interpretation"
+                    android:textColor="#000000"
+                    android:textSize="25sp" />
+
+                <EditText
+                    android:id="@+id/interpretation"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/interpretationbutton"
+                    android:ems="10"
+                    android:hint="0-60"
+                    android:inputType="number" />
+
+                <Button
+                    android:id="@+id/interpretationbutton"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:background="#00000000"
+                    android:drawableStart="@drawable/add_black" />
+
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/pointsbutton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/et_bg"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Reset Points allocated" />
+
+            <Button
+                android:id="@+id/submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/et_bg"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Submit" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="8"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+        </GridLayout>
+
+    </RelativeLayout>
 
 
 

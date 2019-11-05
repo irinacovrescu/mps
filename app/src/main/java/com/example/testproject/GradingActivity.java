@@ -218,8 +218,11 @@ public class GradingActivity extends AppCompatActivity {
         if (user != null) {
             String juryUID = user.getEmail().substring(4, 5);
             final DatabaseReference juryRef = FirebaseDatabase.getInstance()
-                    .getReference("JUDGE").child(juryUID).child("loggedIn");
+                   .getReference("JUDGE").child(juryUID).child("loggedIn");
+            final DatabaseReference juryRef1 = FirebaseDatabase.getInstance()
+                    .getReference("JUDGE").child(juryUID).child("voted");
             AuthActivity.setLoggedStatus(juryRef, false);
+            AuthActivity.setLoggedStatus(juryRef1, true);
             Log.d(TAG, "Jury signed out!");
         }
     }
@@ -272,6 +275,7 @@ public class GradingActivity extends AppCompatActivity {
     private void updateSubmitButton() {
 
         submitButton.setEnabled(isSubmitEnabled(participantsExtended));
+
     }
 
     private boolean isSubmitEnabled(ArrayList<ParticipantExtended> participantsExtended) {
