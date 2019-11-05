@@ -5,7 +5,13 @@ import android.os.Bundle;
 import com.example.testproject.Data.CallbackInt;
 import com.example.testproject.Data.Constants;
 import com.example.testproject.Data.DatabaseHelper;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
@@ -18,22 +24,42 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class LeaderBoardActivity extends AppCompatActivity {
-    int nrOfRounds;
+    Long nrOfRounds;
     LinearLayout roundsLayout, tableLayout;
     ViewFlipper vf;
-    //Button back;
     TableLayout tl;
+    Boolean isContestFinished;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaderboard);
 
+        final DatabaseReference contestFinishedRef = FirebaseDatabase.getInstance().getReference("isContestFinished");
+        contestFinishedRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                modifyContestFinished((Boolean) dataSnapshot.getValue());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         createButtons();
 
+    }
+
+    private void modifyContestFinished(Boolean value) {
+        isContestFinished = value;
     }
 
     @Override
@@ -45,7 +71,7 @@ public class LeaderBoardActivity extends AppCompatActivity {
         }
     }
 
-    private void createRoundButtons(Integer buttonID, String buttonText) {
+    private void createRoundButtons(final Integer buttonID, String buttonText) {
         final Button participantButton = (Button) getLayoutInflater()
                 .inflate(R.layout.contestant_button_template, roundsLayout, false);
         participantButton.getBackground().setLevel(Constants.CONTESTANT_NOT_GRADED);
@@ -57,41 +83,133 @@ public class LeaderBoardActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //TODO:
                 vf.showNext();
-                leaderboardHandler();
+                leaderboard(buttonID);
+                //displayLeaderboard();
             }
         });
     }
 
-    private void leaderboardHandler() {
+    private void displayLeaderboard(ArrayList<Participant> participantsList) {
 
         tl = findViewById(R.id.leaderboard);
-        tl.setStretchAllColumns(true);
 
-        TableRow row = (TableRow) getLayoutInflater().inflate(R.layout.leaderboard_row, null);
+        for (int i = 1, j = tl.getChildCount(); i < j; i++) {
+            View view = tl.getChildAt(i);
+            if (view instanceof TableRow) {
+                TableRow row = (TableRow) view;
+                tl.removeView(row);
+            }
+        }
 
-        TextView cellN = (TextView) row.getChildAt(0);
-        cellN.setText("ala");
-        TextView cellS = (TextView) row.getChildAt(1);
-        cellS.setText("bala");
-        TextView cellD = (TextView) row.getChildAt(2);
-        cellD.setText("portocala");
+        while (tl.getChildCount() > 1) {
+            for (int i = 1, j = tl.getChildCount(); i < j; i++) {
+                View view = tl.getChildAt(i);
+                if (view instanceof TableRow) {
+                    TableRow row = (TableRow) view;
+                    tl.removeView(row);
+                }
+            }
+        }
 
-        tl.addView(row);
+        int rank = 1;
+
+        for (Participant participant : participantsList) {
+            TableRow row = (TableRow) getLayoutInflater().inflate(R.layout.leaderboard_row, null);
+
+            TextView cellN = (TextView) row.getChildAt(0);
+            cellN.setText(Integer.toString(rank));
+
+            TextView cellS = (TextView) row.getChildAt(1);
+            cellS.setText(participant.getName());
+
+            TextView cellD = (TextView) row.getChildAt(2);
+
+            if (participant.getDisqualified()) {
+                cellD.setText("Disqualified");
+            } else if (participant.getOutOfCompetition()) {
+                cellD.setText("Out of competition!");
+            } else {
+                cellD.setText(Integer.toString(participant.getThisRounds_points()));
+            }
+
+            rank++;
+            tl.addView(row);
+        }
     }
 
     private void createButtons() {
         DatabaseHelper.getNrOfParticipants(new CallbackInt() {
             @Override
             public void onCallBack(Integer value) {
-                nrOfRounds = (int) Math.ceil
-                        (Math.log(value) /
-                                Math.log(2));
-                roundsLayout = findViewById(R.id.roundsExtended);
-                vf = findViewById(R.id.viewflipper);
-                for (int i = 1; i <= nrOfRounds; i++) {
-                    createRoundButtons(i, "Round " + i);
+//                nrOfRounds = (int) Math.ceil
+//                        (Math.log(value) /
+//                                Math.log(2));
+                final DatabaseReference nrOfRoundsRef = FirebaseDatabase.getInstance().getReference("nrOfRounds");
+                nrOfRoundsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        nrOfRounds = (Long) dataSnapshot.getValue();
+                        roundsLayout = findViewById(R.id.roundsExtended);
+                        vf = findViewById(R.id.viewflipper);
+                        for (int i = 1; i <= nrOfRounds; i++) {
+                            createRoundButtons(i, "Round " + i);
+                        }
+                        createRoundButtons(9999, "Final");
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
+    }
+
+    public void leaderboard(final int roundNumber) {
+        //Obtine referinta catre baza de date la adresa dorita
+        final DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("participants");
+
+        //La fiecare schimbare de date
+        databaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<Participant> partipantsList = new ArrayList<>();
+
+                Iterator<DataSnapshot> serieIterator = dataSnapshot.getChildren().iterator();
+                while (serieIterator.hasNext()) {
+                    Iterator<DataSnapshot> idIterator = serieIterator.next().getChildren().iterator();
+                    while (idIterator.hasNext()) {
+                        DataSnapshot d = idIterator.next();
+                        Participant p = d.getValue(Participant.class);
+
+                        //Pastreaza numai participantii eligibili
+                        if (!isContestFinished) {
+                            if (p.getDisqualified() || p.getOutOfCompetition()) {
+                                p.setThisRounds_points(0);
+                                partipantsList.add(p);
+                            } else if (p.getThisRound_number() == roundNumber) {
+                                partipantsList.add(p);
+                            }
+                        } else if (roundNumber == 9999) {
+                            if (p.getDisqualified() || p.getOutOfCompetition()) {
+                                p.setThisRounds_points(0);
+                            } else {
+                                p.setThisRounds_points(p.getThisRounds_points() + p.getLastRounds_points());
+                            }
+                            partipantsList.add(p);
+                        }
+                    }
                 }
-                createRoundButtons(nrOfRounds + 1, "Final");
+
+                //sorteaza descrescator dupa punctajul de la thisRound_points
+                Collections.sort(partipantsList);
+                displayLeaderboard(partipantsList);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
     }
