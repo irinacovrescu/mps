@@ -135,7 +135,7 @@ public class ContestSetUpActivity extends AppCompatActivity implements AdapterVi
             public void onClick(View v) {
 
                 originality = verifyPoints(originalityNumberBox);
-                addCriteria("originality", originality, criterias);
+                addCriteria("Originality", originality, criterias);
 
             }
         });
@@ -145,7 +145,7 @@ public class ContestSetUpActivity extends AppCompatActivity implements AdapterVi
             public void onClick(View v) {
 
                 craftsmanship = verifyPoints(craftsmanshipNumberBox);
-                addCriteria("craftsmanship", craftsmanship, criterias);
+                addCriteria("Craftsmanship", craftsmanship, criterias);
             }
         });
 
@@ -154,7 +154,7 @@ public class ContestSetUpActivity extends AppCompatActivity implements AdapterVi
             public void onClick(View v) {
 
                 composition = verifyPoints(compositionNumberBox);
-                addCriteria("composition", composition, criterias);
+                addCriteria("Composition", composition, criterias);
             }
         });
 
@@ -163,7 +163,7 @@ public class ContestSetUpActivity extends AppCompatActivity implements AdapterVi
             public void onClick(View v) {
 
                 unity = verifyPoints(unityNumberBox);
-                addCriteria("unity", unity, criterias);
+                addCriteria("Unity", unity, criterias);
             }
         });
 
@@ -172,7 +172,7 @@ public class ContestSetUpActivity extends AppCompatActivity implements AdapterVi
             public void onClick(View v) {
 
                 space = verifyPoints(spaceNumberBox);
-                addCriteria("space", space, criterias);
+                addCriteria("Space", space, criterias);
             }
         });
 
@@ -181,7 +181,7 @@ public class ContestSetUpActivity extends AppCompatActivity implements AdapterVi
             public void onClick(View v) {
 
                 interpretation = verifyPoints(interpretationNumberBox);
-                addCriteria("interpretation", interpretation, criterias);
+                addCriteria("Interpretation", interpretation, criterias);
             }
         });
     }

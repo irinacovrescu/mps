@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import com.example.testproject.Data.CallbackInt;
 import com.example.testproject.Data.CallbackParticipants;
 import com.example.testproject.Data.CallbackSubmit;
 import com.example.testproject.Data.Constants;
@@ -41,7 +42,7 @@ public class GradingActivity extends AppCompatActivity {
     private ArrayList<ParticipantExtended> participantsExtended;
 
     // to do: get value from database
-    private final Integer roundNumber = 1;
+    private Integer roundNumber;
 
     private ListView listView;
     private ActivityGradingBinding binding;
@@ -74,6 +75,13 @@ public class GradingActivity extends AppCompatActivity {
                         prepareUIElements();
                         createContestantElements(criteria, participantsExtended);
                         createSubmitButton();
+
+                        DatabaseHelper.getCurrentRound(new CallbackInt() {
+                            @Override
+                            public void onCallBack(Integer value) {
+                                roundNumber = value;
+                            }
+                        });
                     }
                 });
             }
