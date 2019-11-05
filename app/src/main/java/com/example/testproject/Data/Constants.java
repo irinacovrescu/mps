@@ -13,5 +13,4 @@ public class Constants {
     public static final int SUBMIT = 5;
     public static final int RETURN = 6;
 
-    public static final int PARTICIPANTSPERSERIES = 10;
 }

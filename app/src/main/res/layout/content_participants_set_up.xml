@@ -8,9 +8,8 @@ app:layout_behavior="@string/appbar_scrolling_view_behavior"
 tools:context=".AdminMenu.ParticipantsSetUpActivity"
 tools:showIn="@layout/activity_participants_set_up">
 
+
     <RelativeLayout
-        xmlns:android = "http://schemas.android.com/apk/res/android"
-        xmlns:tools = "http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#3ABEAA">
@@ -27,10 +26,71 @@ tools:showIn="@layout/activity_participants_set_up">
             android:layout_centerVertical="true">
 
             <LinearLayout
+                android:id="@+id/linear1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="13dp"
+                android:paddingBottom="7dp">
+
+                <TextView
+                    android:id="@+id/textViewSeries"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Enter number of series"
+                    android:textSize="23sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/seriesnumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="20dp"
+                        android:ems="10"
+                        android:inputType="number"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+                    <Button
+                        android:id="@+id/seriessset"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/btn_bg"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="Set"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/contestantsnumber"
+                        android:layout_marginBottom="3dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linear1"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginEnd="0dp"
+                android:orientation="vertical"
+                android:id="@+id/linear2"
+                android:paddingBottom="7dp">
 
                 <TextView
                     android:id="@+id/textView4"
@@ -38,15 +98,15 @@ tools:showIn="@layout/activity_participants_set_up">
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
+                    android:fontFamily="sans-serif-condensed"
                     android:text="Enter number of participants"
+                    android:textSize="23sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:textSize="27sp"
-                    android:fontFamily="sans-serif-condensed"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="60dp"
                     android:orientation="horizontal">
 
                     <EditText
@@ -67,65 +127,69 @@ tools:showIn="@layout/activity_participants_set_up">
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="15dp"
                         android:layout_marginEnd="10dp"
+                        android:background="@drawable/btn_bg"
+                        android:fontFamily="sans-serif-condensed"
                         android:text="Set"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/contestantsnumber"
-                        android:background="@drawable/btn_bg"
-                        android:fontFamily="sans-serif-condensed"/>
+                        android:layout_marginBottom="3dp"/>
 
                 </LinearLayout>
 
-                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linear2"
+                android:layout_marginTop="13dp"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                android:paddingBottom="7dp">
+
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="23dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Enter participants' names"
+                    android:textSize="23sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/contestantsset" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginTop="180dp">
+                    android:layout_height="60dp"
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/textView13"
+                    <EditText
+                        android:id="@+id/contestantsname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="43dp"
-                        android:text="Enter participants' names"
+                        android:layout_marginTop="20dp"
+                        android:ems="10"
+                        android:fontFamily="sans-serif-condensed"
+                        android:hint="Name"
+                        android:inputType="textPersonName"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/contestantsset"
-                        android:textSize="27sp"
-                        android:fontFamily="sans-serif-condensed"/>
+                        app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:orientation="horizontal">
-
-                        <EditText
-                            android:id="@+id/contestantsname"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="20dp"
-                            android:ems="10"
-                            android:hint="Name"
-                            android:inputType="textPersonName"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView13"
-                            android:fontFamily="sans-serif-condensed"/>
-
-                        <Button
-                            android:id="@+id/contestantsadd"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="15dp"
-                            android:layout_marginEnd="10dp"
-                            android:text="Add"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/contestantsname"
-                            android:background="@drawable/btn_bg"
-                            android:fontFamily="sans-serif-condensed"/>
+                    <Button
+                        android:id="@+id/contestantsadd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/btn_bg"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="Add"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/contestantsname"
+                        android:layout_marginBottom="3dp" />
 
                 </LinearLayout>
 
@@ -148,7 +212,7 @@ tools:showIn="@layout/activity_participants_set_up">
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
                     android:layout_marginTop="0dp"
-                    android:layout_marginBottom="52dp"
+                    android:layout_marginBottom="42dp"
                     android:background="@drawable/btn_bg"
                     android:text="Submit"
                     android:layout_centerHorizontal="true"
