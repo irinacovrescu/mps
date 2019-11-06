@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import com.example.testproject.Data.CallbackBool;
 import com.example.testproject.Data.CallbackInt;
 import com.example.testproject.Data.CallbackParticipants;
 import com.example.testproject.Data.CallbackSubmit;
@@ -44,6 +45,7 @@ public class GradingActivity extends AppCompatActivity {
 
     // to do: get value from database
     private Integer roundNumber;
+    private Integer currentParticipantId;
 
     private ListView listView;
     private ActivityGradingBinding binding;
@@ -241,18 +243,27 @@ public class GradingActivity extends AppCompatActivity {
     }
 
     public void openForm(int participantId) {
-        GradingForm currentGradingForm = GradingForm.getGradingFormByContestantId(formData, participantId);
-        adapter = new RatingAdapter(getApplicationContext(), criteriaExtended, currentGradingForm);
-        listView.setAdapter(adapter);
-        binding.setViewModel(currentGradingForm.getParticipantExtended());
+        currentParticipantId = participantId;
+        DatabaseHelper.getRoundStarted(new CallbackBool() {
+            @Override
+            public void onCallBack(Boolean value) {
+                if(value) {
+                    GradingForm currentGradingForm = GradingForm.getGradingFormByContestantId(formData, currentParticipantId);
+                    adapter = new RatingAdapter(getApplicationContext(), criteriaExtended, currentGradingForm);
+                    listView.setAdapter(adapter);
+                    binding.setViewModel(currentGradingForm.getParticipantExtended());
 
-        TextView nameOfContestant = findViewById(R.id.name_of_contestant);
-        nameOfContestant.setText(currentGradingForm.getParticipantExtended().getName());
+                    TextView nameOfContestant = findViewById(R.id.name_of_contestant);
+                    nameOfContestant.setText(currentGradingForm.getParticipantExtended().getName());
 
-        currentGradingForm.getParticipantExtended().setGraded(true);
-        inGradingForm = true;
+                    currentGradingForm.getParticipantExtended().setGraded(true);
+                    inGradingForm = true;
 
-        changeDisplayedLayout(Constants.GRADING_LAYOUT);
+                    changeDisplayedLayout(Constants.GRADING_LAYOUT);
+                }
+            }
+        });
+
     }
 
     @Override
@@ -265,7 +276,8 @@ public class GradingActivity extends AppCompatActivity {
             updateSubmitButton();
             changeDisplayedLayout(Constants.CONTESTANTS_LAYOUT);
         } else {
-            changeDisplayedLayout(Constants.GRADING_LAYOUT);
+           // changeDisplayedLayout(Constants.GRADING_LAYOUT);
+            return;
         }
         inGradingForm = !inGradingForm;
     }
