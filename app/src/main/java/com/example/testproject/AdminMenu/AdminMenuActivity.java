@@ -32,7 +32,7 @@ public class AdminMenuActivity extends AppCompatActivity {
     private Button logoutButton;
     private Button juryButton, contestSetButton, contestantsSetButton, startContestButton, contestantsButton;
     private boolean hasStarted = false;
-    private static Integer round = 1;
+    private static Integer round = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
