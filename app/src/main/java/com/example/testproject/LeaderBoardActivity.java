@@ -141,9 +141,6 @@ public class LeaderBoardActivity extends AppCompatActivity {
         DatabaseHelper.getNrOfParticipants(new CallbackInt() {
             @Override
             public void onCallBack(Integer value) {
-//                nrOfRounds = (int) Math.ceil
-//                        (Math.log(value) /
-//                                Math.log(2));
                 final DatabaseReference nrOfRoundsRef = FirebaseDatabase.getInstance().getReference("nrOfRounds");
                 nrOfRoundsRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -152,9 +149,14 @@ public class LeaderBoardActivity extends AppCompatActivity {
                         roundsLayout = findViewById(R.id.roundsExtended);
                         vf = findViewById(R.id.viewflipper);
                         for (int i = 1; i <= nrOfRounds; i++) {
-                            createRoundButtons(i, "Round " + i);
+                            if (i != nrOfRounds) {
+                                createRoundButtons(i, "Round " + i);
+                            }
+                            else {
+                                createRoundButtons(i, "Final Round");
+                            }
                         }
-                        createRoundButtons(9999, "Final");
+                        createRoundButtons(9999, "Final Results");
                     }
 
                     @Override
