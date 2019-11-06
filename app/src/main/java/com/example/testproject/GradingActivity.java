@@ -3,6 +3,7 @@ package com.example.testproject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Pair;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
@@ -82,6 +83,11 @@ public class GradingActivity extends AppCompatActivity {
                                 roundNumber = value;
                             }
                         });
+                    }
+
+                    @Override
+                    public void onCallBack(ArrayList<HashMap<Pair<String, String>, Participant>> value) {
+
                     }
                 });
             }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Pair;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -13,13 +14,19 @@ import android.widget.Toast;
 import com.example.testproject.AuthActivity;
 import com.example.testproject.Data.CallbackJury;
 import com.example.testproject.Data.CallbackInt;
+import com.example.testproject.Data.CallbackParticipants;
+import com.example.testproject.Data.Criteria;
 import com.example.testproject.Data.DatabaseHelper;
 import com.example.testproject.Data.Judge;
+import com.example.testproject.Participant;
+import com.example.testproject.ParticipantExtended;
 import com.example.testproject.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 
 public class AdminMenuActivity extends AppCompatActivity {
     private Button logoutButton;
@@ -106,7 +113,7 @@ public class AdminMenuActivity extends AppCompatActivity {
         });
     }
 
-    private void participants(){
+    private void participants() {
         contestantsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,28 +146,28 @@ public class AdminMenuActivity extends AppCompatActivity {
             @Override
             public void onCallBack(ArrayList<Judge> value) {
                 for (Judge j : value) {
-                        if (!j.getLoggedIn()) {
+                    if (!j.getLoggedIn()) {
 
-                            Toast.makeText(getApplicationContext(), "Jury not logged in", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
+                        Toast.makeText(getApplicationContext(), "Jury not logged in", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                 }
-                 DatabaseHelper.getNrOfCriterias(new CallbackInt() {
-                     @Override
-                     public void onCallBack(Integer value) {
-                         if (value > 0) {
-                             startContestButton.setText("Stop Round");
-                             final DatabaseReference databaseRef =  FirebaseDatabase.getInstance().getReference("currentRound");
-                             databaseRef.setValue(round);
-                             round++;
-                             hasStarted = !hasStarted;
-                             FirebaseDatabase.getInstance().getReference("isContestFinished").setValue(!hasStarted);
-                         } else {
-                             Toast.makeText(getApplicationContext(), "Set up contest first", Toast.LENGTH_SHORT).show();
-                         }
+                DatabaseHelper.getNrOfCriterias(new CallbackInt() {
+                    @Override
+                    public void onCallBack(Integer value) {
+                        if (value > 0) {
+                            startContestButton.setText("Stop Round");
+                            final DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("currentRound");
+                            databaseRef.setValue(round);
+                            round++;
+                            hasStarted = !hasStarted;
+                            FirebaseDatabase.getInstance().getReference("isContestFinished").setValue(!hasStarted);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Set up contest first", Toast.LENGTH_SHORT).show();
+                        }
 
-                     }
-                 });
+                    }
+                });
             }
         });
     }
@@ -169,18 +176,54 @@ public class AdminMenuActivity extends AppCompatActivity {
         DatabaseHelper.getJury(new CallbackJury() {
             @Override
             public void onCallBack(ArrayList<Judge> value) {
+                int i = 1;
                 for (Judge j : value) {
                     if (!j.getVoted()) {
 
                         Toast.makeText(getApplicationContext(), "Can't stop round yet", Toast.LENGTH_SHORT).show();
                         return;
                     }
+                    final DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("JUDGE");
+                    databaseRef.child(Integer.toString(i++)).child("voted").setValue(false);
+
                 }
 
                 startContestButton.setText("Start Round");
                 hasStarted = !hasStarted;
 
                 FirebaseDatabase.getInstance().getReference("isContestFinished").setValue(!hasStarted);
+
+                DatabaseHelper.getParticipants(new CallbackParticipants() {
+                    @Override
+                    public void onCallBack(HashMap<String, HashMap<String, Participant>> value, ArrayList<Criteria> criteria) {
+
+                    }
+
+                    @Override
+                    public void onCallBack(ArrayList<HashMap<Pair<String, String>, Participant>> value) {
+                        ArrayList<ParticipantExtended> list = new ArrayList<>();
+                        for (HashMap<Pair<String, String>, Participant> s : value) {
+                            for (HashMap.Entry<Pair<String, String>, Participant> entry : s.entrySet()) {
+
+                                Pair<String, String> aux = entry.getKey();
+                                String series = aux.first;
+                                String id = aux.second;
+                                Participant p = entry.getValue();
+                                ParticipantExtended newP = new ParticipantExtended(p, 0, Integer.parseInt(id), series);
+                                list.add(newP);
+                            }
+                        }
+                        Collections.sort(list);
+                        int lastConcurent = list.size() / 2;
+
+                        for (int i = lastConcurent; i < list.size(); i++) {
+                            ParticipantExtended aux = list.get(i);
+                            final DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("participants/" + aux.getNrSerie());
+                            databaseRef.child(Integer.toString(aux.getId())).child("outOfCompetition").setValue(true);
+                        }
+                    }
+                });
+
 
 
             }
