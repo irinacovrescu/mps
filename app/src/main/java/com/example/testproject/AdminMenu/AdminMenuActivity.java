@@ -32,22 +32,28 @@ public class AdminMenuActivity extends AppCompatActivity {
     private Button logoutButton;
     private Button juryButton, contestSetButton, contestantsSetButton, startContestButton, contestantsButton;
     private boolean hasStarted = false;
-    private static int round = 1;
+    private static Integer round = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_menu);
 
-        InitUIElem();
-        jurySetUp();
-        contestSetUp();
-        participantsSetUp();
-        participants();
-        contest();
+        DatabaseHelper.getNrRounds(new CallbackInt() {
+            @Override
+            public void onCallBack(Integer nrRounds) {
+                InitUIElem();
+                jurySetUp();
+                contestSetUp();
+                participantsSetUp();
+                participants();
+                contest(nrRounds);
+
+                logout();
+            }
+        });
 
 
-        logout();
     }
 
     private void InitUIElem() {
@@ -55,7 +61,7 @@ public class AdminMenuActivity extends AppCompatActivity {
         contestSetButton = findViewById(R.id.contestbutton);
         contestantsSetButton = findViewById(R.id.contestantssetbutton);
         startContestButton = findViewById(R.id.startcontestbutton);
-        startContestButton.setText("Start Round");
+        startContestButton.setText("Start Round " + round.toString());
         logoutButton = findViewById(R.id.logoutbutton);
         contestantsButton = findViewById(R.id.contestantsbutton);
     }
@@ -127,24 +133,24 @@ public class AdminMenuActivity extends AppCompatActivity {
         });
     }
 
-    private void contest() {
+    private void contest(final Integer lastRound) {
         startContestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!hasStarted)
-                    isJuryLoggedIn();
+                    isJuryLoggedIn(lastRound);
                 else
-                    hasJuryVoted();
+                    hasJuryVoted(lastRound);
             }
 
 
         });
     }
 
-    private void isJuryLoggedIn() {
-        DatabaseHelper.getJury(new CallbackJury() {
+    private void isJuryLoggedIn(Integer lastRound) {
+        DatabaseHelper.getJury(lastRound, new CallbackJury() {
             @Override
-            public void onCallBack(ArrayList<Judge> value) {
+            public void onCallBack(ArrayList<Judge> value, Integer lastRound) {
                 for (Judge j : value) {
                     if (!j.getLoggedIn()) {
 
@@ -156,10 +162,11 @@ public class AdminMenuActivity extends AppCompatActivity {
                     @Override
                     public void onCallBack(Integer value) {
                         if (value > 0) {
-                            startContestButton.setText("Stop Round");
+                            startContestButton.setText("Stop Round " + round.toString());
                             final DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("currentRound");
                             databaseRef.setValue(round);
                             round++;
+
                             hasStarted = !hasStarted;
                             FirebaseDatabase.getInstance().getReference("isContestFinished").setValue(!hasStarted);
                         } else {
@@ -172,10 +179,10 @@ public class AdminMenuActivity extends AppCompatActivity {
         });
     }
 
-    private void hasJuryVoted() {
-        DatabaseHelper.getJury(new CallbackJury() {
+    private void hasJuryVoted(Integer lastRound) {
+        DatabaseHelper.getJury(lastRound, new CallbackJury() {
             @Override
-            public void onCallBack(ArrayList<Judge> value) {
+            public void onCallBack(ArrayList<Judge> value, Integer lastRound) {
                 int i = 1;
                 for (Judge j : value) {
                     if (!j.getVoted()) {
@@ -188,7 +195,12 @@ public class AdminMenuActivity extends AppCompatActivity {
 
                 }
 
-                startContestButton.setText("Start Round");
+                if(round > lastRound) {
+                    startContestButton.setText("Contest has finished");
+                    startContestButton.setEnabled(false);
+                    return;
+                }
+                startContestButton.setText("Start Round " + round.toString());
                 hasStarted = !hasStarted;
 
                 FirebaseDatabase.getInstance().getReference("isContestFinished").setValue(!hasStarted);
