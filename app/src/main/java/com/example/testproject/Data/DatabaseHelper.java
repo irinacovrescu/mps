@@ -1,6 +1,9 @@
 package com.example.testproject.Data;
 
 import android.util.Log;
+import android.util.Pair;
+
+import androidx.annotation.NonNull;
 
 import com.example.testproject.Participant;
 import com.google.firebase.database.DataSnapshot;
@@ -195,4 +198,44 @@ public class DatabaseHelper {
             }
         });
     }
+
+    public static void getParticipants(final CallbackParticipants myCallback){
+
+        //Obtine referinta catre baza de date la adresa dorita
+        final DatabaseReference databaseRef =  FirebaseDatabase.getInstance().getReference("participants");
+
+        //La fiecare schimbare de date
+        databaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //Creaza lista
+                ArrayList<HashMap<Pair<String, String>, Participant>> list = new ArrayList<>();
+
+                //Itereaza prin dataSnapshot-uri (ce reprezinta serii)
+                Iterator<DataSnapshot> serieIterator = dataSnapshot.getChildren().iterator();
+                while (serieIterator.hasNext()) {
+                    //Itereaza prin dataSnapshot-uri (ce reprezinta participanti)
+                    DataSnapshot dS = serieIterator.next();
+                    String key = dS.getKey();
+                    Iterator<DataSnapshot> idIterator = dS.getChildren().iterator();
+                    HashMap<Pair<String, String>, Participant> hashMap = new HashMap<>();
+                    while (idIterator.hasNext()) {
+                        DataSnapshot d = idIterator.next();
+                        hashMap.put(new Pair<String, String>(key, d.getKey()), d.getValue(Participant.class));
+                    }
+                    list.add(hashMap);
+
+                }
+
+                myCallback.onCallBack(list);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 }
