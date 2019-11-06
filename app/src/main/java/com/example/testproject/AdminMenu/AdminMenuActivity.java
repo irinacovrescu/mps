@@ -232,7 +232,7 @@ public class AdminMenuActivity extends AppCompatActivity {
                             ParticipantExtended aux = list.get(i);
                             final DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("participants/" + aux.getNrSerie());
                             databaseRef.child(Integer.toString(aux.getId())).child("outOfCompetition").setValue(true);
-                            databaseRef.child(Integer.toString(aux.getId())).child("thisRound_number").setValue(Integer.toString(0));
+                            databaseRef.child(Integer.toString(aux.getId())).child("thisRound_number").setValue(0);
                         }
                     }
                 });
