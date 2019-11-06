@@ -147,7 +147,7 @@ public class DatabaseHelper {
         });
     }
 
-    public static void getJury(final CallbackJury myCallback) {
+    public static void getJury(final Integer lastRound, final CallbackJury myCallback) {
         final ArrayList<Judge> list = new ArrayList<>();
         FirebaseDatabase.getInstance().getReference("JUDGE").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -157,7 +157,7 @@ public class DatabaseHelper {
                 }
 
                 //Here you have a list of Judges to do whatever you want
-                myCallback.onCallBack(list);
+                myCallback.onCallBack(list, lastRound);
             }
 
             @Override
@@ -252,6 +252,23 @@ public class DatabaseHelper {
 
                 //Here you have a number of participants to do whatever you want with it 🙂
                 myCallback.onCallBack(roundStarted);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public static void getNrRounds(final CallbackInt myCallback) {
+        DatabaseReference databaseReference =  FirebaseDatabase.getInstance().getReference("nrOfRounds");
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Integer nrRounds = dataSnapshot.getValue(Integer.class);
+                myCallback.onCallBack(nrRounds);
             }
 
             @Override
