@@ -163,9 +163,9 @@ public class AdminMenuActivity extends AppCompatActivity {
                     public void onCallBack(Integer value) {
                         if (value > 0) {
                             startContestButton.setText("Stop Round " + round.toString());
+                            round++;
                             final DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("currentRound");
                             databaseRef.setValue(round);
-                            round++;
 
                             hasStarted = !hasStarted;
                             FirebaseDatabase.getInstance().getReference("roundStarted").setValue(hasStarted);
