@@ -92,6 +92,10 @@ public class DatabaseHelper {
             @Override
             public void onDataChange( DataSnapshot dataSnapshot) {
                 Participant p = dataSnapshot.getValue(Participant.class);
+
+                if(p == null)
+                    return;
+
                 if(!p.getDisqualified() && !p.getOutOfCompetition()) {
                     if(nrRound != p.getThisRound_number()){
                         p.setThisRound_number(nrRound);
@@ -237,5 +241,25 @@ public class DatabaseHelper {
             }
         });
     }
+
+    public static void getRoundStarted(final CallbackBool myCallback) {
+        DatabaseReference databaseReference =  FirebaseDatabase.getInstance().getReference("roundStarted");
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Boolean roundStarted = dataSnapshot.getValue(Boolean.class);
+
+                //Here you have a number of participants to do whatever you want with it 🙂
+                myCallback.onCallBack(roundStarted);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 
 }
